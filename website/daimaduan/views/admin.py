@@ -4,7 +4,13 @@ import simplejson as json
 
 from datetime import datetime
 
-from flask import Blueprint, request, url_for, redirect, render_template, abort, g, make_response
+from flask import Blueprint
+from flask import abort
+from flask import g
+from flask import make_response
+from flask import redirect
+from flask import request
+from flask import url_for
 
 from daimaduan import app
 from daimaduan import db
@@ -13,11 +19,11 @@ from daimaduan.models import *
 from daimaduan.utils.functions import *
 from daimaduan.utils.decorators import *
 
-admin_blueprint = Blueprint('admin_blueprint', __name__)
+adminview = Blueprint('adminview', __name__)
 
 PAGE_SIZE = app.config.get('PAGE_SIZE')
 
-@admin_blueprint.before_request
+@adminview.before_request
 def before_request():
     if 'user' not in session:
         return redirect(url_for('userapp.login'))
@@ -28,7 +34,7 @@ def before_request():
     else:
         return redirect(url_for('userapp.login'))
 
-@admin_blueprint.after_request
+@adminview.after_request
 def after_request(response):
     try:
         db.session.commit()
@@ -38,20 +44,20 @@ def after_request(response):
         abort(500)
     return response
 
-@admin_blueprint.route('/')
+@adminview.route('/')
 def index():
-    return render_template('admin_blueprint/index.html')
+    return render_template('adminview/index.html')
 
-@admin_blueprint.route('/users')
+@adminview.route('/users')
 def users():
     if request.method == 'POST':
         nickname = request.form.get('nickname', None)
         email = request.form.get('email', None)
     page = request.args.get('page', 1)
     g.users = User.query.all()
-    return render_template('admin_blueprint/users.html')
+    return render_template('adminview/users.html')
 
-@admin_blueprint.route('/tags', methods=['GET', 'POST'])
+@adminview.route('/tags', methods=['GET', 'POST'])
 def tags():
     try:
         page = int(request.args.get('page', 1))
@@ -64,7 +70,7 @@ def tags():
             tag = Tag.query.get_or_404(object_id)
             if tag:
                 db.session.delete(tag)
-                return redirect('%s?page=%s' % (url_for('admin_blueprint.tags'), page))
+                return redirect('%s?page=%s' % (url_for('adminview.tags'), page))
     if request.method == 'POST':
         object_id = request.form.get('object_id', None)
         name = request.form.get('name', None)
@@ -82,20 +88,20 @@ def tags():
             resp = make_response(json.dumps(data), 200)
             resp.headers['Content-Type'] = 'application/json; charset=utf-8'
             """
-            return redirect("%s?page=%s" % (url_for('admin_blueprint.tags'), page))
+            return redirect("%s?page=%s" % (url_for('adminview.tags'), page))
     g.paginate = Tag.query.order_by('name').paginate(page, PAGE_SIZE)
-    return render_template('admin_blueprint/tags.html')
+    return render_template('adminview/tags.html')
 
-@admin_blueprint.route('/pastes')
+@adminview.route('/pastes')
 def pastes():
     try:
         page = int(request.args.get('page', 1))
     except:
         page = 1
     g.paginate = Paste.query.paginate(page, PAGE_SIZE)
-    return render_template('admin_blueprint/pastes.html')
+    return render_template('adminview/pastes.html')
 
-@admin_blueprint.route('/pages', methods=['GET', 'POST'])
+@adminview.route('/pages', methods=['GET', 'POST'])
 def pages():
     if request.method == 'POST':
         page_id = request.form.get('object_id', None)
@@ -118,20 +124,20 @@ def pages():
                 data = {'result':'success'}
             else:
                 data = {'result':'fail', 'message':u'没有该页面'}
-            return redirect(url_for('admin_blueprint.pages'))
+            return redirect(url_for('adminview.pages'))
         else:
             page = Page(slug, title, content)
             db.session.add(page)
-            return redirect(url_for('admin_blueprint.pages'))
+            return redirect(url_for('adminview.pages'))
     if request.args.get('object_id', None) and request.args.get('delete', None) == 'True':
         page = Page.query.filter_by(id=request.args.get('object_id', None)).first()
         if page:
             db.session.delete(page)
-        return redirect(url_for('admin_blueprint.pages'))
+        return redirect(url_for('adminview.pages'))
     g.pages = Page.query.all()
-    return render_template('admin_blueprint/pages.html')
+    return render_template('adminview/pages.html')
 
-@admin_blueprint.route('/message_template', methods=['GET', 'POST'])
+@adminview.route('/message_template', methods=['GET', 'POST'])
 def message_template():
     if request.method == 'POST':
         mt_id = request.form.get('object_id', None)
@@ -154,21 +160,21 @@ def message_template():
                 data = {'result':'success'}
             else:
                 data = {'result':'fail', 'message':u'没有该页面'}
-            return redirect(url_for('admin_blueprint.message_template'))
+            return redirect(url_for('adminview.message_template'))
         else:
             mt = MessageTemplate(used_for, title, content)
             db.session.add(mt)
-            return redirect(url_for('admin_blueprint.message_template'))
+            return redirect(url_for('adminview.message_template'))
     if request.args.get('object_id', None) and request.args.get('delete', None) == 'True':
         mt = MessageTemplate.query.filter_by(id=request.args.get('object_id', None)).first()
         if mt:
             db.session.delete(mt)
-        return redirect(url_for('admin_blueprint.message_template'))
+        return redirect(url_for('adminview.message_template'))
     g.models = MessageTemplate.query.all()
-    return render_template('admin_blueprint/message_template.html')
+    return render_template('adminview/message_template.html')
 
 
-@admin_blueprint.route('/posts', methods=['GET', 'POST'])
+@adminview.route('/posts', methods=['GET', 'POST'])
 def posts():
     if request.method == 'POST':
         post_id = request.form.get('object_id', None)
@@ -185,16 +191,16 @@ def posts():
             except:
                 db.session.rollback()
                 abort(500)
-            return redirect(url_for('admin_blueprint.posts'))
+            return redirect(url_for('adminview.posts'))
         else:
             post = Post(title, content)
             db.session.add(post)
-            return redirect(url_for('admin_blueprint.posts'))
+            return redirect(url_for('adminview.posts'))
     if request.args.get('object_id', None) and request.args.get('delete', None) == 'True':
         post = Post.query.filter_by(id=request.args.get('object_id', None)).first()
         if post:
             db.session.delete(post)
-        return redirect(url_for('admin_blueprint.posts'))
+        return redirect(url_for('adminview.posts'))
     g.posts = Post.query.all()
-    return render_template('admin_blueprint/posts.html')
+    return render_template('adminview/posts.html')
 

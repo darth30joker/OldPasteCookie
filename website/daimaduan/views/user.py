@@ -8,7 +8,6 @@ from flask import Blueprint
 from flask import request
 from flask import url_for
 from flask import redirect
-from flask import render_template
 from flask import abort
 from flask import flash
 from flask import g
@@ -23,9 +22,9 @@ from daimaduan.models import *
 from daimaduan.utils.functions import *
 from daimaduan.utils.decorators import *
 
-user_blueprint = Blueprint('user_blueprint', __name__)
+userview = Blueprint('userview', __name__)
 
-@user_blueprint.route('/login/', methods=['GET', 'POST'])
+@userview.route('/login/', methods=['GET', 'POST'])
 @oid.loginhandler
 def login():
     if g.user is not None:
@@ -47,7 +46,7 @@ def login():
                 else:
                     flash(u'用户名/密码错误', 'error')
     g.form = form
-    return render_template('user_blueprint/login.html',
+    return render_template('userview/login.html',
                            next=oid.get_next_url(),
                            error=oid.fetch_error())
 
@@ -62,12 +61,12 @@ def create_or_login(resp):
         g.user = getUserObject(user_id=session['user'])
         g.user.last_login_time = datetime.now()
         return redirect(request.args.get('next', '/'))
-    return redirect(url_for('user_blueprint.create_profile',
+    return redirect(url_for('userview.create_profile',
                             next=oid.get_next_url(),
                             nickname=resp.nickname,
                             email=resp.email))
 
-@user_blueprint.route('/create_profile', methods=['GET', 'POST'])
+@userview.route('/create_profile', methods=['GET', 'POST'])
 def create_profile():
     form = ProfileForm(request.form)
     form.nickname.data = request.values.get('nickname')
@@ -86,21 +85,21 @@ def create_profile():
         session['user'] = user.id
         return redirect("/")
     g.form = form
-    return render_template('user_blueprint/create_profile.html', next_url=oid.get_next_url())
+    return render_template('userview/create_profile.html', next_url=oid.get_next_url())
 
-@user_blueprint.route('/logout', methods=['GET'])
+@userview.route('/logout', methods=['GET'])
 def logout():
     if 'user' in session:
         session.pop('user')
     return redirect('/')
 
-@user_blueprint.route('/register', methods=['GET', 'POST'])
+@userview.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm(request.form, csrf_enabled=False)
     g.form = form
     if 'user' in session:
         flash(u'请先登出再注册新用户', 'error')
-        return render_template('user_blueprint/register.html')
+        return render_template('userview/register.html')
     if request.method == 'POST' and form.validate():
         user = User(form.nickname.data,
                     form.email.data)
@@ -114,11 +113,11 @@ def register():
         except Exception, e:
             abort(500)
         flash(u'注册成功!', 'success')
-        return redirect(url_for('user_blueprint.login'))
+        return redirect(url_for('userview.login'))
     flash(u'如果您有google帐号, 可以直接使用google提供的openid方式登录, 请点击登录按钮然后选择google帐号登录', 'alert')
-    return render_template('user_blueprint/register.html')
+    return render_template('userview/register.html')
 
-@user_blueprint.route('/manage', methods=['GET', 'POST'])
+@userview.route('/manage', methods=['GET', 'POST'])
 @login_required
 def manage():
     form = UserInfoForm(request.form, csrf_enabled=False)
@@ -129,7 +128,7 @@ def manage():
         user.info.introduction = form.introduction.data
         db.session.add(user)
         flash(u'信息修改成功', 'success')
-        return redirect(url_for('user_blueprint.manage'))
+        return redirect(url_for('userview.manage'))
     if request.method == 'GET':
         form.motoo.data = user.info.motoo
         form.introduction.data = user.info.introduction
@@ -138,9 +137,9 @@ def manage():
         for error in form.errors:
             flash(form.errors[error][0], 'error')
     g.form = form
-    return render_template('user_blueprint/manage.html')
+    return render_template('userview/manage.html')
 
-@user_blueprint.route('/password', methods=['GET', 'POST'])
+@userview.route('/password', methods=['GET', 'POST'])
 @login_required
 def password():
     form = PasswordForm(request.form, csrf_enabled=False)
@@ -149,12 +148,12 @@ def password():
         user.password = hashPassword(form.new_password.data)
         db.session.add(user)
         flash(u'密码修改成功', 'success')
-        redirect(url_for('user_blueprint.logout'))
+        redirect(url_for('userview.logout'))
     g.form = form
-    return render_template('user_blueprint/password.html')
+    return render_template('userview/password.html')
 
-@user_blueprint.route('/<slug>', methods=['GET'])
-@user_blueprint.route('/view/<user_id>', methods=['GET'])
+@userview.route('/<slug>', methods=['GET'])
+@userview.route('/view/<user_id>', methods=['GET'])
 def view(user_id=None, slug=None):
     if slug:
         model = getUserObject(slug=slug)
@@ -162,10 +161,10 @@ def view(user_id=None, slug=None):
         model = getUserObject(user_id=user_id)
     if model:
         g.model = model
-        return render_template('user_blueprint/view.html')
+        return render_template('userview/view.html')
     abort(404)
 
-@user_blueprint.route('/openid', methods=['GET', 'POST'])
+@userview.route('/openid', methods=['GET', 'POST'])
 @login_required
 def openid():
     """
@@ -174,9 +173,9 @@ def openid():
     if request.method == "POST":
         return oid.try_login(COMMON_PROVIDERS.get(openid, "google"),
                                  ask_for=['email', 'nickname'])
-    return render_template('user_blueprint/openid.html')
+    return render_template('userview/openid.html')
 
-@user_blueprint.route('/getuserinfo', methods=['POST'])
+@userview.route('/getuserinfo', methods=['POST'])
 def getuserinfo():
     user_id = request.form.get('user_id', None)
     if not user_id:
@@ -190,7 +189,7 @@ def getuserinfo():
                                 'nickname': user.nickname}
                      })
 
-@user_blueprint.route('/follow')
+@userview.route('/follow')
 def follow():
     state = ''
     if 'user' not in session:
@@ -210,7 +209,7 @@ def follow():
         db.session.add(model)
         return json_response({'result':'success', 'state': state})
 
-@user_blueprint.route('/<user_id>/rss.xml')
+@userview.route('/<user_id>/rss.xml')
 def rss(user_id):
     g.user = User.query.get_or_404(user_id)
     g.pastes = Paste.query.filter_by(user_id=user_id, is_private=False).order_by("created_time DESC").all()

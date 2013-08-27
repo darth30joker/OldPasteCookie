@@ -12,7 +12,7 @@ from daimaduan import oid
 
 from daimaduan.application import config_app
 from daimaduan.application import dispatch_handlers
-from daimaduan.application import dispatch_blueprints
+from daimaduan.application import dispatch_views
 
 
 CURRENT_PATH = os.path.abspath(__file__)
@@ -28,7 +28,7 @@ def get_config_file_path(config):
 def run(config):
     config_app(app, db, oid, get_config_file_path(config))
     dispatch_handlers(app)
-    dispatch_blueprints(app)
+    dispatch_views(app)
     app.run(host='0.0.0.0')
 
 

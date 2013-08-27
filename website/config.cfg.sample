@@ -18,3 +18,6 @@ SQLALCHEMY_DATABASE_URI = 'sqlite:///test.db'
 
 # CSS file
 DEFAULT_SYNTAX_CSS_FILE = '/static/css/themes/monokai.css'
+
+# Theme
+THEME = 'default'

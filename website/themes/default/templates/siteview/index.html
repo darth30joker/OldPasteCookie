@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends theme('base.html') %}
 {% block title %}首页{% endblock %}
 {% block javascript %}
 <script type="text/javascript">
@@ -24,7 +24,7 @@ $(document).ready(function() {
 </a>
 {% endblock %}
 {% block sidebar %}
-{% include '_share_btn.html' %}
-{% include '_newest_users.html' %}
-{% include '_top_tags.html' %}
+{% include theme('_share_btn.html') %}
+{% include theme('_newest_users.html') %}
+{% include theme('_top_tags.html') %}
 {% endblock %}

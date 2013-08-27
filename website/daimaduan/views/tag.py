@@ -5,11 +5,11 @@ from flask import Blueprint
 from flask import request
 from flask import g
 from flask import redirect
-from flask import render_template
 from flask import abort
 
 from daimaduan import app
 from daimaduan import db
+from daimaduan import render
 
 #from daimaduan.forms import *
 from daimaduan.models import *
@@ -21,16 +21,16 @@ from daimaduan.utils.functions import *
 PAGE_SIZE = app.config['PAGE_SIZE']
 SIDEBAR_PAGE_SIZE = app.config.get('SIDEBAR_PAGE_SIZE')
 
-tag_blueprint = Blueprint('tag_blueprint', __name__)
+tagview = Blueprint('tagview', __name__)
 
-@tag_blueprint.route('/list', methods=['GET'])
+@tagview.route('/list', methods=['GET'])
 def list():
     g.users = User.query.order_by('paste_num DESC')[:SIDEBAR_PAGE_SIZE]
     g.tags = Tag.query.order_by('name').all()
     g.top_tags = Tag.query.order_by('-times')[:PAGE_SIZE]
-    return render_template('tag_blueprint/list.html')
+    return render('tagview/list.html')
 
-@tag_blueprint.route('/<tag_name>', methods=['GET'])
+@tagview.route('/<tag_name>', methods=['GET'])
 def view(tag_name):
     """
     """
@@ -39,9 +39,9 @@ def view(tag_name):
     g.pastes = Paste.query.join(Paste.tags).filter(Paste.tags.contains(g.model)).filter(Paste.is_private==False).order_by('pastes.created_time DESC').paginate(1, PAGE_SIZE)
     g.top_tags = Tag.query.order_by('times DESC').all()
     g.users = User.query.order_by("paste_num DESC").all()[:SIDEBAR_PAGE_SIZE]
-    return render_template('tag_blueprint/view.html')
+    return render('tagview/view.html')
 
-@tag_blueprint.route('/getmore', methods=['POST'])
+@tagview.route('/getmore', methods=['POST'])
 def getmore():
     model = Tag.query.get_or_404(request.form.get('id', None))
     try:
@@ -60,12 +60,12 @@ def getmore():
                     'url':paste.user.url, 'nickname':paste.user.nickname,
                 },
                 'tags':[
-                    {'id':tag.id, 'name':tag.name, 'url':url_for('tag_blueprint.view', tag_name=tag.name)}
+                    {'id':tag.id, 'name':tag.name, 'url':url_for('tagview.view', tag_name=tag.name)}
                 for tag in paste.tags]
             }
         for paste in pagination.items]})
 
-@tag_blueprint.route('/follow', methods=['POST'])
+@tagview.route('/follow', methods=['POST'])
 def follow():
     if 'user' not in session:
         return json_response({'result':'fail', 'message': u'请先登录'})
@@ -84,10 +84,10 @@ def follow():
         return json_response({'result':'success', 'message':u'关注成功', 'state':state})
     return json_response({'result':'fail', 'message':u'服务器错误, 请稍后再试'})
 
-@tag_blueprint.route('/<tag>/rss.xml')
+@tagview.route('/<tag>/rss.xml')
 def rss(tag):
     g.tag = Tag.query.filter_by(name=tag).first()
     if not g.tag:
         abort(404)
     g.pastes = Paste.query.filter(Paste.tags.contains(g.tag)).filter_by(is_private=False).order_by("created_time DESC").all()
-    return render_template('rss/tag.xml')
+    return render('rss/tag.xml')

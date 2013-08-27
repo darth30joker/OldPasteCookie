@@ -9,10 +9,17 @@ from flask import g
 from flask import abort
 from flask import request
 
+from flask.ext.themes import setup_themes
+from flask.ext.themes import load_themes_from
+from flask.ext.themes import theme_paths_loader
+
+from daimaduan import render
+
 from daimaduan.models import User
 
 def config_app(app, db, oid, config):
     app.config.from_pyfile(config)
+    setup_themes(app, app_identifier="application")
     db.init_app(app)
     oid.init_app(app)
     formatter = logging.Formatter(
@@ -49,35 +56,35 @@ def dispatch_handlers(app):
     def permission_error(error):
         d['title'] = u'您没有权限'
         d['message'] = u'您没有权限执行当前的操作, 请登陆或检查url是否错误.'
-        return render_template('error.html', **d), 403
+        return render('error.html', **d), 403
 
     @app.errorhandler(404)
     def page_not_found(error):
         d['title'] = u'页面不存在'
         d['message'] = u'您所访问的页面不存在, 是不是打错地址了啊?'
-        return render_template('error.html', **d), 404
+        return render('error.html', **d), 404
 
     @app.errorhandler(500)
     def page_error(error):
         d['title'] = u'页面出错啦'
         d['message'] = u'您所访问的页面出错啦! 待会再来吧!'
         app.logger.error(str(error))
-        return render_template('error.html', **d), 500
+        return render('error.html', **d), 500
 
-def dispatch_blueprints(app):
-    from daimaduan.blueprints import site_blueprint
-    from daimaduan.blueprints import paste_blueprint
-    from daimaduan.blueprints import user_blueprint
-    from daimaduan.blueprints import rank_blueprint
-    from daimaduan.blueprints import tag_blueprint
-    from daimaduan.blueprints import admin_blueprint
+def dispatch_views(app):
+    from daimaduan.views import siteview
+    from daimaduan.views import pasteview
+    from daimaduan.views import userview
+    from daimaduan.views import rankview
+    from daimaduan.views import tagview
+    from daimaduan.views import adminview
 
-    app.register_blueprint(paste_blueprint, url_prefix='/paste')
-    app.register_blueprint(user_blueprint,  url_prefix='/user')
-    app.register_blueprint(rank_blueprint,  url_prefix='/rank')
-    app.register_blueprint(tag_blueprint,   url_prefix='/tag')
-    app.register_blueprint(admin_blueprint, url_prefix='/admin')
-    app.register_blueprint(site_blueprint)
+    app.register_blueprint(pasteview, url_prefix='/paste')
+    app.register_blueprint(userview,  url_prefix='/user')
+    app.register_blueprint(rankview,  url_prefix='/rank')
+    app.register_blueprint(tagview,   url_prefix='/tag')
+    app.register_blueprint(adminview, url_prefix='/admin')
+    app.register_blueprint(siteview)
 
     from daimaduan.utils.filters import dateformat, avatar, empty, time_passed, markdown
     app.jinja_env.filters['dateformat'] = dateformat
@@ -85,4 +92,3 @@ def dispatch_blueprints(app):
     app.jinja_env.filters['empty'] = empty
     app.jinja_env.filters['time_passed'] = time_passed
     app.jinja_env.filters['markdown'] = markdown
-

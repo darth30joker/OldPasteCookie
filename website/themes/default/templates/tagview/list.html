@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends theme('default/base.html') %}
 {% block title %}查看所有Tags{% endblock %}
 {% block javascript %}
 <script type="text/javascript">
@@ -14,10 +14,10 @@ $(document).ready(function() {
 </h2>
 <div id="tag_view" class="mt10 pt10 pl20 pr20">
 	{% for tag in g.tags %}
-		{% include 'items/_tag.html' %}
+		{% include theme('items/_tag.html') %}
 	{% endfor %}
 </div>
 {% endblock %}
 {% block sidebar %}
-	{% include '_sidebar.html' %}
+	{% include theme('default/_sidebar.html') %}
 {% endblock %}

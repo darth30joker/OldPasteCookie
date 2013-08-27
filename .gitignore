@@ -35,7 +35,7 @@ nosetests.xml
 .pydevproject
 
 # Virtual Env
-env
+venv
 
 # configuration files
 *.cfg

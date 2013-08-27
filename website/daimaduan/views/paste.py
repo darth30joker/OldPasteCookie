@@ -7,7 +7,6 @@ from flask import Blueprint
 from flask import request
 from flask import url_for
 from flask import redirect
-from flask import render_template
 from flask import abort
 from flask import send_file
 from flask import g
@@ -28,7 +27,7 @@ from daimaduan.utils.decorators import *
 
 PAGE_SIZE = app.config.get('PAGE_SIZE')
 
-paste_blueprint = Blueprint('paste_blueprint', __name__)
+pasteview = Blueprint('pasteview', __name__)
 
 def updateViewTimes(model, paste_id):
     paste_id = str(paste_id)
@@ -44,7 +43,7 @@ def updateViewTimes(model, paste_id):
     session['pastes'] = ','.join(pastes)
     return True
 
-@paste_blueprint.route('/create', methods=['GET', 'POST'])
+@pasteview.route('/create', methods=['GET', 'POST'])
 @login_required
 def create():
     form = PasteForm(request.form, csrf_enabled=False)
@@ -84,7 +83,7 @@ def create():
                     message = Message(user.id,
                                       to_user.id,
                                       mt.title % user.nickname,
-                                      mt.content % (user.nickname, paste.title, url_for('paste_blueprint.view', paste_id=paste.id)))
+                                      mt.content % (user.nickname, paste.title, url_for('pasteview.view', paste_id=paste.id)))
                     db.session.add(message)
         mt = MessageTemplate.query.filter_by(used_for='create_paste_by_tag').first()
         if mt:
@@ -94,18 +93,18 @@ def create():
                         message = Message(user.id,
                                           to_user.id,
                                           mt.title % tag.name,
-                                          mt.content % (tag.name, paste.title, url_for('paste_blueprint.view', paste_id=paste.id)))
+                                          mt.content % (tag.name, paste.title, url_for('pasteview.view', paste_id=paste.id)))
                         db.session.add(message)
         try:
             db.session.commit()
         except Exception, e:
             app.log.error(str(e))
             abort(500)
-        return redirect(url_for('paste_blueprint.view', paste_id=paste.id))
+        return redirect(url_for('pasteview.view', paste_id=paste.id))
     g.form = form
-    return render_template('paste_blueprint/create.html')
+    return render_template('pasteview/create.html')
 
-@paste_blueprint.route('/edit/<paste_id>', methods=['GET', 'POST'])
+@pasteview.route('/edit/<paste_id>', methods=['GET', 'POST'])
 @login_required
 def edit(paste_id):
     model = Paste.query.get_or_404(paste_id)
@@ -139,15 +138,15 @@ def edit(paste_id):
                     message = Message(user.id,
                                       to_user.id,
                                       mt.title % model.title,
-                                      mt.content % (model.title, url_for('paste_blueprint.view', paste_id=model.id)))
+                                      mt.content % (model.title, url_for('pasteview.view', paste_id=model.id)))
                     db.session.add(message)
-        return redirect(url_for('paste_blueprint.view', paste_id=model.id))
+        return redirect(url_for('pasteview.view', paste_id=model.id))
     g.model = model
     g.form = form
     #g.syntax = Syntax.get_syntax_list()
-    return render_template('paste_blueprint/edit.html')
+    return render_template('pasteview/edit.html')
 
-@paste_blueprint.route('/view/<paste_id>', methods=['GET', 'POST'])
+@pasteview.route('/view/<paste_id>', methods=['GET', 'POST'])
 def view(paste_id):
     model = Paste.query.get_or_404(paste_id)
     output = request.args.get('output', None)
@@ -175,7 +174,7 @@ def view(paste_id):
                                 message = Message(user.id,
                                                   to_user.id,
                                                   mt.title % model.title,
-                                                  mt.content % (model.title, url_for('paste_blueprint.view', paste_id=paste_id)))
+                                                  mt.content % (model.title, url_for('pasteview.view', paste_id=paste_id)))
                                 db.session.add(message)
                 mt = MessageTemplate.query.filter_by(used_for='new_comment_has_user').first()
                 if mt:
@@ -185,9 +184,9 @@ def view(paste_id):
                                 message = Message(user.id,
                                                   to_user.id,
                                                   mt.title,
-                                                  mt.content % url_for('paste_blueprint.view', paste_id=paste_id))
+                                                  mt.content % url_for('pasteview.view', paste_id=paste_id))
                                 db.session.add(message)
-                return redirect(url_for('paste_blueprint.view', paste_id=paste_id))
+                return redirect(url_for('pasteview.view', paste_id=paste_id))
     updateViewTimes(model, paste_id)
     lexer = find_lexer_class(model.syntax.name)
     formatter = HtmlFormatter(linenos='table', cssclass="source")
@@ -200,9 +199,9 @@ def view(paste_id):
     g.syntax_theme = request.args.get('css', app.config.get('DEFAULT_SYNTAX_CSS_FILE'))
     g.css_file = "/static/css/themes/%s.css" % g.syntax_theme
     #g.syntax_themes = SyntaxTheme.get_all_syntax_themes()
-    return render_template('paste_blueprint/view.html')
+    return render_template('pasteview/view.html')
 
-@paste_blueprint.route('/delete/<paste_id>')
+@pasteview.route('/delete/<paste_id>')
 @login_required
 def delete(paste_id):
     model = Paste.query.get_or_404(paste_id)
@@ -218,7 +217,7 @@ def delete(paste_id):
     db.session.add(model)
     return redirect('/')
 
-@paste_blueprint.route('/delete_comment/<comment_id>')
+@pasteview.route('/delete_comment/<comment_id>')
 @login_required
 def delete_comment(comment_id):
     model = PasteComment.query.get_or_404(comment_id)
@@ -230,9 +229,9 @@ def delete_comment(comment_id):
     paste.comment_num = paste.comment_num - 1
     db.session.add(paste)
     db.session.delete(model)
-    return redirect(url_for('paste_blueprint.view', paste_id=paste.id))
+    return redirect(url_for('pasteview.view', paste_id=paste.id))
 
-@paste_blueprint.route('/download/<paste_id>', methods=['POST'])
+@pasteview.route('/download/<paste_id>', methods=['POST'])
 def download(paste_id):
     paste = Paste.query.get_or_404(paste_id)
     filename = request.form.get('filename', None)
@@ -243,7 +242,7 @@ def download(paste_id):
     fp.seek(0)
     return send_file(fp, mimetype="text", as_attachment=True, attachment_filename=filename)
 
-@paste_blueprint.route('/favourite', methods=['POST'])
+@pasteview.route('/favourite', methods=['POST'])
 def favourite():
     paste_id = request.form.get('id', None)
     if paste_id:
@@ -263,7 +262,7 @@ def favourite():
                 return json.dumps({'result':'success', 'action':'del', 'message': u'取消收藏'})
     return json_response({'result':'fail', 'message': u'请先登陆!'})
 
-@paste_blueprint.route('/follow')
+@pasteview.route('/follow')
 def follow():
     state = ''
     if 'user' not in session:
@@ -282,7 +281,7 @@ def follow():
         return json_response({'result': 'success', 'message': u'操作成功', 'state': state})
 
 
-@paste_blueprint.route('/favorite')
+@pasteview.route('/favorite')
 def favorite():
     state = ''
     if 'user' not in session:
@@ -301,7 +300,7 @@ def favorite():
         return json_response({'result': 'success', 'message': u'操作成功', 'state': state})
 
 
-@paste_blueprint.route('/rate/<object_id>', methods=['POST'])
+@pasteview.route('/rate/<object_id>', methods=['POST'])
 def rate(object_id):
     if 'user' not in session:
         return json_response({'result': 'fail',

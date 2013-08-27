@@ -7,13 +7,13 @@ from flask import url_for
 from flask import current_app
 from flask import make_response
 from flask import redirect
-from flask import render_template
 from flask import abort
 from flask import send_file
 from flask import g
 
 from daimaduan import app
 from daimaduan import db
+from daimaduan import render
 
 from daimaduan.models import *
 from daimaduan.utils.decorators import login_required
@@ -23,26 +23,27 @@ from daimaduan.utils.functions import *
 PAGE_SIZE = app.config.get('PAGE_SIZE')
 SIDEBAR_PAGE_SIZE = app.config.get('SIDEBAR_PAGE_SIZE')
 
-site_blueprint = Blueprint('site_blueprint', __name__)
+siteview = Blueprint('siteview', __name__)
 
 
-@site_blueprint.route('/')
+@siteview.route('/')
 def index():
     g.new_pastes = Paste.query.filter_by(is_private=False).filter_by(is_delete=False).order_by('created_time DESC')[:PAGE_SIZE]
     g.top_tags = Tag.query.order_by('times DESC')[:SIDEBAR_PAGE_SIZE]
     g.users = User.query.order_by('created_time DESC')[:SIDEBAR_PAGE_SIZE]
-    return render_template('site_blueprint/index.html')
+    #import pdb; pdb.set_trace()
+    return render('siteview/index.html')
 
 
-@site_blueprint.route('/page/<slug>')
+@siteview.route('/page/<slug>')
 def page(slug=None):
     if not slug:
         abort(404)
     g.page = Page.query.filter_by(slug=slug).first_or_404()
-    return render_template('site_blueprint/page.html')
+    return render('siteview/page.html')
 
 
-@site_blueprint.route('/search')
+@siteview.route('/search')
 def search():
     keyword = request.args.get('keyword', '')
     if keyword:
@@ -52,10 +53,10 @@ def search():
         g.keyword = keyword
     g.top_tags = Tag.query.order_by('times DESC')[:SIDEBAR_PAGE_SIZE]
     g.top_users = User.query.order_by('paste_num DESC')[:SIDEBAR_PAGE_SIZE]
-    return render_template('site_blueprint/search.html')
+    return render('siteview/search.html')
 
 
-@site_blueprint.route('/getmore', methods=['POST'])
+@siteview.route('/getmore', methods=['POST'])
 def getmore():
     try:
         page = int(request.form.get('page', 1))
@@ -85,15 +86,15 @@ def getmore():
 
 
 @login_required
-@site_blueprint.route('/messages')
+@siteview.route('/messages')
 def messages():
     g.model = g.user
     g.messages = Message.query.filter_by(to_user_id=g.user.id).order_by("created_time DESC").all()
-    return render_template('site_blueprint/messages.html')
+    return render('siteview/messages.html')
 
 
 @login_required
-@site_blueprint.route('/read_message', methods=['POST'])
+@siteview.route('/read_message', methods=['POST'])
 def read_message():
     object_id = request.form.get('object_id', None)
     if object_id:
@@ -103,7 +104,7 @@ def read_message():
     return json_response({'result': 'success'})
 
 
-@site_blueprint.route('/posts')
+@siteview.route('/posts')
 def posts():
     page = request.args.get('page', 1)
     try:
@@ -111,16 +112,16 @@ def posts():
     except:
         page = 1
     g.pagination = Post.query.order_by("created_time DESC").paginate(page, 10)
-    return render_template('site_blueprint/posts.html')
+    return render('siteview/posts.html')
 
-@site_blueprint.route('/post/<object_id>')
+@siteview.route('/post/<object_id>')
 def post(object_id=None):
     if not object_id:
         abort(404)
     g.post = Post.query.get_or_404(object_id)
-    return render_template('site_blueprint/post.html')
+    return render('siteview/post.html')
 
-@site_blueprint.route("/test")
+@siteview.route("/test")
 def test():
     send_mail_to_queue(from_user="mykingheaven@gmail.com",
                        to_user="david.xie@me.com",
@@ -128,7 +129,7 @@ def test():
                        content=u"打断的中文熬撒旦噶速度过来说的话过来撒很给力")
     return "hello!"
 
-@site_blueprint.route('/rss.xml')
+@siteview.route('/rss.xml')
 def rss():
     g.pastes = Paste.query.filter_by(is_private=False).order_by("created_time DESC").all()
-    return render_template('rss/site.xml')
+    return render('rss/site.xml')
