@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}首页{% endblock %}
+{% block javascript %}
+<script type="text/javascript">
+$(document).ready(function() {
+	$('.nav:eq(0)').find('li:eq(0)').addClass('active');
+});
+</script>
+{% endblock %}
+{% block content %}
+<h2 class="new-paste-title pl10">
+	<span></span>
+	最新代码段
+</h2>
+<ul id="code_list" class="code_list pt10">
+	{% for paste in g.new_pastes %}
+	<li class="pl10 pr10">
+		{% include 'items/_paste_item.html' %}
+	</li>
+	{% endfor %}
+</ul>
+<a href="javascript:;" class="breadcrumb more clearfix" id="more_button" _page="2">
+	<span class="lf">更多</span>
+</a>
+{% endblock %}
+{% block sidebar %}
+{% include '_share_btn.html' %}
+{% include '_newest_users.html' %}
+{% include '_top_tags.html' %}
+{% endblock %}

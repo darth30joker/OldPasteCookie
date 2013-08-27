@@ -1,0 +1,16 @@
+{% extends 'admin.html' %}
+{% block title %}标签管理{% endblock %}
+{% block content %}
+<ul>
+{% for paste in g.paginate.items %}
+<li><a href="{{ url_for('pasteapp.view', paste_id=paste.id) }}" target="_blank">{{ paste.title }}</a> | <a href="{{ url_for('userapp.view', user_id=paste.user.id) }}">{{ paste.user.nickname }}</a></li>
+{% endfor %}
+</ul>
+<div class="pagination">
+	<ul>
+		{% for page in g.paginate.iter_pages() %}
+			<li><a href="{{ url_for('adminapp.pastes') }}?page={{ page }}">{{ page }}</a></li>
+		{% endfor %}
+	</ul>
+</div>
+{% endblock %}

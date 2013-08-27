@@ -1,0 +1,9 @@
+{% extends 'admin.html' %}
+{% block title %}Tag管理{% endblock %}
+{% block content %}
+<ul>
+{% for user in g.users %}
+<li><a href="javascript:;">{{ user.nickname }} ({{ user.email }})</a> | Edit | Delete</li>
+{% endfor %}
+</ul>
+{% endblock %}

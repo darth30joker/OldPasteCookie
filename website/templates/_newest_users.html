@@ -1,0 +1,20 @@
+<div class="newest-users">
+	<div class="paste-side-title clearfix">
+		<span class="lf fs14 fwb cl6c553b lh24">新加入用户</span>
+		<!--
+		<ul class="rt">
+			<li class="current lf">
+				<a href="#">新用户</a>
+			</li>
+			<li class="rt">
+				<a href="#">活跃用户</a>
+			</li>
+		</ul>
+		-->
+	</div>
+	<ul class="paste-user-list mt5">
+		{% for user in g.users %}
+			{% include 'items/_user.html' %}
+		{% endfor %}
+	</ul>
+</div>

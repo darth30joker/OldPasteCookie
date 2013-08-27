@@ -1,0 +1,21 @@
+<li class="clearfix">
+	<span class="lf">
+		<a href="{{ user.url }}" class="carte" title="{{ user.nickname }}" data-content="
+			<p class='lh22'>签名：{{ user.info.motoo | empty(text = "这家伙没有签名") }}</p>
+			<p class='lh22'>介绍：{{ user.info.introduction | empty(text = "这家伙很懒，什么都没写") }}</p>
+			<p class='lh22'>最近登录时间：{{ user.last_login_time | time_passed }}</p>
+			">
+			<img src="{{ user.get_avatar_url(24) }}" alt="{{ user.nickname }}" />
+		</a>
+	</span>	
+	<span class="lf ml10">
+		<a href="{{ user.url }}" class="carte" title="{{ user.nickname }}" data-content="
+			<p class='lh22'>签名：{{ user.info.motoo | empty(text = "这家伙没有签名") }}</p>
+			<p class='lh22'>介绍：{{ user.info.introduction | empty(text = "这家伙很懒，什么都没写") }}</p>
+			<p class='lh22'>最近登录时间：{{ user.last_login_time | time_passed }}</p>
+			">{{ user.nickname }}</a>
+		<p class="clc">分享了{{ user.paste_num }}段代码</p>
+	</span>
+	<a href="javascript:void(0);" class="btn rt paste-user-unfollow user-follow" data-id="{{ user.id }}" {% if not user.is_user_followed %}style="display:none"{% endif %}>取消关注</a>
+	<a href="javascript:void(0);" class="btn rt btn-90c047 paste-user-follow user-follow" data-id="{{ user.id }}" {% if user.is_user_followed %}style="display:none"{% endif %}>关注</a>
+</li>

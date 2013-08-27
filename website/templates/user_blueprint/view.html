@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% block title %}{{ g.model.nickname }}{% endblock %}
+{% block javascript %}
+<script type="text/javascript">
+$(document).ready(function() {
+	$('.show-desc-link').toggle(function() {
+		$(this).parents('li').find('.well').show();
+		$(this).html('隐藏描述');
+	}, function() {
+		$(this).parents('li').find('.well').hide();
+		$(this).html('显示描述');
+	});
+});
+</script>
+{% endblock %}
+{% block content %}
+<div>
+	<h2 class="new-paste-title pl10">
+		<span></span>
+		{{ g.model.nickname }} 最新添加的代码
+	</h2>
+	<ul class="code_list pt10">
+		{% for paste in g.model.pastes %}
+		<li class="pl20 pr20">
+			{% include 'items/_paste_item.html' %}
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+<div>
+	<h2 class="new-paste-title pl10">
+		<span></span>
+		{{ g.model.nickname }} 最新收藏的代码
+	</h2>
+	<ul class="code_list">
+		{% for paste in g.model.favorites %}
+		<li class="pl20 pr20">
+			{% include 'items/_paste_item.html' %}
+		</li>
+		{% endfor %}
+	</ul>
+</div>
+{% endblock %}
+{% block sidebar %}
+	<div class="rss-user"><a href="{{ url_for('userapp.rss', user_id=g.model.id) }}"><img src="/static/images/rss.png" /><span>订阅Ta的代码</span></a></div>
+	<div class="bd3 bd1s mt65 pt10 pb10 mb18">
+		<p class="alc">
+			<img src="{{ g.model.get_avatar_url(150) }}" />
+		</p>
+		<p class="fwb alc fs20">{{ g.model.nickname }}</p>
+		<p class="lh24 pl10 pr10 mt10">{{ g.model.info.motoo | empty(text="这个家伙没有签名") }}</p>
+		<p class="lh24 pl10 pr10">{{ g.model.info.introduction | empty(text="这个家伙很懒, 什么都没写") }}</p>
+	</div>
+	{% if g.user.id != g.model.id %}
+	<div class="bd3 bd1s alc pt10 pb10 mb18">
+		<div {% if g.model.is_user_followed %} style="display: none;" {% endif %} class="btn follow btn-success btn-large" id="follow" object_id="{{ g.model.id }}">
+			<span class="plus"></span> <strong>关注</strong>
+		</div>
+		<div {% if not g.model.is_user_followed %} style="display: none;" {% endif %} class="btn follow btn-large" id="unfollow" object_id="{{ g.model.id }}">
+			<span class="plus"></span> <strong>取消关注</strong>
+		</div>
+	</div>
+	{% endif %}
+	<div class="">
+		<div class="paste-side-title clearfix">
+			<span class="lf fs14 fwb cl6c553b lh24">
+				{{ g.model.nickname }}关注的用户
+			</span>
+		</div>
+		<ul class="user_list clearfix pt10">
+			{% for user in g.model.followed_users %}
+				{% include 'items/_user.html' %}
+			{% endfor %}
+		</ul>
+	</div>
+	<div class="">
+		<div class="paste-side-title clearfix">
+			<span class="lf fs14 fwb cl6c553b lh24">
+				关注{{ g.model.nickname }}的用户
+			</span>
+		</div>
+		<ul class="user_list clearfix pt10">
+			{% for user in g.model.followers %}
+				{% include 'items/_user.html' %}
+			{% endfor %}
+		</ul>
+	</div>
+	<div id="unfollow-modal" class="modal hide fade">
+		<form action="" method="POST">
+			<div class="modal-header">
+				<a href="#" class="close">×</a>
+				<h3>提醒</h3>
+			</div>
+			<div class="modal-body alc">
+				真的要取消关注吗？
+			</div>
+			<div class="modal-footer">
+				<input type="button" class="btn btn-primary" value="确定" />
+				<input type="button" onclick="javascript: $('#unfollow-modal').modal('hide');" class="btn" value="取消" />
+			</div>
+		</form>
+	</div>
+{% endblock %}

@@ -1,0 +1,8 @@
+{% extends 'rss/base.xml' %}
+{% block title %}标签为 {{ g.tag.name }} 的代码 - 代码段{% endblock %}
+{% block desc %}标签为 {{ g.tag.name }} 的代码{% endblock %}
+{% block pastes %}
+{% for paste in g.pastes %}
+	{% include 'rss/_paste.xml' %}
+{% endfor %}
+{% endblock %}

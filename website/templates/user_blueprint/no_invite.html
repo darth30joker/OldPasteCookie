@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}邀请朋友{% endblock %}
+{% block content %}
+<div id="register">
+	<ul class="breadcrumb">
+		<li>申请邀请</li>
+	</ul>
+	<p class="pl20 pr20 mb30 lh24">Hi, 代码段目前需要邀请才可以注册, 请留下你的邮件地址, 并附上一些简短的自我介绍, 我们审核通过后, 会向你发送邀请的, 有所不便, 请您谅解!</p>
+	<form action="{{ url_for('userapp.invite') }}" method="POST">
+		<p class="clearfix"><label class="span1 lh30 mr10">Email地址</label><input class="span6" type="text" name="email" /></p>
+		<p class="clearfix"><label class="span1 lh30 mr10">简短介绍</label><textarea class="lf w500_textarea" name="introduction"></textarea></p>
+		<input type="hidden" value="1" name="askforinvite" />
+		<p class="actions mt40"><input type="submit" class="ml20 btn primary" value="发送邀请" /></p>
+	</form>
+</div>
+{% endblock %}
+{% block sidebar %}
+<ul class="breadcrumb">
+	<li>站点介绍</li>
+</ul>
+<p class="lh24 pl10 pr10">
+	代码段(以前的大卫粘贴)是一个什么样的网站呢?
+	我很难用一句话来形容. 你可以用它来贴代码, 你也可以用它来展示代码,
+	你也可以用它来收藏代码, 你也可以用它来观察别人都在写什么代码.
+</p>
+
+{% endblock %}

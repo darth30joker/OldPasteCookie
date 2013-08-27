@@ -1,0 +1,10 @@
+<div class="">
+	<div class="paste-side-title clearfix">
+		<span class="lf fs14 fwb cl6c553b lh24">关注的用户</span>
+	</div>
+	<ul class="user_list clearfix pt10">
+		{% for user in g.model.followers %}
+			{% include 'items/_user.html' %}
+		{% endfor %}
+	</ul>
+</div>

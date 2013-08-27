@@ -1,0 +1,244 @@
+{% extends 'base.html' %}
+{% block title %}{{ g.model.title }}{% endblock %}
+{% block syntax_css_file %}{{ g.css_file }}{% endblock %}
+{% block javascript %}
+<!-- JiaThis Button END -->
+<script type="text/javascript">
+$(document).ready(function() {
+
+	$('#download').click(function() {
+		$('#download-modal').modal('show');
+		return false;
+	});
+
+	$('#delete-paste').click(function() {
+		$('#delete-modal').modal('show');
+		return false;
+	});
+
+	/** delete comment statement **/
+	$('.delete-coment').click(function() {
+		var url = $(this).attr('_url');
+		$('#delete-coment-modal').find('form:eq(0)').attr('action', url);
+		$('#delete-coment-modal').modal('show');
+		return false;
+	});
+	/** end of delete comment statement **/
+
+	$('#show-desc-link').toggle(function() {
+		$('#show-desc-box').fadeIn('slow');
+		$(this).html('隐藏描述');
+	}, function() {
+		$('#show-desc-box').fadeOut('slow');
+		$(this).html('显示描述');
+	});
+
+	/** rater statement **/
+	var rater_options = {
+		max:5,
+		value:{{ g.model.rate_num }},
+		method:'POST',
+		url:'{{ url_for("pasteapp.rate", object_id=g.model.id) }}',
+		after_ajax: function(ret) {
+			json = ret.ajax;
+			if (json.result == 'success') {
+				this.enabled = false;
+				this.value = json.rate;
+				alert(json.message);
+				$('#rater').rater(this);
+			} else {
+				alert(json.message);
+			}
+			
+		}
+	}
+	$("#rater").rater(rater_options);
+	/** end of rater statement **/
+
+	$("#syntax_select").change(function() {
+		value = $(this).attr("value");
+		window.location.href = "{{ url_for('pasteapp.view', paste_id=g.model.id) }}?css=" + value;
+	});
+});
+</script>
+{% endblock %}
+{% block content %}
+<div id="paste_view">
+	<h2>
+		{{ g.model.title }}
+		<span class="ml10 fs13 clc">by</span>
+		<a href="{{ g.model.user.url }}" class="carte fs13" title="{{ g.model.user.nickname }}" data-content="
+			<div class='lf paste_user_icon'><img src='{{ g.model.user.get_avatar_url(48) }}' alt='{{ g.model.user.nickname }}' /></div>
+			<div class='rt paste_user_cont'>
+			<p class='lh22'>签名：{{ g.model.user.info.motoo | empty(text = "这家伙没有签名") }}</p>
+			<p class='lh22'>介绍：{{ g.model.user.info.introduction | empty(text = "这家伙很懒，什么都没写") }}</p>
+			<p class='lh22'>最近登录时间：{{ g.model.created_time | dateformat }}</p></div><div class='clear'></div>">
+			{{ g.model.user.nickname }}
+		</a>
+		<span class="ml10 fs13 clc">{{ g.model.created_time | time_passed }}</span>
+	</h2>
+	<div class="pt30 clearfix">
+		{% for tag in g.model.tags %}{% include 'items/_tag.html' %}{% endfor %}
+	</div>
+	<div id="code_view" class="mt10">{{ g.code | safe }}</div>
+	<p class="clearfix mt10">
+		<span class="lf">
+		{% if g.user %}
+			{% if g.user.id == g.model.user.id or g.user.check_privilege(4) %}
+				<a class="btn btn-success" href="{{ url_for('pasteapp.edit', paste_id=g.model.id) }}">修改</a>
+				<a id="delete-paste" class="btn btn-danger ml5" href="javascript: void(0);">删除</a>
+			{% endif %}
+		{% endif %}
+			<a class="btn btn-warn" href="javascript:void(0);" onclick="window.open('{{ url_for('pasteapp.view', paste_id=g.model.id) }}?output=raw', '查看RAW代码', 'height=600,width=400,top=0,left=0,toolbar=no,menubar=no,scrollbars=yes,location=no,status=no')">查看RAW代码</a>
+		</span>
+		<span class="rt lh30">
+			<span class="lf">评分：</span>
+			<span class="lf" id="rater"></span>
+			<a {% if not g.model.is_user_favorited %} style="display: none" {% endif %} id="unfavorite" class="lf btn ml5 favorite" href="javascript: void(0);" data-id="{{ g.model.id }}">取消收藏</a>
+			<a {% if g.model.is_user_favorited %} style="display: none" {% endif %} id="favorite" class="lf btn btn-primary ml5 favorite" href="javascript: void(0);" data-id="{{ g.model.id }}">收藏</a>
+			
+			<a id="download" class="lf btn btn-inverse ml5" href="javascript: void(0);">下载</a>
+		</span>
+	</p>
+	<p class="clearfix"><a class="lf" href="javascript: void(0);" id="show-desc-link">显示描述</a></p>
+	<p id="show-desc-box" style="display: none" class="well">{{ g.model.description }}</p>
+</div>
+<div id="coments">
+	<h4 class="mb10 mt10">
+		{% if g.model.comments %}{{ g.model.title }}  有{{ g.model.comments | length }}条评论{% else %}还没有评论{% endif %}
+	</h4>
+	<ul class="paste_coments user_list">
+	{% for comment in g.model.comments[::-1] %}
+		<li class="pl20 pr20">
+			<div class="lh20 clearfix">
+				<a href="{{ url_for('userapp.view', user_id=comment.user.id) }}" class="carte lf" title="{{ comment.user.nickname }}"
+				data-content="
+					<p class='lh22'>签名：{{ comment.user.info.motoo | empty(text = "这家伙没有签名") }}</p>
+					<p class='lh22'>介绍：{{ comment.user.info.introduction | empty(text = "这家伙很懒，什么都没写") }}</p>
+					<p class='lh22'>最近登录时间：{{ comment.user.created_time | time_passed }}</p>
+					">
+					<img src="{{ comment.user.get_avatar_url(48) }}" />
+				</a>
+				<span class="lf ml10 coments_li_rt">
+					<div class="clearfix">
+						<a href="{{ url_for('userapp.view', user_id=comment.user.id) }}" class="carte lf" title="{{ comment.user.nickname }}" data-content="
+							<div class='lf paste_user_icon'><img src='{{ comment.user.get_avatar_url(48) }}' alt='{{ comment.user.nickname }}' /></div>
+							<div class='rt paste_user_cont'>
+								<p class='lh22'>签名：{{ comment.user.info.motoo | empty(text = "这家伙没有签名") }}</p>
+								<p class='lh22'>介绍：{{ comment.user.info.introduction | empty(text = "这家伙很懒，什么都没写") }}</p>
+								<p class='lh22'>最近登录时间：{{ comment.user.created_time | time_passed }}</p></div><div class='clear'></div>
+							">
+							{{ comment.user.nickname }}
+						</a>
+						<span class="rt clc alr">
+							<a href="javascript: void(0);" class="mr10 delete-coment" _url="{{ url_for('pasteapp.delete_comment', comment_id=comment.id) }}">删除</a>
+							{{ comment.created_time | time_passed }}
+						</span>
+					</div>
+					<div>
+						{{ comment.content | markdown | safe }}
+					</div>
+				</span>
+			</div>
+		</li>
+	{% endfor %}
+	</ul>
+	{% if g.user %}
+	<h4 class="mb10">发布评论</h4>
+	<form action="{{ url_for('pasteapp.view', paste_id=g.model.id) }}" method="POST">
+		<p class="clearfix">
+			{{ g.form.content.label(class="span1 mr10 lf")}}{{ g.form.content(class="lf w500_textarea") }}
+		</p>
+		<p class="clearfix">
+			<label class="span1 lf mr10"></label>
+			<input class="btn primary lf" type="submit" value="评论" />
+		</p>
+	</form>
+	{% endif %}
+</div>
+<div id="download-modal" class="modal hide fade">
+	<form action="{{ url_for('pasteapp.download', paste_id=g.model.id ) }}" method="POST">
+		<div class="modal-header">
+			<a href="#" class="close">×</a>
+			<h3>下载</h3>
+		</div>
+		<div class="modal-body alc">
+			文件名：<input type="text" name="filename" value="{{ g.model.id }}.txt" />
+		</div>
+		<div class="modal-footer">
+		  <input type="submit" onclick="javascript: $('#download-modal').modal('hide');" href="{{ url_for('pasteapp.download', paste_id=g.model.id) }}" class="btn btn-primary" value="完成" />
+		  <input type="button" onclick="javascript: $('#download-modal').modal('hide');" class="btn" value="取消" />
+		</div>
+	</form>
+</div>
+<div id="unfollow-modal" class="modal hide fade">
+	<form action="" method="POST">
+		<div class="modal-header">
+		  <a href="#" class="close">×</a>
+		  <h3>提醒</h3>
+		</div>
+		<div class="modal-body alc">
+			真的要取消关注么？
+		</div>
+		<div class="modal-footer">
+		  <input type="button" class="btn btn-primary" value="确定" />
+		  <input type="button" onclick="javascript: $('#unfollow-modal').modal('hide');" class="btn" value="取消" />
+		</div>
+	</form>
+</div>
+<div id="delete-modal" class="modal hide fade">
+	<form action="{{ url_for('pasteapp.delete', paste_id=g.model.id) }}" method="GET">
+		<div class="modal-header">
+			<a href="#" class="close">×</a>
+			<h3>提醒</h3>
+		</div>
+		<div class="modal-body alc">
+			真的要删除这段代码吗？
+		</div>
+		<div class="modal-footer">
+			<input type="submit" onclick="javascript: $('#delete-modal').modal('hide');" class="btn btn-primary" value="确定" />
+			<input type="button" onclick="javascript: $('#delete-modal').modal('hide');" class="btn" value="取消" />
+		</div>
+	</form>
+</div>
+<div id="unfavorite-modal" class="modal hide fade">
+	<form action="" method="POST">
+		<div class="modal-header">
+			<a href="#" class="close">×</a>
+			<h3>提醒</h3>
+		</div>
+		<div class="modal-body alc">
+			真的要取消收藏这段代码吗？
+		</div>
+		<div class="modal-footer">
+			<input type="button" class="btn btn-primary" value="确定" />
+			<input type="button" onclick="javascript: $('#unfavorite-modal').modal('hide');" class="btn" value="取消" />
+		</div>
+	</form>
+</div>
+<div id="delete-coment-modal" class="modal hide fade">
+	<form action="" method="GET">
+		<div class="modal-header">
+			<a href="#" class="close">×</a>
+			<h3>提醒</h3>
+		</div>
+		<div class="modal-body alc">
+			真的要删除这条评论吗？
+		</div>
+		<div class="modal-footer">
+			<input type="submit" onclick="javascript: $('#delete-coment-modal').modal('hide');" class="btn btn-primary" value="确定" />
+			<input type="button" onclick="javascript: $('#delete-coment-modal').modal('hide');" class="btn" value="取消" />
+		</div>
+	</form>
+</div>
+<link rel="stylesheet" href="/static/js/rater-star/rater-star.css" />
+<!-- JiaThis Button BEGIN -->
+<script type="text/javascript">var jiathis_config = {
+			url:"{{ g.url }}",
+			title:'我在 #代码段# 分享了 "{{ g.model.title }}":'
+		}</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js?uid=1338135623650157&btn=r5.gif" charset="utf-8"></script>
+{% endblock %}
+{% block sidebar %}
+	{% include '_sidebar_view_paste.html' %}
+{% endblock %}
