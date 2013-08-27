@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends theme('default/base.html') %}
 {% block title %}修改 {{ g.model.title }}{% endblock %}
 {% block content %}
 <script type="text/javascript">
@@ -17,7 +17,7 @@ $(document).ready(function() {
 		<span></span>
 		修改代码
 	</h2>
-	<form class="form pt15" action="{{ url_for('pasteapp.edit', paste_id=g.model.id) }}" method="POST">
+	<form class="form pt15" action="{{ url_for('pasteview.edit', paste_id=g.model.id) }}" method="POST">
 		<p class="clearfix">{{ g.form.title.label(class="span1 lh30 mr10") }}{{ g.form.title(class="span7 lf") }}</p>
 		<p class="clearfix"><label class="span1 lh30 mr10"></label><span class="help-block">可以不填</span></p>
 		<p class="clearfix">{{ g.form.syntax.label(class="span1 lh30 mr10") }}{{ g.form.syntax(class="span7 lf") }}</p>

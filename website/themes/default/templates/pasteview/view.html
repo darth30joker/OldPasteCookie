@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends theme('default/base.html') %}
 {% block title %}{{ g.model.title }}{% endblock %}
 {% block syntax_css_file %}{{ g.css_file }}{% endblock %}
 {% block javascript %}
@@ -38,7 +38,7 @@ $(document).ready(function() {
 		max:5,
 		value:{{ g.model.rate_num }},
 		method:'POST',
-		url:'{{ url_for("pasteapp.rate", object_id=g.model.id) }}',
+		url:'{{ url_for("pasteview.rate", object_id=g.model.id) }}',
 		after_ajax: function(ret) {
 			json = ret.ajax;
 			if (json.result == 'success') {
@@ -57,7 +57,7 @@ $(document).ready(function() {
 
 	$("#syntax_select").change(function() {
 		value = $(this).attr("value");
-		window.location.href = "{{ url_for('pasteapp.view', paste_id=g.model.id) }}?css=" + value;
+		window.location.href = "{{ url_for('pasteview.view', paste_id=g.model.id) }}?css=" + value;
 	});
 });
 </script>
@@ -85,11 +85,11 @@ $(document).ready(function() {
 		<span class="lf">
 		{% if g.user %}
 			{% if g.user.id == g.model.user.id or g.user.check_privilege(4) %}
-				<a class="btn btn-success" href="{{ url_for('pasteapp.edit', paste_id=g.model.id) }}">修改</a>
+				<a class="btn btn-success" href="{{ url_for('pasteview.edit', paste_id=g.model.id) }}">修改</a>
 				<a id="delete-paste" class="btn btn-danger ml5" href="javascript: void(0);">删除</a>
 			{% endif %}
 		{% endif %}
-			<a class="btn btn-warn" href="javascript:void(0);" onclick="window.open('{{ url_for('pasteapp.view', paste_id=g.model.id) }}?output=raw', '查看RAW代码', 'height=600,width=400,top=0,left=0,toolbar=no,menubar=no,scrollbars=yes,location=no,status=no')">查看RAW代码</a>
+			<a class="btn btn-warn" href="javascript:void(0);" onclick="window.open('{{ url_for('pasteview.view', paste_id=g.model.id) }}?output=raw', '查看RAW代码', 'height=600,width=400,top=0,left=0,toolbar=no,menubar=no,scrollbars=yes,location=no,status=no')">查看RAW代码</a>
 		</span>
 		<span class="rt lh30">
 			<span class="lf">评分：</span>
@@ -131,7 +131,7 @@ $(document).ready(function() {
 							{{ comment.user.nickname }}
 						</a>
 						<span class="rt clc alr">
-							<a href="javascript: void(0);" class="mr10 delete-coment" _url="{{ url_for('pasteapp.delete_comment', comment_id=comment.id) }}">删除</a>
+							<a href="javascript: void(0);" class="mr10 delete-coment" _url="{{ url_for('pasteview.delete_comment', comment_id=comment.id) }}">删除</a>
 							{{ comment.created_time | time_passed }}
 						</span>
 					</div>
@@ -145,7 +145,7 @@ $(document).ready(function() {
 	</ul>
 	{% if g.user %}
 	<h4 class="mb10">发布评论</h4>
-	<form action="{{ url_for('pasteapp.view', paste_id=g.model.id) }}" method="POST">
+	<form action="{{ url_for('pasteview.view', paste_id=g.model.id) }}" method="POST">
 		<p class="clearfix">
 			{{ g.form.content.label(class="span1 mr10 lf")}}{{ g.form.content(class="lf w500_textarea") }}
 		</p>
@@ -157,7 +157,7 @@ $(document).ready(function() {
 	{% endif %}
 </div>
 <div id="download-modal" class="modal hide fade">
-	<form action="{{ url_for('pasteapp.download', paste_id=g.model.id ) }}" method="POST">
+	<form action="{{ url_for('pasteview.download', paste_id=g.model.id ) }}" method="POST">
 		<div class="modal-header">
 			<a href="#" class="close">×</a>
 			<h3>下载</h3>
@@ -166,7 +166,7 @@ $(document).ready(function() {
 			文件名：<input type="text" name="filename" value="{{ g.model.id }}.txt" />
 		</div>
 		<div class="modal-footer">
-		  <input type="submit" onclick="javascript: $('#download-modal').modal('hide');" href="{{ url_for('pasteapp.download', paste_id=g.model.id) }}" class="btn btn-primary" value="完成" />
+		  <input type="submit" onclick="javascript: $('#download-modal').modal('hide');" href="{{ url_for('pasteview.download', paste_id=g.model.id) }}" class="btn btn-primary" value="完成" />
 		  <input type="button" onclick="javascript: $('#download-modal').modal('hide');" class="btn" value="取消" />
 		</div>
 	</form>
@@ -187,7 +187,7 @@ $(document).ready(function() {
 	</form>
 </div>
 <div id="delete-modal" class="modal hide fade">
-	<form action="{{ url_for('pasteapp.delete', paste_id=g.model.id) }}" method="GET">
+	<form action="{{ url_for('pasteview.delete', paste_id=g.model.id) }}" method="GET">
 		<div class="modal-header">
 			<a href="#" class="close">×</a>
 			<h3>提醒</h3>

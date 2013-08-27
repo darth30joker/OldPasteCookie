@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends theme('default/base.html') %}
 {% block title %}粘贴新代码{% endblock %}
 {% block content %}
 <script type="text/javascript">
@@ -44,7 +44,7 @@ $(document).ready(function() {
 			{% endfor %}
 		</ul>
 	{% endif %}
-	<form class="form pt15" action="{{ url_for('pasteapp.create') }}" method="POST" enctype="multipart/form-data">
+	<form class="form pt15" action="{{ url_for('pasteview.create') }}" method="POST" enctype="multipart/form-data">
 		<p class="clearfix">{{ g.form.title.label(class="span1 lh30 mr10") }}{{ g.form.title(class="span7") }}</p>
 		<p class="clearfix"><label class="span1 lh30 mr10"></label><span class="help-block">可以不填</span></p>
 		<p class="clearfix">{{ g.form.syntax.label(class="span1 lh30 mr10") }}{{ g.form.syntax(class="span7 lf") }}</p>

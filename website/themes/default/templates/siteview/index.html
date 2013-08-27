@@ -1,4 +1,4 @@
-{% extends theme('base.html') %}
+{% extends theme('default/base.html') %}
 {% block title %}首页{% endblock %}
 {% block javascript %}
 <script type="text/javascript">
@@ -15,7 +15,7 @@ $(document).ready(function() {
 <ul id="code_list" class="code_list pt10">
 	{% for paste in g.new_pastes %}
 	<li class="pl10 pr10">
-		{% include 'items/_paste_item.html' %}
+		{% include theme('default/items/_paste_item.html') %}
 	</li>
 	{% endfor %}
 </ul>
@@ -24,7 +24,7 @@ $(document).ready(function() {
 </a>
 {% endblock %}
 {% block sidebar %}
-{% include theme('_share_btn.html') %}
-{% include theme('_newest_users.html') %}
-{% include theme('_top_tags.html') %}
+{% include theme('default/_share_btn.html') %}
+{% include theme('default/_newest_users.html') %}
+{% include theme('default/_top_tags.html') %}
 {% endblock %}

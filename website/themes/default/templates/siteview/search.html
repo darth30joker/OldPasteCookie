@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends theme('default/base.html') %}
 {% block title %}{{ g.keyword }}{% endblock %}
 {% block javascript %}
 <script type="text/javascript">
@@ -21,7 +21,7 @@ $(document).ready(function() {
 <ul id="new_code_list" class="code_list pt10">
 	{% for paste in g.pastes %}
 	<li class="pl20 pr20">
-		{% include 'items/_paste_item.html' %}
+		{% include theme('default/items/_paste_item.html') %}
 	</li>
 	{% endfor %}
 </ul>
@@ -32,7 +32,7 @@ $(document).ready(function() {
 </h2>
 <ul id="new_code_list" class="user_list clearfix pl20 pr20 pt10">
 	{% for user in g.users %}
-		{% include 'items/_user.html' %}
+		{% include theme('default/items/_user.html') %}
 	{% endfor %}
 </ul>
 
@@ -42,10 +42,10 @@ $(document).ready(function() {
 </h2>
 <div id="new_code_list" class="code_list pl20 pr20 pt10">
 	{% for tag in g.tags %}
-		{% include 'items/_tag.html' %}
+		{% include theme('default/items/_tag.html') %}
 	{% endfor %}
 </div>
 {% endblock %}
 {% block sidebar %}
-	{% include '_sidebar.html' %}
+	{% include theme('default/_sidebar.html') %}
 {% endblock %}

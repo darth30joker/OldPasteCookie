@@ -1,8 +1,8 @@
-{% extends 'base.html' %}
+{% extends theme('default/base.html') %}
 {% block title %}系统消息{% endblock %}
 {% block javascript %}
-<script type="text/javascript" src="/static/js/bootstrap-transition.js"></script>
-<script type="text/javascript" src="/static/js/bootstrap-collapse.js"></script>
+<script type="text/javascript" src="{{ theme_static('js/bootstrap-transition.js') }}"></script>
+<script type="text/javascript" src="{{ theme_static('js/bootstrap-collapse.js') }}"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$('.accordion2').collapse();
@@ -12,7 +12,7 @@
 			$.ajax({
 				data:"object_id=" + id,
 				type:'POST',
-				url:"{{ url_for('siteapp.read_message') }}",
+				url:"{{ url_for('siteview.read_message') }}",
 				success:function() {
 
 				}
@@ -78,7 +78,7 @@
 		</div>
 		<ul class="user_list pt10 clearfix">
 			{% for user in g.model.followers %}
-				{% include 'items/_user.html' %}
+				{% include theme('default/items/_user.html') %}
 			{% endfor %}
 		</ul>
 	</div>
