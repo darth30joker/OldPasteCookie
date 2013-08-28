@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends theme('default/base.html') %}
 {% block title %}注册新用户{% endblock %}
 {% block content %}
 <div id="register">
@@ -6,7 +6,7 @@
 		<span></span>
 		注册新用户
 	</h2>
-	<form class="form mt50" action="{{ url_for('userapp.register') }}" method="POST">
+	<form class="form mt50" action="{{ url_for('userview.register') }}" method="POST">
 		<p class="clearfix control-group {% if g.form.email.errors %}error{% endif %}">
 			{{ g.form.email.label(class="span1 lh30 mr10") }}
 			{{ g.form.email(class="span6") }}
@@ -41,7 +41,7 @@
 		</p>
 		<p class="clearfix control-group {% if g.form.password_confirm.errors %}error{% endif %}">
 			<label class="span1 lh30 mr10"></label>
-			<input type="checkbox" name="agreement" value="true" /> 我同意 <a href="{{ url_for('siteapp.page', slug='agreement') }}" target="_blank">代码段条款</a>
+			<input type="checkbox" name="agreement" value="true" /> 我同意 <a href="{{ url_for('siteview.page', slug='agreement') }}" target="_blank">代码段条款</a>
 		</p>
 		<p class="clearfix control-group">
 			<label class="span1 lh30 mr10"></label>

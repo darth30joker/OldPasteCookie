@@ -1,10 +1,10 @@
-{% extends 'base.html' %}
+{% extends theme('default/base.html') %}
 {% block title %}修改个人信息{% endblock %}
 {% block content %}
 <ul class="nav nav-tabs">
-	<li><a href="{{ url_for('userapp.manage') }}">资料</a></li>
-	<li><a href="{{ url_for('userapp.password') }}">密码</a></li>
-	<li class="active"><a href="{{ url_for('userapp.openid') }}">查看OpenID</a></li>
+	<li><a href="{{ url_for('userview.manage') }}">资料</a></li>
+	<li><a href="{{ url_for('userview.password') }}">密码</a></li>
+	<li class="active"><a href="{{ url_for('userview.openid') }}">查看OpenID</a></li>
 </ul>
 <p>
 	<form action="" method="POST">

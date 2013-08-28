@@ -1,6 +1,6 @@
 <item>
 	<title>{{ paste.title }}</title>
-	<link>http://daimaduan.com{{ url_for("pasteapp.view", paste_id=paste.id) }}</link>
+	<link>http://daimaduan.com{{ url_for("pasteview.view", paste_id=paste.id) }}</link>
 	<description>{{ paste.description }}</description>
 	<copyright></copyright>
 	<category>{{ paste.syntax.name }}</category>

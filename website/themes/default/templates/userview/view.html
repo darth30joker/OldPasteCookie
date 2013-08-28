@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends theme('default/base.html') %}
 {% block title %}{{ g.model.nickname }}{% endblock %}
 {% block javascript %}
 <script type="text/javascript">
@@ -22,7 +22,7 @@ $(document).ready(function() {
 	<ul class="code_list pt10">
 		{% for paste in g.model.pastes %}
 		<li class="pl20 pr20">
-			{% include 'items/_paste_item.html' %}
+			{% include theme('default/items/_paste_item.html') %}
 		</li>
 		{% endfor %}
 	</ul>
@@ -35,14 +35,14 @@ $(document).ready(function() {
 	<ul class="code_list">
 		{% for paste in g.model.favorites %}
 		<li class="pl20 pr20">
-			{% include 'items/_paste_item.html' %}
+			{% include theme('default/items/_paste_item.html') %}
 		</li>
 		{% endfor %}
 	</ul>
 </div>
 {% endblock %}
 {% block sidebar %}
-	<div class="rss-user"><a href="{{ url_for('userapp.rss', user_id=g.model.id) }}"><img src="/static/images/rss.png" /><span>订阅Ta的代码</span></a></div>
+	<div class="rss-user"><a href="{{ url_for('userview.rss', user_id=g.model.id) }}"><img src="/static/images/rss.png" /><span>订阅Ta的代码</span></a></div>
 	<div class="bd3 bd1s mt65 pt10 pb10 mb18">
 		<p class="alc">
 			<img src="{{ g.model.get_avatar_url(150) }}" />
@@ -69,7 +69,7 @@ $(document).ready(function() {
 		</div>
 		<ul class="user_list clearfix pt10">
 			{% for user in g.model.followed_users %}
-				{% include 'items/_user.html' %}
+				{% include theme('default/items/_user.html') %}
 			{% endfor %}
 		</ul>
 	</div>
@@ -81,7 +81,7 @@ $(document).ready(function() {
 		</div>
 		<ul class="user_list clearfix pt10">
 			{% for user in g.model.followers %}
-				{% include 'items/_user.html' %}
+				{% include theme('default/items/_user.html') %}
 			{% endfor %}
 		</ul>
 	</div>

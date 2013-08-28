@@ -20,8 +20,18 @@ from pygments.formatters import NullFormatter
 
 from daimaduan import app
 from daimaduan import db
-from daimaduan.models import *
-#from daimaduan.forms import *
+from daimaduan import render
+
+from daimaduan.models import User
+from daimaduan.models import Paste
+from daimaduan.models import Syntax
+from daimaduan.models import Tag
+from daimaduan.models import MessageTemplate
+from daimaduan.models import getUserObject
+
+from daimaduan.forms import PasteForm
+from daimaduan.forms import CommentForm
+
 from daimaduan.utils.functions import *
 from daimaduan.utils.decorators import *
 
@@ -102,7 +112,7 @@ def create():
             abort(500)
         return redirect(url_for('pasteview.view', paste_id=paste.id))
     g.form = form
-    return render_template('pasteview/create.html')
+    return render('pasteview/create.html')
 
 @pasteview.route('/edit/<paste_id>', methods=['GET', 'POST'])
 @login_required
@@ -144,7 +154,7 @@ def edit(paste_id):
     g.model = model
     g.form = form
     #g.syntax = Syntax.get_syntax_list()
-    return render_template('pasteview/edit.html')
+    return render('pasteview/edit.html')
 
 @pasteview.route('/view/<paste_id>', methods=['GET', 'POST'])
 def view(paste_id):
@@ -199,7 +209,7 @@ def view(paste_id):
     g.syntax_theme = request.args.get('css', app.config.get('DEFAULT_SYNTAX_CSS_FILE'))
     g.css_file = "/static/css/themes/%s.css" % g.syntax_theme
     #g.syntax_themes = SyntaxTheme.get_all_syntax_themes()
-    return render_template('pasteview/view.html')
+    return render('pasteview/view.html')
 
 @pasteview.route('/delete/<paste_id>')
 @login_required

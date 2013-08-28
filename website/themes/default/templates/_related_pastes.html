@@ -5,7 +5,7 @@
 	<ul class="user_list clearfix pt10">
 		{% for paste in g.model.get_related_pastes(10) %}
 			<li class="lh24 clearfix">
-				<a href="{{ url_for('pasteapp.view', paste_id=paste.id) }}" class="lf fs14" title="{{ paste.title }}">{{ paste.get_sliced_title(10) }}</a>
+				<a href="{{ url_for('pasteview.view', paste_id=paste.id) }}" class="lf fs14" title="{{ paste.title }}">{{ paste.get_sliced_title(10) }}</a>
 				<span class="rt clc mr10">by
 					<a href="{{ paste.user.url }}" class="carte" title="{{ paste.user.nickname }}" data-content="
 						<div class='lf paste_user_icon'><img src='{{ paste.user.get_avatar_url(48) }}' alt='{{ paste.user.nickname }}' /></div>

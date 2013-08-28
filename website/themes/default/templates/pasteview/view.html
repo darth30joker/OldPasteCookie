@@ -78,7 +78,7 @@ $(document).ready(function() {
 		<span class="ml10 fs13 clc">{{ g.model.created_time | time_passed }}</span>
 	</h2>
 	<div class="pt30 clearfix">
-		{% for tag in g.model.tags %}{% include 'items/_tag.html' %}{% endfor %}
+		{% for tag in g.model.tags %}{% include theme('default/items/_tag.html') %}{% endfor %}
 	</div>
 	<div id="code_view" class="mt10">{{ g.code | safe }}</div>
 	<p class="clearfix mt10">
@@ -111,7 +111,7 @@ $(document).ready(function() {
 	{% for comment in g.model.comments[::-1] %}
 		<li class="pl20 pr20">
 			<div class="lh20 clearfix">
-				<a href="{{ url_for('userapp.view', user_id=comment.user.id) }}" class="carte lf" title="{{ comment.user.nickname }}"
+				<a href="{{ url_for('userview.view', user_id=comment.user.id) }}" class="carte lf" title="{{ comment.user.nickname }}"
 				data-content="
 					<p class='lh22'>签名：{{ comment.user.info.motoo | empty(text = "这家伙没有签名") }}</p>
 					<p class='lh22'>介绍：{{ comment.user.info.introduction | empty(text = "这家伙很懒，什么都没写") }}</p>
@@ -121,7 +121,7 @@ $(document).ready(function() {
 				</a>
 				<span class="lf ml10 coments_li_rt">
 					<div class="clearfix">
-						<a href="{{ url_for('userapp.view', user_id=comment.user.id) }}" class="carte lf" title="{{ comment.user.nickname }}" data-content="
+						<a href="{{ url_for('userview.view', user_id=comment.user.id) }}" class="carte lf" title="{{ comment.user.nickname }}" data-content="
 							<div class='lf paste_user_icon'><img src='{{ comment.user.get_avatar_url(48) }}' alt='{{ comment.user.nickname }}' /></div>
 							<div class='rt paste_user_cont'>
 								<p class='lh22'>签名：{{ comment.user.info.motoo | empty(text = "这家伙没有签名") }}</p>
@@ -240,5 +240,5 @@ $(document).ready(function() {
 <script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js?uid=1338135623650157&btn=r5.gif" charset="utf-8"></script>
 {% endblock %}
 {% block sidebar %}
-	{% include '_sidebar_view_paste.html' %}
+	{% include theme('default/_sidebar_view_paste.html') %}
 {% endblock %}

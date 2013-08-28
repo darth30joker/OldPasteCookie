@@ -2,9 +2,14 @@
 import time
 import hashlib
 from datetime import datetime
-from flask import url_for, request, session
+
+from flask import g
+from flask import url_for
+from flask import request
+from flask import session
+
 from daimaduan import db
-from daimaduan.utils.functions import *
+from daimaduan.utils.functions import hash_password
 
 __all__ = ['User', 'Syntax', 'Paste', 'Tag', 'PasteComment', 'UserInfo',
            'Message', 'PasteRate', 'Page', 'MessageTemplate', 'getUserObject',
@@ -210,13 +215,13 @@ class User(db.Model):
         return "<User (%s|%s)>" % (self.nickname, self.email)
 
     def set_password(self, password):
-        self.password = hashPassword(password)
+        self.password = hash_password(password)
 
     @property
     def url(self):
         if self.slug:
-            return url_for('userapp.view', slug=self.slug)
-        return url_for('userapp.view', user_id=self.id)
+            return url_for('userview.view', slug=self.slug)
+        return url_for('userview.view', user_id=self.id)
 
     @property
     def is_user_followed(self):

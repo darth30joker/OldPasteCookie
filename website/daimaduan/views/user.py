@@ -16,10 +16,11 @@ from flask.ext.openid import COMMON_PROVIDERS
 
 from daimaduan import db
 from daimaduan import oid
+from daimaduan import render
 
-#from daimaduan.forms import *
+from daimaduan.forms import *
 from daimaduan.models import *
-from daimaduan.utils.functions import *
+from daimaduan.utils.functions import hash_password
 from daimaduan.utils.decorators import *
 
 userview = Blueprint('userview', __name__)
@@ -38,7 +39,7 @@ def login():
         if form.validate():
             user = User.query.filter_by(email=form.email.data).first()
             if user:
-                if user.password == hashPassword(form.password.data):
+                if user.password == hash_password(form.password.data):
                     user.last_login_time = datetime.now()
                     session['user'] = str(user.id)
                     flash(u'成功登入', 'success')
@@ -46,9 +47,9 @@ def login():
                 else:
                     flash(u'用户名/密码错误', 'error')
     g.form = form
-    return render_template('userview/login.html',
-                           next=oid.get_next_url(),
-                           error=oid.fetch_error())
+    return render('userview/login.html',
+                  next=oid.get_next_url(),
+                  error=oid.fetch_error())
 
 @oid.after_login
 def create_or_login(resp):
@@ -85,7 +86,7 @@ def create_profile():
         session['user'] = user.id
         return redirect("/")
     g.form = form
-    return render_template('userview/create_profile.html', next_url=oid.get_next_url())
+    return render('userview/create_profile.html', next_url=oid.get_next_url())
 
 @userview.route('/logout', methods=['GET'])
 def logout():
@@ -99,7 +100,7 @@ def register():
     g.form = form
     if 'user' in session:
         flash(u'请先登出再注册新用户', 'error')
-        return render_template('userview/register.html')
+        return render('userview/register.html')
     if request.method == 'POST' and form.validate():
         user = User(form.nickname.data,
                     form.email.data)
@@ -115,7 +116,7 @@ def register():
         flash(u'注册成功!', 'success')
         return redirect(url_for('userview.login'))
     flash(u'如果您有google帐号, 可以直接使用google提供的openid方式登录, 请点击登录按钮然后选择google帐号登录', 'alert')
-    return render_template('userview/register.html')
+    return render('userview/register.html')
 
 @userview.route('/manage', methods=['GET', 'POST'])
 @login_required
@@ -137,7 +138,7 @@ def manage():
         for error in form.errors:
             flash(form.errors[error][0], 'error')
     g.form = form
-    return render_template('userview/manage.html')
+    return render('userview/manage.html')
 
 @userview.route('/password', methods=['GET', 'POST'])
 @login_required
@@ -145,12 +146,12 @@ def password():
     form = PasswordForm(request.form, csrf_enabled=False)
     if request.method == 'POST' and form.validate():
         user = getUserObject()
-        user.password = hashPassword(form.new_password.data)
+        user.password = hash_password(form.new_password.data)
         db.session.add(user)
         flash(u'密码修改成功', 'success')
         redirect(url_for('userview.logout'))
     g.form = form
-    return render_template('userview/password.html')
+    return render('userview/password.html')
 
 @userview.route('/<slug>', methods=['GET'])
 @userview.route('/view/<user_id>', methods=['GET'])
@@ -161,7 +162,7 @@ def view(user_id=None, slug=None):
         model = getUserObject(user_id=user_id)
     if model:
         g.model = model
-        return render_template('userview/view.html')
+        return render('userview/view.html')
     abort(404)
 
 @userview.route('/openid', methods=['GET', 'POST'])
@@ -173,7 +174,7 @@ def openid():
     if request.method == "POST":
         return oid.try_login(COMMON_PROVIDERS.get(openid, "google"),
                                  ask_for=['email', 'nickname'])
-    return render_template('userview/openid.html')
+    return render('userview/openid.html')
 
 @userview.route('/getuserinfo', methods=['POST'])
 def getuserinfo():
@@ -213,5 +214,5 @@ def follow():
 def rss(user_id):
     g.user = User.query.get_or_404(user_id)
     g.pastes = Paste.query.filter_by(user_id=user_id, is_private=False).order_by("created_time DESC").all()
-    return render_template('rss/user.xml')
+    return render('rss/user.xml')
 

@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends theme('default/base.html') %}
 {% block title %}创建用户{% endblock %}
 {% block content %}
 <div id="register">
@@ -10,7 +10,7 @@
 	<form class="form mt50" action="" method="POST">
 		<p class="clearfix"><label class="span1 lh30 mr10">昵称</label>{{ g.form.nickname(class="span6") }}</p>
 		<p class="clearfix"><label class="span1 lh30 mr10">邮件地址</label>{{ g.form.email(class="span6") }}</p>
-		<p class="clearfix"><label class="span1 lh30 mr10"></label><input type="checkbox" name="agreement" /> 我同意 <a href="{{ url_for('siteapp.page', slug='agreement') }}" target="_blank">代码段条款</a></p>
+		<p class="clearfix"><label class="span1 lh30 mr10"></label><input type="checkbox" name="agreement" /> 我同意 <a href="{{ url_for('siteview.page', slug='agreement') }}" target="_blank">代码段条款</a></p>
 		<p class="actions mt40"></p>
 		<label for="" class="span1"></label>
 		<input type="submit" class="ml20 btn btn-primary" value="创建资料" />

@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends theme('default/base.html') %}
 {% block title %}{{ g.model.name }}{% endblock %}
 {% block javascript %}
 <script type="text/javascript">
@@ -10,7 +10,7 @@ $(document).ready(function() {
 		$.ajax({
 			data:"id=" + id,
 			type:'POST',
-			url:'{{ url_for('tagapp.follow') }}',
+			url:'{{ url_for('tagview.follow') }}',
 			success:function(json) {
 				if (json.result == 'fail') {
 					alert(json.message);
@@ -42,7 +42,7 @@ $(document).ready(function() {
 		var id = $('#more_button').attr('_id');
 		var page = $('#more_button').attr('_page');
 		$.ajax({
-			'url':'{{ url_for("tagapp.getmore") }}',
+			'url':'{{ url_for("tagview.getmore") }}',
 			'type':'POST',
 			'data':'page=' + page + '&id=' + id,
 			'dataType':'json',
@@ -86,12 +86,12 @@ $(document).ready(function() {
 {% block content %}
 <h2 class="new-paste-title pl10">
 	<span></span>
-	{{ g.model.name }}相关的代码段 <div class="rss-tag"><a href="{{ url_for('tagapp.rss', tag=g.model.name) }}"><img src="/static/images/rss.png" />订阅Ta的代码</a></div>
+	{{ g.model.name }}相关的代码段 <div class="rss-tag"><a href="{{ url_for('tagview.rss', tag=g.model.name) }}"><img src="/static/images/rss.png" />订阅Ta的代码</a></div>
 </h2>
 <ul id="code_list" class="code_list pt10">
 	{% for paste in g.pastes.items %}
 	<li class="pl20 pr20">
-		{% include 'items/_paste_item.html' %}
+		{% include theme('default/items/_paste_item.html') %}
 	</li>
 	{% endfor %}
 </ul>
@@ -115,5 +115,5 @@ $(document).ready(function() {
 </div>
 {% endblock %}
 {% block sidebar %}
-	{% include '_sidebar_view_tag.html' %}
+	{% include theme('default/_sidebar_view_tag.html') %}
 {% endblock %}

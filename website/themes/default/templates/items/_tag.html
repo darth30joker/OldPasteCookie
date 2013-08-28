@@ -1,1 +1,1 @@
-<a href="{{ url_for('tagapp.view', tag_name=tag.name) }}" class="tag" style="margin-bottom:5px;" title="{{ tag.name }}" data-content="<p class='lh22'>描述：{{ tag.description | empty(text = "还木有描述") }}</p><p class='mt10 lh22'>代码数：{{ tag.pastes | length }}</p>">{{ tag.name }}</a>
+<a href="{{ url_for('tagview.view', tag_name=tag.name) }}" class="tag" style="margin-bottom:5px;" title="{{ tag.name }}" data-content="<p class='lh22'>描述：{{ tag.description | empty(text = "还木有描述") }}</p><p class='mt10 lh22'>代码数：{{ tag.pastes | length }}</p>">{{ tag.name }}</a>

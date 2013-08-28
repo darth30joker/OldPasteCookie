@@ -8,6 +8,7 @@ from flask import url_for
 from flask import redirect
 
 from daimaduan import app
+from daimaduan import render
 #from daimaduan.forms import *
 from daimaduan.models import *
 
@@ -22,4 +23,4 @@ def rank():
     g.top_view_pastes = Paste.query.filter_by(is_private=False).filter_by(is_delete=False).order_by('view_num DESC')[:SIDEBAR_PAGE_SIZE]
     g.top_comment_pastes = Paste.query.filter_by(is_private=False).order_by('comment_num DESC')[:SIDEBAR_PAGE_SIZE]
     g.users = User.query.order_by('paste_num DESC')[:SIDEBAR_PAGE_SIZE]
-    return render_template('rankview/rank.html')
+    return render('rankview/rank.html')

@@ -14,8 +14,8 @@
 	</div>
 	<ul class="user_list clearfix pt10 pl10">
 		{% for user in g.model.followers %}
-			{% include 'items/_user.html' %}
+			{% include theme('default/items/_user.html') %}
 		{% endfor %}
 	</ul>
 </div>
-{% include '_top_tags.html' %}
+{% include theme('default/_top_tags.html') %}

@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends theme('default/base.html') %}
 {% block title %}登录{% endblock %}
 {% block content %}
 <div id="register">
@@ -6,7 +6,7 @@
 		<span></span>
 		登录
 	</h2>
-	<form class="form mt50" action="{{ url_for('userapp.login') }}?next={{ next }}" method="POST">
+	<form class="form mt50" action="{{ url_for('userview.login') }}?next={{ next }}" method="POST">
 		<p class="clearfix">
 			{{ g.form.email.label(class="lf span1 lh30 mr10") }}
 			{{ g.form.email(class="span6") }}

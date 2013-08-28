@@ -1,11 +1,11 @@
-{% extends 'base.html' %}
+{% extends theme('default/base.html') %}
 {% block title %}修改个人信息{% endblock %}
 {% block content %}
 <ul class="nav nav-tabs">
-	<li class="active"><a href="{{ url_for('userapp.manage') }}">资料</a></li>
-	<li><a href="{{ url_for('userapp.password') }}">密码</a></li>
+	<li class="active"><a href="{{ url_for('userview.manage') }}">资料</a></li>
+	<li><a href="{{ url_for('userview.password') }}">密码</a></li>
 </ul>
-<form class="form mt50" action="{{ url_for('userapp.manage') }}" method="POST">
+<form class="form mt50" action="{{ url_for('userview.manage') }}" method="POST">
 	<p class="clearfix">
 		<label class="span1 lh30 mr10">昵称</label>
 		{{ g.form.nickname(class="span6") }}
