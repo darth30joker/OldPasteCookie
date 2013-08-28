@@ -1,0 +1,57 @@
+<?php
+public static function ago($time, $since = null) {
+        $patterns = array(
+            'seconds' => Yii::t('dateTimeHelper', 'less than a minute'),
+            'minute' => Yii::t('dateTimeHelper', 'about a minute'),
+            'minutes' => Yii::t('dateTimeHelper', '%d minutes'),
+            'hour' => Yii::t('dateTimeHelper', 'about an hour'),
+            'hours' => Yii::t('dateTimeHelper', 'about %d hours'),
+            'day' => Yii::t('dateTimeHelper', 'a day'),
+            'days' => Yii::t('dateTimeHelper', '%d days'),
+            'month' => Yii::t('dateTimeHelper', 'about a month'),
+            'months' => Yii::t('dateTimeHelper', '%d months'),
+            'year' => Yii::t('dateTimeHelper', 'about a year'),
+            'years' => Yii::t('dateTimeHelper', '%d years'),
+        );
+        if ($since === null)
+            $since = time();
+        if (!is_int($since) && !ctype_digit($time))
+            $since = strtotime($since);
+        if (!is_int($time) && !ctype_digit($time))
+            $time = strtotime($time);
+        $seconds = abs($since - $time);
+        $minutes = $seconds / 60;
+        $hours = $minutes / 60;
+        $days = $hours / 24;
+        $weeks = $days / 7;
+        $months = $days / 30;
+        $years = $days / 365;
+
+        if ($seconds < 45)
+            $words = $patterns['seconds'];
+        else if ($seconds < 90)
+            $words = $patterns['minute'];
+        else if ($minutes < 45)
+            $words = sprintf($patterns['minutes'], $minutes);
+        else if ($minutes < 90)
+            $words = $patterns['hour'];
+        else if ($hours < 24)
+            $words = sprintf($patterns['hours'], $hours);
+        else if ($hours < 48)
+            $words = $patterns['day'];
+        else if ($days < 30)
+            $words = sprintf($patterns['days'], $days);
+        else if ($days < 60)
+            $words = $patterns['month'];
+        else if ($days < 365)
+            $words = sprintf($patterns['months'], $months);
+        else if ($years < 2)
+            $words = $patterns['year'];
+        else
+            $words = sprintf($patterns['years'], $years);
+        $suffix = $since - $time > 0 ? 'ago' : '';
+        if ($since - $time > 0)
+            return $words . Yii::t('dateTimeHelper', 'ago');
+        else
+            return $words;
+    }

@@ -1,0 +1,10 @@
+{
+	"application": "application",
+	"identifier": "default",
+	"name": "default",
+	"author": "David Xie <david.scriptfan@gmail.com>",
+	"description": "This is the default theme for PasteCookie",
+	"website": "http://daimaduan.com",
+	"license": "new BSD",
+	"doctype": "html5"
+}

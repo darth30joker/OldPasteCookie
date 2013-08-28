@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+	<channel>
+		<title>{% block title %}{% endblock %}</title>
+		<link>http://www.daimaduan.com</link>
+		<description>{% block desc %}{% endblock %}</description>
+		<language>zh-cn</language>
+		<copyright>Copyright (c) Daimaduan.com. All rights reserved.</copyright>
+		<generator>www.daimaduan.com RSS 生成器</generator>
+		{% block pastes %}{% endblock %}
+	</channel>
+</rss>

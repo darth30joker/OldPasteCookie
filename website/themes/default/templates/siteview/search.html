@@ -1,0 +1,51 @@
+{% extends theme('default/base.html') %}
+{% block title %}{{ g.keyword }}{% endblock %}
+{% block javascript %}
+<script type="text/javascript">
+$(document).ready(function() {
+	$('.show-desc-link').toggle(function() {
+		$(this).parents('li').find('.well').show();
+		$(this).html('隐藏描述');
+	}, function() {
+		$(this).parents('li').find('.well').hide();
+		$(this).html('显示描述');
+	});
+});
+</script>
+{% endblock %}
+{% block content %}
+<h2 class="new-paste-title pl10">
+	<span></span>
+	含有 {{ g.keyword }} 的代码
+</h2>
+<ul id="new_code_list" class="code_list pt10">
+	{% for paste in g.pastes %}
+	<li class="pl20 pr20">
+		{% include theme('default/items/_paste_item.html') %}
+	</li>
+	{% endfor %}
+</ul>
+
+<h2 class="new-paste-title pl10">
+	<span></span>
+	含有 {{ g.keyword }} 的用户
+</h2>
+<ul id="new_code_list" class="user_list clearfix pl20 pr20 pt10">
+	{% for user in g.users %}
+		{% include theme('default/items/_user.html') %}
+	{% endfor %}
+</ul>
+
+<h2 class="new-paste-title pl10">
+	<span></span>
+	含有 {{ g.keyword }} 的标签
+</h2>
+<div id="new_code_list" class="code_list pl20 pr20 pt10">
+	{% for tag in g.tags %}
+		{% include theme('default/items/_tag.html') %}
+	{% endfor %}
+</div>
+{% endblock %}
+{% block sidebar %}
+	{% include theme('default/_sidebar.html') %}
+{% endblock %}

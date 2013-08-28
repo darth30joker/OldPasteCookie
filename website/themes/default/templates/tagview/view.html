@@ -1,0 +1,119 @@
+{% extends theme('default/base.html') %}
+{% block title %}{{ g.model.name }}{% endblock %}
+{% block javascript %}
+<script type="text/javascript">
+$(document).ready(function() {
+	$('.nav:eq(0)').find('li:eq(1)').addClass('active');
+	/** follow_unfollow statement **/
+	var follow_unfollow = function(element) {
+		var id = element.attr('object_id');
+		$.ajax({
+			data:"id=" + id,
+			type:'POST',
+			url:'{{ url_for('tagview.follow') }}',
+			success:function(json) {
+				if (json.result == 'fail') {
+					alert(json.message);
+				} else if (json.result == 'success') {
+					element.hide();
+					if (json.state == 'follow')
+						$('#unfollow').show();
+					else if (json.state == 'unfollow')
+						$('#follow').show();
+				}
+			}
+		})
+	};
+	$('#follow').click(function() {
+		follow_unfollow($(this));
+	});
+
+	$('#unfollow').click(function() {
+		$('#unfollow-modal').modal('show');
+		return false;
+	});
+	$('#unfollow-modal').find('input:eq(0)').click(function() {
+		follow_unfollow($('#unfollow'));
+		$('#unfollow-modal').modal('hide');
+	});
+	/** end of follow_unfollow statement **/
+
+	$('#more_button').click(function() {
+		var id = $('#more_button').attr('_id');
+		var page = $('#more_button').attr('_page');
+		$.ajax({
+			'url':'{{ url_for("tagview.getmore") }}',
+			'type':'POST',
+			'data':'page=' + page + '&id=' + id,
+			'dataType':'json',
+			'success':function(data) {
+				if (data.result == 'success') {
+					$.each(data.pastes, function(i, item) {
+						var li = $('<li style="display:none;" class="pl20 pr20" />');
+						var div1 = $('<div />').addClass('lh24 clearfix mb5');
+						var div2 = $('<div />');
+						div1.append('<span class="lf"><a class="mr10 fs16 cl7d" href="'
+						+ item.url + '">'
+						+ item.title + '</a><span class="clc mr5">by</span><a href="'
+						+ item.user.url +'">'
+						+ item.user.nickname + '</a><span class="clc"> ' 
+						+ item.created_time + '</span></span>'
+						+ '<span class="rt clc">'
+						+ item.comment_num + '回复/'
+						+ item.view_num + '阅读</span>').appendTo(li);
+						$.each(item.tags, function(i, tag) {
+							var tag = $('<a href="' + tag.url + '" class="btn btn-primary tag mr5">' + tag.name + '</a>');
+							div2.append(tag).appendTo(li);
+						});
+						$('#code_list').append(li);
+						$(li).fadeIn(1500);
+						$('#more_button').attr('_page', parseInt(page) + 1);
+					});
+				}
+			}
+		});
+	});
+	$('.show-desc-link').toggle(function() {
+		$(this).parents('li').find('.well').show();
+		$(this).html('隐藏描述');
+	}, function() {
+		$(this).parents('li').find('.well').hide();
+		$(this).html('显示描述');
+	});
+});
+</script>
+{% endblock %}
+{% block content %}
+<h2 class="new-paste-title pl10">
+	<span></span>
+	{{ g.model.name }}相关的代码段 <div class="rss-tag"><a href="{{ url_for('tagview.rss', tag=g.model.name) }}"><img src="/static/images/rss.png" />订阅Ta的代码</a></div>
+</h2>
+<ul id="code_list" class="code_list pt10">
+	{% for paste in g.pastes.items %}
+	<li class="pl20 pr20">
+		{% include theme('default/items/_paste_item.html') %}
+	</li>
+	{% endfor %}
+</ul>
+<a href="javascript:;" class="breadcrumb more clearfix" id="more_button" _id="{{ g.model.id }}" _page="2">
+	<span class="lf">更多</span>
+</a>
+<div id="unfollow-modal" class="modal hide fade">
+	<form action="" method="POST">
+		<div class="modal-header">
+		  <a href="#" class="close">×</a>
+		  <h3>提醒</h3>
+		</div>
+		<div class="modal-body alc">
+			真的要取消关注这段代码吗？
+		</div>
+		<div class="modal-footer">
+		  <input type="button" class="btn btn-primary" value="确定" />
+		  <input type="button" onclick="javascript: $('#unfollow-modal').modal('hide');" class="btn" value="取消" />
+		</div>
+	</form>
+</div>
+{% endblock %}
+{% block sidebar %}
+	{% include theme('default/_sidebar_view_tag.html') %}
+{% endblock %}

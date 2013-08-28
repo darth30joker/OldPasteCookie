@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}邀请朋友{% endblock %}
+{% block content %}
+<div id="register">
+	<ul class="breadcrumb">
+		<li>邀请</li>
+	</ul>
+	{% if g.errors %}
+	<p class="alc pb10 errors">嗨, buddy, 有数据写错了. 检查下email地址, 密码(6-12个字符), 还有, 别忘了写验证码哦.</p>
+	{% endif %}
+    <form class="form mt50" action="{{ url_for('userapp.invite') }}?next={{ next }}" method="POST">
+        <p class="clearfix"><label class="span1 lh30">Email地址</label><input class="span6" type="text" name="email" /></p>
+        <p class="clearfix"><label class="span1 lh30"></label><input type="submit" class="btn btn-primary" value="发送邀请" /></p>
+    </form>
+</div>
+{% endblock %}

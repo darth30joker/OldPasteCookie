@@ -1,0 +1,90 @@
+{% extends 'admin.html' %}
+{% block title %}标签管理{% endblock %}
+{% block javascript %}
+<script type="text/javascript" src="/static/js/bootstrap-transition.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-collapse.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+	$('#accordion2').collapse('show');	
+	$('.accordion-toggle').toggle(function() {
+		if($(this).parents('.accordion-group').find('.accordion-body').hasClass('in')) {
+			$(this).parents('.accordion-group').find('.accordion-body').css('height', '0px').removeClass('in');
+		} else {
+			$(this).parents('.accordion-group').find('.accordion-body').css('height', 'auto').addClass('in');
+		}
+	}, function() {
+		$(this).parents('.accordion-group').find('.accordion-body').css('height', '0px').removeClass('in');
+	});
+	$('.tag-edit-link').toggle(function() {
+		if($('.edit-tag-form').is(':visible')) {
+			$('.edit-tag-form').hide();
+			$('.tag-des-box').show();
+			$('.tag-edit-link').text('编辑');
+			$(this).parents('.accordion-group').find('.accordion-body').css('height', 'auto').addClass('in');	
+			$(this).parents('.accordion-group').find('.edit-tag-form').show();	
+			$(this).parents('.accordion-group').find('.tag-des-box').hide();	
+			$(this).text('取消');
+		} else {
+			$(this).parents('.accordion-group').find('.accordion-body').css('height', 'auto').addClass('in');	
+			$(this).parents('.accordion-group').find('.edit-tag-form').show();	
+			$(this).parents('.accordion-group').find('.tag-des-box').hide();	
+			$(this).text('取消');
+		}
+	}, function() {
+		$('.tag-edit-link').text('编辑');
+		$(this).parents('.accordion-group').find('.tag-des-box').fadeIn('slow');	
+		$(this).parents('.accordion-group').find('.edit-tag-form').fadeOut('slow');	
+	});
+})
+</script>
+{% endblock %}
+{% block content %}
+<div id="accordion2" class="accordion">
+	{% for tag in g.paginate.items %}
+		<div class="accordion-group">
+			<div class="accordion-heading">
+				<a href="#collapse{{ loop.index }}" data-toggle="collapse" data-parent="#accordion" class="accordion-toggle">{{ tag.name }} ({{ tag.times }})</a>
+				<span class="pa">
+					<a href="javascript:;" class="tag-edit-link">编辑</a> | 
+					<a href="{{ url_for('adminapp.tags') }}?delete=true&object_id={{ tag.id }}&page={{ g.paginate.page }}">删除</a>
+				</span>
+			</div>
+			<div class="accordion-body collapse" id="collapse{{ loop.index }}">
+				<div class="accordion-inner">
+					<div class="tag-des-box">
+						{{ tag.description }}
+					</div>	
+					<form action="" class="form-horizontal edit-tag-form" method="POST">
+						<div class="control-group">
+							<input type="hidden" name="object_id" value="{{ tag.id }}" />
+							<label for="input01" class="control-label">标签名称</label>
+							<div class="controls">
+								<input type="text" id="input01" class="input-xlarge" name="name" value="{{ tag.name }}" />
+							</div>
+						</div>	
+						<div class="control-group">
+							<label for="input01" class="control-label">标签说明</label>
+							<div class="controls">
+								<textarea id="textarea" rows="5" class="input-xlarge" cols="20" name="description">{{ tag.description }}</textarea>
+							</div>
+						</div>	
+						<div class="control-group">
+							<label for="input01" class="control-label"></label>
+							<div class="controls">
+								<input type="submit" value="完成" class="btn btn-primary ml20" />
+							</div>
+						</div>	
+					</form>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+</div>
+<div class="pagination">
+	<ul>
+		{% for page in g.paginate.iter_pages() %}
+			<li><a href="{{ url_for('adminapp.tags') }}?page={{ page }}">{{ page }}</a></li>
+		{% endfor %}
+	</ul>
+</div>
+{% endblock %}

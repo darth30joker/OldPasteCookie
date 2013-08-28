@@ -1,0 +1,85 @@
+{% extends theme('default/base.html') %}
+{% block title %}系统消息{% endblock %}
+{% block javascript %}
+<script type="text/javascript" src="{{ theme_static('js/bootstrap-transition.js') }}"></script>
+<script type="text/javascript" src="{{ theme_static('js/bootstrap-collapse.js') }}"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('.accordion2').collapse();
+		$('.accordion-toggle').click(function() {
+			$(this).removeClass('fwb');
+			var id = $(this).attr('obj_id');
+			$.ajax({
+				data:"object_id=" + id,
+				type:'POST',
+				url:"{{ url_for('siteview.read_message') }}",
+				success:function() {
+
+				}
+			});
+		});
+	});
+</script>
+{% endblock %}
+{% block content %}
+<h2 class="new-paste-title pl10">
+	<span></span>
+	系统消息
+</h2>
+<div id="accordion2" class="accordion pt10">
+	{% for message in g.user.unread_messages %}
+	<div class="accordion-group">
+		<div class="accordion-heading">
+			<a href="#collapse{{ loop.index }}" data-parent="#accordion2" obj_id="{{ message.id }}" data-toggle="collapse" class="fwb accordion-toggle">{{ message.title }}</a>
+		</div>
+		<div class="accordion-body collapse" id="collapse{{ loop.index }}" style="height: 0px;">
+			<div class="accordion-inner">{{ message.content | markdown | safe }}</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+{% endblock %}
+{% block sidebar %}
+	<div class="bd3 bd1s pt10 pb10 mb18 mt65">
+		<p class="alc">
+			<img src="{{ g.model.get_avatar_url(150) }}" />
+		</p>
+		<p class="fwb alc fs20">{{ g.model.nickname }}</p>
+		<p class="lh24 pl10 pr10 mt10">{{ g.model.info.motoo | empty(text="这个家伙没有签名") }}</p>
+		<p class="lh24 pl10 pr10">{{ g.model.info.introduction | empty(text="这个家伙很懒, 什么都没写") }}</p>
+	</div>
+	{% if g.user.id != g.model.id %}
+	<div class="bd3 bd1s alc pt10 pb10 mb18">
+			<div {% if g.model.is_user_followed %} style="display: none;" {% endif %} class="btn follow" id="follow" object_id="{{ g.model.id }}">
+				<span class="plus"></span> <strong>关注</strong>
+			</div>
+			<div {% if not g.model.is_user_followed %} style="display: none;" {% endif %} class="btn follow" id="unfollow" object_id="{{ g.model.id }}">
+				<span class="plus"></span> <strong>取消关注</strong>
+			</div>
+	</div>
+	{% endif %}
+	<div class="">
+		<div class="paste-side-title clearfix">
+			<span class="lf fs14 fwb cl6c553b lh24">
+				{{ g.model.nickname }} 关注的用户
+			</span>
+		</div>
+		<ul class="user_list pt10 clearfix">
+			{% for user in g.model.followed_users %}
+				{% include theme('default/items/_user.html') %}
+			{% endfor %}
+		</ul>
+	</div>
+	<div class="">
+		<div class="paste-side-title clearfix">
+			<span class="lf fs14 fwb cl6c553b lh24">
+				关注{{ g.model.nickname }} 的用户 
+			</span>
+		</div>
+		<ul class="user_list pt10 clearfix">
+			{% for user in g.model.followers %}
+				{% include theme('default/items/_user.html') %}
+			{% endfor %}
+		</ul>
+	</div>
+{% endblock %}

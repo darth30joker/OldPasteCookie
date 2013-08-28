@@ -1,0 +1,8 @@
+{% extends theme('default/rss/base.xml') %}
+{% block title %}全部代码 - 代码段{% endblock %}
+{% block desc %}全部代码 - 代码段{% endblock %}
+{% block pastes %}
+{% for paste in g.pastes %}
+	{% include theme('default/rss/_paste.xml') %}
+{% endfor %}
+{% endblock %}

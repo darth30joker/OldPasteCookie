@@ -1,0 +1,18 @@
+def check_cycle(self, cr, uid, ids, context=None):
+    """ climbs the ``self._table.parent_id`` chains for 100 levels or
+    until it can't find any more parent(s)
+
+    Returns true if it runs out of parents (no cycle), false if
+    it can recurse 100 times without ending all chains
+    """
+    level = 100
+    while len(ids):
+        cr.execute('SELECT DISTINCT parent_id '\
+                    'FROM '+self._table+' '\
+                    'WHERE id IN %s '\
+                    'AND parent_id IS NOT NULL',(tuple(ids),))
+        ids = map(itemgetter(0), cr.fetchall())
+        if not level:
+            return False
+        level -= 1
+    return True

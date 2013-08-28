@@ -1,0 +1,24 @@
+<div class="">
+	<div class="paste-side-title clearfix">
+		<span class="lf fs14 fwb cl6c553b lh24">热门标签</span>
+		<!--
+		<ul class="rt">
+			<li class="current lf">
+				<a href="#">
+					关注
+				</a>
+			</li>
+			<li class="rt">
+				<a href="#">
+					分类
+				</a>
+			</li>
+		</ul>
+		-->
+	</div>
+	<div class="mt10">
+		{% for tag in g.top_tags %}
+			{% include theme('default/items/_tag.html') %}
+		{% endfor %}
+	</div>
+</div>

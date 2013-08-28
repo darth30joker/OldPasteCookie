@@ -1,0 +1,26 @@
+<div class="bd3 mb10 alr">
+	<div {% if not g.model.is_user_followed %} style="display:  none;"{% endif %} class="btn follow btn-large" id="unfollow" data-id="{{ g.model.id }}">
+		<span class="plus"></span>
+		<strong>取消关注</strong>
+	</div>
+	<div {% if g.model.is_user_followed %} style="display:  none;"{% endif %} class="btn follow btn-success btn-large" id="follow" data-id="{{ g.model.id }}">
+		<span class="plus"></span>
+		<strong>关注</strong>
+	</div>
+</div>
+{#
+<div class="">
+	<ul class="breadcrumb">
+		<li>代码主题</li>
+	</ul>
+	<ul class="user_list clearfix pl10">
+		<select id="syntax_select">
+		{% for syntax_theme in g.syntax_themes %}
+			<option value="{{ syntax_theme }}" {% if syntax_theme == g.syntax_theme %}selected="selected"{% endif %}>{{ syntax_theme }}</option>
+		{% endfor %}
+		</select>
+	</ul>
+</div>
+#}
+{% include theme('default/_followed_users.html') %}
+{% include theme('default/_related_pastes.html') %}
