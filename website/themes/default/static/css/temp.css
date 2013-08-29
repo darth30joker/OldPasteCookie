@@ -1,0 +1,9 @@
+.share-btn {
+	margin-top: 5px;
+}
+input.google-login {
+	background: url("/_themes/default/images/google-logo.png") no-repeat scroll 0 0 transparent;
+	border: 0 none;
+	height: 30px;
+	width: 65px;
+}

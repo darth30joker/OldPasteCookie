@@ -8,20 +8,10 @@ $(document).ready(function() {
 </script>
 {% endblock %}
 {% block content %}
-<h2 class="new-paste-title pl10">
-	<span></span>
-	最新代码段
-</h2>
-<ul id="code_list" class="code_list pt10">
-	{% for paste in g.new_pastes %}
-	<li class="pl10 pr10">
-		{% include theme('default/items/_paste_item.html') %}
-	</li>
-	{% endfor %}
-</ul>
-<a href="javascript:;" class="breadcrumb more clearfix" id="more_button" _page="2">
-	<span class="lf">更多</span>
-</a>
+{% for paste in g.new_pastes %}
+	{% include theme('default/items/_paste_item.html') %}
+{% endfor %}
+<button class="btn btn-default btn-block" id="more_button" _page="2">更多</button>
 {% endblock %}
 {% block sidebar %}
 {% include theme('default/_share_btn.html') %}

@@ -29,49 +29,74 @@ $(document).ready(function() {
 	});
 })
 </script>
-<div id="paste_new">
-	<h2 class="new-paste-title pl10">
-		<span></span>
-		粘贴新代码
-	</h2>
-	{% if g.form.code_file.errors %}
-		<ul>
-			{% for error in g.form.code_file.errors %}
-			<li class="alert alert-error">
-				<button class="close" data-dismiss="alert">×</button>
-				{{ error }}
-			</li>
-			{% endfor %}
-		</ul>
-	{% endif %}
-	<form class="form pt15" action="{{ url_for('pasteview.create') }}" method="POST" enctype="multipart/form-data">
-		<p class="clearfix">{{ g.form.title.label(class="span1 lh30 mr10") }}{{ g.form.title(class="span7") }}</p>
-		<p class="clearfix"><label class="span1 lh30 mr10"></label><span class="help-block">可以不填</span></p>
-		<p class="clearfix">{{ g.form.syntax.label(class="span1 lh30 mr10") }}{{ g.form.syntax(class="span7 lf") }}</p>
-		<p class="clearfix">{{ g.form.tag.label(class="span1 lh30 mr10") }}{{ g.form.tag(class="span7 lf") }}</p>
-		<p class="clearfix"><label class="span1 lh30 mr10"></label><span class="help-block">多个标签用空格区分, 最多可以写3个</span></p>
-		<p class="clearfix">
-			<label class="span1 lh30 mr10"></label>
-			<a href="javascript: void(0);" id="show-desc-link" class="mr10">添加描述</a>	
-			<a href="javascript: void(0);" id="show-code-link" class="mr10">隐藏代码</a>	
-			<a href="javascript: void(0);" id="show-file-link" class="mr10">上传文件</a>	
-		</p>
-		<p class="clearfix"><label class="span1 mr10">是否私有</label>{{ g.form.is_private(class="pt5 lf") }}</p>
-		<p id="show-desc-box" style="display: none">
-			<label class="span1 lh30 mr10">描述</label>
-			{{ g.form.description(class="span7 lf") }}
-		</p>
-		<p id="show-code-box" class="clearfix">
-			<label class="span1 lh30 mr10">代码</label>
-			{{ g.form.content(class="lf") }}
-		</p>
-		<p id="show-file-box" class="clearfix" style="display: none">
-			<label class="span1 lh30 mr10">上传文件</label>
-			{{ g.form.code_file(class="input-file") }}
-		</p>
-		<p class="clearfix"><label class="span1 lh30 mr10"></label><input type="submit" class="btn btn-primary" value="发表" /></p>
-	</form>
-	<br />
+<div class="row">
+	<div class="well">
+		{% if g.form.code_file.errors %}
+			<ul>
+				{% for error in g.form.code_file.errors %}
+				<li class="alert alert-error">
+					<button class="close" data-dismiss="alert">×</button>
+					{{ error }}
+				</li>
+				{% endfor %}
+			</ul>
+		{% endif %}
+		<form class="form-horizontal" action="{{ url_for('pasteview.create') }}" method="POST" enctype="multipart/form-data">
+			<fieldset>
+				<legend>分享代码</legend>
+				<div class="form-group">
+					{{ g.form.title.label(class="control-label col-md-2") }}
+					<div class="col-md-10">
+						<input type="text" name="title" class="form-control" placeholder="给你的代码起个名字, 不填就是 未知标题 哦" />
+					</div>
+				</div>
+				<div class="form-group">
+					{{ g.form.syntax.label(class="control-label col-md-2") }}
+					<div class="col-md-10">
+						{{ g.form.syntax(class="form-control") }}
+					</div>
+				</div>
+				<div class="form-group">
+					{{ g.form.tag.label(class="control-label col-md-2") }}
+					<div class="col-md-10">
+						<input type="text" name="tag" class="form-control" placeholder="多个标签用空格分割, 最多可以写3个标签哦" />
+						<div class="checkbox">
+							<label>
+								{{ g.form.is_private() }}是否私有
+							</label>
+						</div>
+					</div>
+				</div>
+<!-- 				<p class="clearfix">
+					<label class="span1 lh30 mr10"></label>
+					<a href="javascript: void(0);" id="show-desc-link" class="mr10">添加描述</a>	
+					<a href="javascript: void(0);" id="show-code-link" class="mr10">隐藏代码</a>	
+					<a href="javascript: void(0);" id="show-file-link" class="mr10">上传文件</a>	
+				</p> -->
+<!-- 				<p id="show-desc-box" style="display: none">
+					<label class="span1 lh30 mr10">描述</label>
+					{{ g.form.description(class="span7 lf") }}
+				</p> -->
+				<div class="form-group">
+					{{ g.form.content.label(class="control-label col-md-2") }}
+					<div class="col-md-10">
+						<textarea class="form-control" rows="10" name="content"></textarea>
+						<span class="help-block">在这里贴上您想分享的代码吧</span>
+					</div>
+				</div>
+				<!--<p id="show-file-box" class="clearfix" style="display: none">
+					<label class="span1 lh30 mr10">上传文件</label>
+					{{ g.form.code_file(class="input-file") }}
+				</p> -->
+				<div class="form-group">
+					<div class="col-md-8 col-md-offset-2">
+						<input type="submit" class="btn btn-primary" value="分享" />
+					</div>
+				</div>
+			</fieldset>
+
+		</form>
+	</div>
 </div>
 {% endblock %}
 {% block sidebar %}
