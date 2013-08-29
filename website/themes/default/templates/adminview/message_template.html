@@ -1,0 +1,118 @@
+{% extends 'admin.html' %}
+{% block title %}消息模版管理{% endblock %}
+{% block javascript %}
+<script type="text/javascript" src="/static/js/bootstrap-transition.js"></script>
+<script type="text/javascript" src="/static/js/bootstrap-collapse.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+	$('#accordion2').collapse('show');	
+	$('.accordion-toggle').toggle(function() {
+		if($(this).parents('.accordion-group').find('.accordion-body').hasClass('in')) {
+			$(this).parents('.accordion-group').find('.accordion-body').css('height', '0px').removeClass('in');
+		} else {
+			$(this).parents('.accordion-group').find('.accordion-body').css('height', 'auto').addClass('in');
+		}
+	}, function() {
+		$(this).parents('.accordion-group').find('.accordion-body').css('height', '0px').removeClass('in');
+	});
+	$('.pages-edit-link').toggle(function() {
+		if($('.edit-pages-form').is(':visible')) {
+			$('.edit-pages-form').hide();
+			$('.pages-cont-box').show();
+			$('.pages-edit-link').text('编辑');
+			$(this).parents('.accordion-group').find('.accordion-body').css('height', 'auto').addClass('in');
+			$(this).parents('.accordion-group').find('.edit-pages-form').show();	
+			$(this).parents('.accordion-group').find('.pages-cont-box').hide();	
+			$(this).text('取消');
+		} else {
+			$(this).parents('.accordion-group').find('.accordion-body').css('height', 'auto').addClass('in');
+			$(this).parents('.accordion-group').find('.edit-pages-form').show();	
+			$(this).parents('.accordion-group').find('.pages-cont-box').hide();	
+			$(this).text('取消');
+		}
+	}, function() {
+		$('.pages-edit-link').text('编辑');
+		$(this).parents('.accordion-group').find('.pages-cont-box').fadeIn('slow');	
+		$(this).parents('.accordion-group').find('.edit-pages-form').fadeOut('slow');	
+	});
+});
+</script>
+{% endblock %}
+{% block content %}
+<ul>
+<div id="accordion2" class="accordion">
+	{% for page in g.models %}
+		<div class="accordion-group">
+			<div class="accordion-heading">
+				<a href="#collapse{{ loop.index }}" data-toggle="collapse" data-parent="#accordion2" class="accordion-toggle">{{ page.title }}</a>
+				<a href="{{ url_for('siteapp.page', slug=page.slug) }}" title="{" target="_blank"></a>
+				<span class="pa">
+					<a href="javascript:;" class="pages-edit-link">编辑</a> | 
+					<a href="{{ url_for('adminapp.pages') }}?object_id={{ page.id }}&delete=True">删除</a>
+				</span>
+			</div>
+			<div class="accordion-body collapse" id="collapse{{ loop.index }}">
+				<div class="accordion-inner">
+					<div class="pages-cont-box">
+						{{ page.content }}
+					</div>	
+					<form action="" class="form-horizontal edit-pages-form" method="POST">
+						<input type="hidden" name="object_id" value="{{ page.id }}" />
+						<div class="control-group">
+							<label for="input01" class="control-label">Used_for</label>
+							<div class="controls">
+								<input type="text" id="input01" class="input-xlarge" name="used_for" value="{{ page.used_for }}" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label for="input01" class="control-label">标题</label>
+							<div class="controls">
+								<input type="text" id="input01" class="input-xlarge" name="title" value="{{ page.title }}" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label for="input01" class="control-label">内容</label>
+							<div class="controls">
+								<textarea id="textarea" rows="5" class="input-xlarge" cols="20" name="content">{{ page.content }}</textarea>
+							</div>
+						</div>
+						<div class="control-group">
+							<label for="input01" class="control-label"></label>
+							<div class="controls">
+								<input type="submit" value="完成" class="btn btn-primary ml20" />
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	{% endfor %}
+</div>
+<h2>建立新页面</h2>
+	<form action="" class="form-horizontal" method="POST">
+		<div class="control-group">
+			<label for="input01" class="control-label">Used_for</label>
+			<div class="controls">
+				<input type="text" id="input01" name="used_for" class="input-xlarge" />
+			</div>
+		</div>	
+		<div class="control-group">
+			<label for="input02" class="control-label">标题</label>
+			<div class="controls">
+				<input type="text" id="input01" name="title" class="input-xlarge" />
+			</div>
+		</div>	
+		<div class="control-group">
+			<label for="input03" class="control-label">内容</label>
+			<div class="controls">
+				<textarea id="textarea" rows="5" name="content" class="input-xlarge" cols="20"></textarea>
+			</div>
+		</div>	
+		<div class="control-group">
+			<label for="input01" class="control-label"></label>
+			<div class="controls">
+				<input type="submit" value="添加" class="btn btn-primary ml20" />
+			</div>
+		</div>	
+</form>
+{% endblock %}

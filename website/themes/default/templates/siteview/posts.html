@@ -1,0 +1,34 @@
+{% extends theme('default/base.html') %}
+{% block title %}开发日志{% endblock %}
+{% block content %}
+<h2 class="new-paste-title pl10">
+	<span></span>
+	开发日志
+</h2>
+<div id="about" class="page-content pt10 pl10 pr10">
+	{% for post in g.pagination.items %}
+		<p class="pt10 clearfix">
+			<h2><a class="lf fwb" href="{{ url_for('siteapp.post', object_id=post.id) }}">{{ post.title }}</a></h2>
+			<span class="rt clc">{{ post.created_time | time_passed }}</span>
+			<p>{{ post.content | markdown | safe }}</p>
+		</p>
+	{% endfor %}
+</div>
+<div class="pagination pl10">
+	<ul>
+		{%- for page in g.pagination.iter_pages() %}
+		{% if page %}
+			{% if page != g.pagination.page %}
+				<li>
+					<a href="{{ url_for('siteapp.posts') }}?page={{ page }}">{{ page }}</a>
+				</li>
+			{% else %}
+				<li><a class="current">{{ page }}</a></li>
+			{% endif %}
+		{% else %}
+			<li><a>…</a></li>
+		{% endif %}
+		{%- endfor %}
+	</ul>
+	</div>
+{% endblock %}

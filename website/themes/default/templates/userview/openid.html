@@ -1,0 +1,27 @@
+{% extends theme('default/base.html') %}
+{% block title %}修改个人信息{% endblock %}
+{% block content %}
+<ul class="nav nav-tabs">
+	<li><a href="{{ url_for('userview.manage') }}">资料</a></li>
+	<li><a href="{{ url_for('userview.password') }}">密码</a></li>
+	<li class="active"><a href="{{ url_for('userview.openid') }}">查看OpenID</a></li>
+</ul>
+<p>
+	<form action="" method="POST">
+		<label>当前OpenID</lable><input type="text" disabled="disabled" value="{{ g.user.openid }}" style="width:100%;" />
+		<input type="submit" value="更换" />
+	</form>
+</p>
+{% endblock %}
+{% block sidebar %}
+<div class="paste-side-title clearfix mt65">
+	<span class="lf fs14 fwb cl6c553b lh24">
+		站点介绍
+	</span>
+</div>
+<p class="lh24 pl10 pr10 pt10">
+	代码段(以前的大卫粘贴)是一个什么样的网站呢?
+	我很难用一句话来形容. 你可以用它来贴代码, 你也可以用它来展示代码,
+	你也可以用它来收藏代码, 你也可以用它来观察别人都在写什么代码.
+</p>
+{% endblock %}

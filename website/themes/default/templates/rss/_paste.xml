@@ -1,0 +1,9 @@
+<item>
+	<title>{{ paste.title }}</title>
+	<link>http://daimaduan.com{{ url_for("pasteview.view", paste_id=paste.id) }}</link>
+	<description>{{ paste.description }}</description>
+	<copyright></copyright>
+	<category>{{ paste.syntax.name }}</category>
+	<author>{{ paste.user.nickname }}</author>
+	<pubDate>{{ paste.created_time }}</pubDate>
+</item>

@@ -1,0 +1,69 @@
+{% extends theme('default/base.html') %}
+{% block title %}注册新用户{% endblock %}
+{% block content %}
+<div id="register">
+	<h2 class="new-paste-title pl10">
+		<span></span>
+		注册新用户
+	</h2>
+	<form class="form mt50" action="{{ url_for('userview.register') }}" method="POST">
+		<p class="clearfix control-group {% if g.form.email.errors %}error{% endif %}">
+			{{ g.form.email.label(class="span1 lh30 mr10") }}
+			{{ g.form.email(class="span6") }}
+		</p>
+		<p class="clearfix control-group {% if g.form.email.errors %}error{% endif %}">
+			<label class="span1 mr10"></label>
+			<span class="help-block">填写平常用的邮件地址</span>
+		</p>
+		<p class="clearfix control-group {% if g.form.nickname.errors %}error{% endif %}">
+			{{ g.form.nickname.label(class="span1 lh30 mr10") }}
+			{{ g.form.nickname(class="span6") }}
+		</p>
+		<p class="clearfix control-group {% if g.form.nickname.errors %}error{% endif %}">
+			<label class="span1 lh30 mr10"></label>
+			<span class="help-block">给自己一个昵称吧, 最少3个字符, 最多12个字符</span>
+		</p>
+		<p class="clearfix control-group {% if g.form.password.errors %}error{% endif %}">
+			{{ g.form.password.label(class="span1 lh30 mr10") }}
+			{{ g.form.password(class="span6") }}
+		</p>
+		<p class="clearfix control-group {% if g.form.password.errors %}error{% endif %}">
+			<label class="span1 lh30 mr10"></label>
+			<span class="help-block">密码最少6位, 最多12位</span>
+		</p>
+		<p class="clearfix control-group {% if g.form.password_confirm.errors %}error{% endif %}">
+			{{ g.form.password_confirm.label(class="span1 lh30 mr10") }}
+			{{ g.form.password_confirm(class="span6") }}
+		</p>
+		<p class="clearfix control-group {% if g.form.password_confirm.errors %}error{% endif %}">
+			<label class="span1 lh30 mr10"></label>
+			<span class="help-block">输入和上面一样的密码</span>
+		</p>
+		<p class="clearfix control-group {% if g.form.password_confirm.errors %}error{% endif %}">
+			<label class="span1 lh30 mr10"></label>
+			<input type="checkbox" name="agreement" value="true" /> 我同意 <a href="{{ url_for('siteview.page', slug='agreement') }}" target="_blank">代码段条款</a>
+		</p>
+		<p class="clearfix control-group">
+			<label class="span1 lh30 mr10"></label>
+			<span class="help-block">请仔细阅读条款</span>
+		</p>
+		<p class="actions mt40">
+			<label for="" class="span1"></label>
+			<input type="submit" class="btn btn-primary" value="注册" />
+		</p>
+	</form>
+</div>
+{% endblock %}
+{% block sidebar %}
+<div class="paste-side-title clearfix mt65">
+	<span class="lf fs14 fwb cl6c553b lh24">
+		站点介绍
+	</span>
+</div>
+<p class="lh24 pl10 pr10 pt10">
+	代码段(以前的大卫粘贴)是一个什么样的网站呢?
+	我很难用一句话来形容. 你可以用它来贴代码, 你也可以用它来展示代码,
+	你也可以用它来收藏代码, 你也可以用它来观察别人都在写什么代码.
+</p>
+
+{% endblock %}

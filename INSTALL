@@ -1,0 +1,54 @@
+需要的软件:
+
+1. Python 2.6+
+2. MongoDB 2.0+
+
+需要安装的包:
+
+1. flask
+2. pymongo
+3. mongoengine
+4. flask-mongoengine
+5. flask-wtf
+6. flask-script
+7. pygments
+8. pil
+9. simplejson
+
+安装方法:
+
+使用setuptools或者pip安装
+
+1. 安装setuptools:
+	到pypi.python.org上搜索setuptools, 下载安装
+2. 安装pip
+	easy_install pip
+3. 安装flask
+	pip install flask
+4. 安装pymongo
+	pip install pymongo
+5. 安装flask-wtf
+	pip install flask-wtf
+6. 安装flask-script
+	pip install flask-script
+7. 安装pygments
+	pip install pygments
+8. 安装simplejson
+	pip install simplejson
+9. 安装pil
+	windows下下载exe文件安装
+	linux下使用pip install pil
+10. 安装mongoengine
+	pip install mongoengine
+10. 安装flask-mongoengine
+	pip install https://github.com/sbook/flask-mongoengine/tarball/master
+
+启动方法:
+
+1. 进入website目录
+2. 将config.cfg.sample复制一份, 名字随意取, 比如叫test.cfg
+3. 配置test.cfg
+4. 启动MongoDB服务器 mongod --dbpath X:\data --journal, 需要提前建立X:\data目录
+4. 运行python manage.py initialize -c test.cfg生成基础数据库
+5. 运行python manage.py generate_test -c test.cfg生成测试数据
+5. 运行python manage.py test -c test.cfg开启测试服务器

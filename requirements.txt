@@ -1,0 +1,13 @@
+flask>=0.10
+flask-sqlalchemy
+flask-openid
+flask-script
+flask-babel
+flask-wtf
+flask-themes
+flask-testing
+pika
+simplejson
+markdown
+pygments
+psycopg2

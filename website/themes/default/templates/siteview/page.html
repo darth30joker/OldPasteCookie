@@ -1,0 +1,11 @@
+{% extends theme('default/base.html') %}
+{% block title %}{{ g.page.title }}{% endblock %}
+{% block content %}
+<h2 class="new-paste-title pl10">
+	<span></span>
+	{{ g.page.title }}
+</h2>
+<div id="about" class="page-content pt10 pl20 pr20">
+	{{ g.page.content | markdown | safe }}
+</div>
+{% endblock %}

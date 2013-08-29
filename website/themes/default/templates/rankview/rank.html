@@ -1,0 +1,44 @@
+{% extends theme('default/base.html') %}
+{% block title %}排行榜{% endblock %}
+{% block javascript %}
+<script type="text/javascript">
+$(document).ready(function() {
+	$('.nav:eq(0)').find('li:eq(2)').addClass('active');
+
+	$('.show-desc-link').toggle(function() {
+		$(this).parents('li').find('.well').show();
+		$(this).html('隐藏描述');
+	}, function() {
+		$(this).parents('li').find('.well').hide();
+		$(this).html('显示描述');
+	});
+})
+</script>
+{% endblock %}
+{% block content %}
+<h2 class="new-paste-title pl10">
+	<span></span>
+		浏览次数最多代码
+</h2>
+<ul id="" class="code_list pt10">
+	{% for paste in g.top_view_pastes %}
+	<li class="pl20 pr20">
+		{% include theme('default/items/_paste_item.html') %}
+	</li>
+	{% endfor %}
+</ul>
+<h2 class="new-paste-title pl10">
+	<span></span>
+		评论次数最多代码
+</h2>
+<ul id="" class="code_list">
+	{% for paste in g.top_comment_pastes %}
+	<li class="pl20 pr20">
+		{% include theme('default/items/_paste_item.html') %}
+	</li>
+	{% endfor %}
+</ul>
+{% endblock %}
+{% block sidebar %}
+	{% include theme('default/_sidebar.html') %}
+{% endblock %}
