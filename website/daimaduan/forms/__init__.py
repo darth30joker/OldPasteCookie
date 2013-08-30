@@ -61,7 +61,6 @@ class RegisterForm(BaseForm):
         Required(message=u'请输入密码')])
     password_confirm = PasswordField(u'密码确认', [Required(message=u'请输入密码'),
         EqualTo('password', message=u'密码必须相同')])
-    agreement = BooleanField(u'注册条款', [Required()])
 
 class ProfileForm(BaseForm):
     nickname = TextField(u'昵称', [Required(message=u'请填一个你喜欢的昵称吧'), Length(min=2, max=12, message=u"昵称最少一个字符, 最多12个字符"), nickname_unique])

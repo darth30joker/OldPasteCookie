@@ -238,7 +238,7 @@ class User(db.Model):
     def check_privilege(self, privilege):
         return self.privilege >= privilege
 
-    def get_avatar_url(self, size=20):
+    def get_avatar_url(self, size=128):
         if self.info.avatar:
             return self.info.avatar
         else:

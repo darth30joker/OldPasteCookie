@@ -8,13 +8,23 @@ $(document).ready(function() {
 </script>
 {% endblock %}
 {% block content %}
-{% for paste in g.new_pastes %}
-	{% include theme('default/items/_paste_item.html') %}
-{% endfor %}
+<table class="table">
+	<thead>
+		<tr><td>最新代码</td></tr>
+	</thead>
+	<tbody>
+	{% for paste in g.new_pastes %}
+		<tr><td>
+		{% include theme('default/items/_paste_item.html') %}
+		</td></tr>
+	{% endfor %}
+	</tbody>
+</table>
+<div class="row col-md-12">
 <button class="btn btn-default btn-block" id="more_button" _page="2">更多</button>
+</div>
 {% endblock %}
 {% block sidebar %}
-{% include theme('default/_share_btn.html') %}
 {% include theme('default/_newest_users.html') %}
 {% include theme('default/_top_tags.html') %}
 {% endblock %}

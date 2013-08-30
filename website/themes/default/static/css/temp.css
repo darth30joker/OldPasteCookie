@@ -1,6 +1,13 @@
+.pl0 {
+	padding-left: 0;
+}
+.pr0 {
+	padding-right: 0;
+}
 .share-btn {
 	margin-top: 5px;
 }
+
 input.google-login {
 	background: url("/_themes/default/images/google-logo.png") no-repeat scroll 0 0 transparent;
 	border: 0 none;
