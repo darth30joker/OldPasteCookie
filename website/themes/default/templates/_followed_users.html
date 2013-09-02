@@ -1,10 +1,14 @@
-<div class="">
-	<div class="paste-side-title clearfix">
-		<span class="lf fs14 fwb cl6c553b lh24">关注的用户</span>
-	</div>
-	<ul class="user_list clearfix pt10">
+<div class="row">
+	<table class="table">
+		<thead>
+			<tr>
+				<td>关注的用户</td>
+			</tr>
+		</thead>
+		<tbody>
 		{% for user in g.model.followers %}
 			{% include theme('default/items/_user.html') %}
 		{% endfor %}
-	</ul>
+		</tbody>
+	</table>
 </div>
