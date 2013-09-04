@@ -7,7 +7,9 @@
 		</thead>
 		<tbody>
 		{% for user in g.model.followers %}
-			{% include theme('default/items/_user.html') %}
+		<tr>
+			<td>{% include theme('default/items/_user.html') %}</td>
+		</tr>
 		{% endfor %}
 		</tbody>
 	</table>
