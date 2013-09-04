@@ -63,8 +63,8 @@ $(document).ready(function() {
 </script>
 {% endblock %}
 {% block content %}
-<div id="paste_view">
-	<h2>
+<div class="row col-md-12">
+	<h4>
 		{{ g.model.title }}
 		<span class="ml10 fs13 clc">by</span>
 		<a href="{{ g.model.user.url }}" class="carte fs13" title="{{ g.model.user.nickname }}" data-content="
@@ -76,20 +76,20 @@ $(document).ready(function() {
 			{{ g.model.user.nickname }}
 		</a>
 		<span class="ml10 fs13 clc">{{ g.model.created_time | time_passed }}</span>
-	</h2>
-	<div class="pt30 clearfix">
+	</h4>
+	<h5>
 		{% for tag in g.model.tags %}{% include theme('default/items/_tag.html') %}{% endfor %}
-	</div>
-	<div id="code_view" class="mt10">{{ g.code | safe }}</div>
+	</h5>
+	<div id="code_view" class="row col-md-12">{{ g.code | safe }}</div>
 	<p class="clearfix mt10">
 		<span class="lf">
 		{% if g.user %}
 			{% if g.user.id == g.model.user.id or g.user.check_privilege(4) %}
-				<a class="btn btn-success" href="{{ url_for('pasteview.edit', paste_id=g.model.id) }}">修改</a>
+				<a class="btn btn-warning" href="{{ url_for('pasteview.edit', paste_id=g.model.id) }}">修改</a>
 				<a id="delete-paste" class="btn btn-danger ml5" href="javascript: void(0);">删除</a>
 			{% endif %}
 		{% endif %}
-			<a class="btn btn-warn" href="javascript:void(0);" onclick="window.open('{{ url_for('pasteview.view', paste_id=g.model.id) }}?output=raw', '查看RAW代码', 'height=600,width=400,top=0,left=0,toolbar=no,menubar=no,scrollbars=yes,location=no,status=no')">查看RAW代码</a>
+			<a class="btn btn-default" href="javascript:void(0);" onclick="window.open('{{ url_for('pasteview.view', paste_id=g.model.id) }}?output=raw', '查看RAW代码', 'height=600,width=400,top=0,left=0,toolbar=no,menubar=no,scrollbars=yes,location=no,status=no')">查看RAW代码</a>
 		</span>
 		<span class="rt lh30">
 			<span class="lf">评分：</span>
@@ -97,7 +97,7 @@ $(document).ready(function() {
 			<a {% if not g.model.is_user_favorited %} style="display: none" {% endif %} id="unfavorite" class="lf btn ml5 favorite" href="javascript: void(0);" data-id="{{ g.model.id }}">取消收藏</a>
 			<a {% if g.model.is_user_favorited %} style="display: none" {% endif %} id="favorite" class="lf btn btn-primary ml5 favorite" href="javascript: void(0);" data-id="{{ g.model.id }}">收藏</a>
 			
-			<a id="download" class="lf btn btn-inverse ml5" href="javascript: void(0);">下载</a>
+			<a id="download" class="lf btn btn-primary ml5" href="javascript: void(0);">下载</a>
 		</span>
 	</p>
 	<p class="clearfix"><a class="lf" href="javascript: void(0);" id="show-desc-link">显示描述</a></p>
