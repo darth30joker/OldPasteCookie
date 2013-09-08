@@ -14,35 +14,33 @@ $(document).ready(function() {
 </script>
 {% endblock %}
 {% block content %}
-<div>
-	<h2 class="new-paste-title pl10">
-		<span></span>
-		{{ g.model.nickname }} 最新添加的代码
-	</h2>
-	<ul class="code_list pt10">
-		{% for paste in g.model.pastes %}
-		<li class="pl20 pr20">
-			{% include theme('default/items/_paste_item.html') %}
-		</li>
-		{% endfor %}
-	</ul>
-</div>
-<div>
-	<h2 class="new-paste-title pl10">
-		<span></span>
-		{{ g.model.nickname }} 最新收藏的代码
-	</h2>
-	<ul class="code_list">
-		{% for paste in g.model.favorites %}
-		<li class="pl20 pr20">
-			{% include theme('default/items/_paste_item.html') %}
-		</li>
-		{% endfor %}
-	</ul>
-</div>
+<table class="table">
+	<thead>
+		<tr><td>最新添加的代码</td></tr>
+	</thead>
+	<tbody>
+	{% for paste in g.model.pastes %}
+		<tr><td>
+		{% include theme('default/items/_paste_item.html') %}
+		</td></tr>
+	{% endfor %}
+	</tbody>
+</table>
+<table class="table">
+	<thead>
+		<tr><td>最新收藏的代码</td></tr>
+	</thead>
+	<tbody>
+	{% for paste in g.model.pastes %}
+		<tr><td>
+		{% include theme('default/items/_paste_item.html') %}
+		</td></tr>
+	{% endfor %}
+	</tbody>
+</table>
 {% endblock %}
 {% block sidebar %}
-	<div class="rss-user"><a href="{{ url_for('userview.rss', user_id=g.model.id) }}"><img src="/static/images/rss.png" /><span>订阅Ta的代码</span></a></div>
+	<div class="row"><a href="{{ url_for('userview.rss', user_id=g.model.id) }}"><img src="/static/images/rss.png" /><span>订阅Ta的代码</span></a></div>
 	<div class="bd3 bd1s mt65 pt10 pb10 mb18">
 		<p class="alc">
 			<img src="{{ g.model.get_avatar_url(150) }}" />
@@ -52,38 +50,54 @@ $(document).ready(function() {
 		<p class="lh24 pl10 pr10">{{ g.model.info.introduction | empty(text="这个家伙很懒, 什么都没写") }}</p>
 	</div>
 	{% if g.user.id != g.model.id %}
-	<div class="bd3 bd1s alc pt10 pb10 mb18">
-		<div {% if g.model.is_user_followed %} style="display: none;" {% endif %} class="btn follow btn-success btn-large" id="follow" object_id="{{ g.model.id }}">
-			<span class="plus"></span> <strong>关注</strong>
-		</div>
-		<div {% if not g.model.is_user_followed %} style="display: none;" {% endif %} class="btn follow btn-large" id="unfollow" object_id="{{ g.model.id }}">
-			<span class="plus"></span> <strong>取消关注</strong>
-		</div>
+	<div class="row">
+		{% if g.model.is_user_followed %}
+			<div class="btn follow btn-large" id="unfollow" object_id="{{ g.model.id }}">
+				<span class="plus"></span> <strong>取消关注</strong>
+			</div>
+		{% else %}
+			<div class="btn follow btn-success btn-large" id="follow" object_id="{{ g.model.id }}">
+				<span class="plus"></span> <strong>关注</strong>
+			</div>
+		{% endif %}
 	</div>
 	{% endif %}
-	<div class="">
-		<div class="paste-side-title clearfix">
-			<span class="lf fs14 fwb cl6c553b lh24">
-				{{ g.model.nickname }}关注的用户
-			</span>
-		</div>
-		<ul class="user_list clearfix pt10">
+
+	<div class="row">
+		<table class="table">
+			<thead>
+				<tr>
+					<td>关注的用户</td>
+				</tr>
+			</thead>
+			<tbody>
 			{% for user in g.model.followed_users %}
+			<tr>
+				<td>
 				{% include theme('default/items/_user.html') %}
+				</td>
+			</tr>
 			{% endfor %}
-		</ul>
+			</tbody>
+		</table>
 	</div>
-	<div class="">
-		<div class="paste-side-title clearfix">
-			<span class="lf fs14 fwb cl6c553b lh24">
-				关注{{ g.model.nickname }}的用户
-			</span>
-		</div>
-		<ul class="user_list clearfix pt10">
+	<div class="row">
+		<table class="table">
+			<thead>
+				<tr>
+					<td>关注{{ g.model.nickname }}的用户</td>
+				</tr>
+			</thead>
+			<tbody>
 			{% for user in g.model.followers %}
+			<tr>
+				<td>
 				{% include theme('default/items/_user.html') %}
+				</td>
+			</tr>
 			{% endfor %}
-		</ul>
+			</tbody>
+		</table>
 	</div>
 	<div id="unfollow-modal" class="modal hide fade">
 		<form action="" method="POST">
