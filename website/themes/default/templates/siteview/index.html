@@ -1,5 +1,5 @@
 {% extends theme('default/base.html') %}
-{% block title %}首页{% endblock %}
+{% block title %}{{ _('index') }}{% endblock %}
 {% block javascript %}
 <script type="text/javascript">
 $(document).ready(function() {
@@ -10,7 +10,7 @@ $(document).ready(function() {
 {% block content %}
 <table class="table">
 	<thead>
-		<tr><td>最新代码</td></tr>
+		<tr><td>{{ _('newest_pastes') }}</td></tr>
 	</thead>
 	<tbody>
 	{% for paste in g.new_pastes %}
@@ -21,7 +21,7 @@ $(document).ready(function() {
 	</tbody>
 </table>
 <div class="row col-md-12">
-<button class="btn btn-default btn-block" id="more_button" _page="2">更多</button>
+	<button class="btn btn-default btn-block" id="more_button" _page="2">{{ _('more') }}</button>
 </div>
 {% endblock %}
 {% block sidebar %}

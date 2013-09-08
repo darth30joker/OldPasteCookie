@@ -35,7 +35,6 @@ def config_app(app, db, oid, babel, config):
 
     @app.before_request
     def before_request():
-        g.TITLE = app.config.get('TITLE')
         g.user = None
         if 'user' in session:
             g.user = User.query.filter_by(id=session['user']).first()

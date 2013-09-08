@@ -1,5 +1,5 @@
 {% extends theme('default/base.html') %}
-{% block title %}排行榜{% endblock %}
+{% block title %}{{ _('rank') }}{% endblock %}
 {% block javascript %}
 <script type="text/javascript">
 $(document).ready(function() {
@@ -18,7 +18,7 @@ $(document).ready(function() {
 {% block content %}
 <table class="table">
 	<thead>
-		<tr><td>浏览次数最多代码</td></tr>
+        <tr><td>{{ _('most_visited_pastes') }}</td></tr>
 	</thead>
 	<tbody>
 	{% for paste in g.top_view_pastes %}
@@ -30,7 +30,7 @@ $(document).ready(function() {
 </table>
 <table class="table">
 	<thead>
-		<tr><td>评论次数最多代码</td></tr>
+		<tr><td>{{ _('most_commented_pastes') }}</td></tr>
 	</thead>
 	<tbody>
 	{% for paste in g.top_comment_pastes %}

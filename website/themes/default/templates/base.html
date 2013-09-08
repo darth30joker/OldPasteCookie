@@ -34,19 +34,19 @@
 		<div class="navbar navbar-default">
 			<div class="container">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="/">代码段</a><small>v2.0</small>
+					<a class="navbar-brand" href="/">{{ _('website_title') }}</a><small>v2.0</small>
 				</div>
 				<div class="navbar-collapse collapse">
 					<ul class="nav navbar-nav">
-						<li><a href="/">首页</a></li>
-						<li><a href="{{ url_for('tagview.list') }}">标签</a></li>
-						<li><a href="{{ url_for('rankview.rank') }}">排行榜</a></li>
+						<li><a href="/">{{ _('nav_index') }}</a></li>
+						<li><a href="{{ url_for('tagview.list') }}">{{ _('nav_tag') }}</a></li>
+						<li><a href="{{ url_for('rankview.rank') }}">{{ _('nav_rank') }}</a></li>
 					</ul>
 					<form action="{{ url_for('siteview.search') }}" class="navbar-form navbar-left">
 						<!--<input type="text" name="keyword" placeholder="Search" class="search-query lf" value="{{ g.keyword }}" />-->
 						<input type="text" name="keyword" placeholder="搜索代码" class="form-control col-md-10" value="{{ g.keyword }}" />
 					</form>
-					<a href="{{ url_for('pasteview.create') }}" class="btn btn-danger navbar-left col-md-2 share-btn"><span class="plus"></span>分享我的代码</a>
+					<a href="{{ url_for('pasteview.create') }}" class="btn btn-danger navbar-left col-md-2 share-btn"><span class="plus"></span>{{ _('nav_share') }}</a>
 					<ul class="nav navbar-nav navbar-right">
 					{% if g.user %}
 						<li class="dropdown">
@@ -57,20 +57,20 @@
 							</a>
 							<ul class="dropdown-menu">
 								<li>
-									<a href="{{ url_for('userview.view', user_id=session['user']) }}"><i class="icon-user"></i> 主页</a>
+								<a href="{{ url_for('userview.view', user_id=session['user']) }}"><i class="icon-user"></i>{{ _('nav_index') }}</a>
 								</li>
-								<li><a href="{{ url_for('siteview.messages') }}"><i class="icon-envelope"></i> 系统消息{% if g.user.unread_messages %} ({{ g.user.unread_messages | length }}){% endif %}</a></li>
-								<li><a href="{{ url_for('userview.manage') }}"><i class="icon-cog"></i> 设置</a></li>
+								<li><a href="{{ url_for('siteview.messages') }}"><i class="icon-envelope"></i>{{ _('nav_messages') }}{% if g.user.unread_messages %} ({{ g.user.unread_messages | length }}){% endif %}</a></li>
+								<li><a href="{{ url_for('userview.manage') }}"><i class="icon-cog"></i>{{ _('nav_settings') }}</a></li>
 								{% if g.user.check_privilege(5) %}
-									<li><a href="{{ url_for('adminview.index') }}">管理页面</a></li>
+								<li><a href="{{ url_for('adminview.index') }}">{{ _('nav_manage') }}</a></li>
 								{% endif %}
 								<li class="divider"></li>
-								<li><a href="{{ url_for('userview.logout') }}"><i class="icon-off"></i> 登出</a></li>
+								<li><a href="{{ url_for('userview.logout') }}"><i class="icon-off"></i>{{ _('nav_logout') }}</a></li>
 							</ul>
 						</li>
 					{% else %}
-						<li><a class="register-ico" href="{{ url_for('userview.register') }}">注册</a></li>
-						<li><a href="{{ url_for('userview.login') }}">登录</a></li>
+						<li><a class="register-ico" href="{{ url_for('userview.register') }}">{{ _('nav_signup') }}</a></li>
+						<li><a href="{{ url_for('userview.login') }}">{{ _('nav_login') }}</a></li>
 					{% endif %}
 					</ul>
 				</div>
@@ -105,11 +105,11 @@
 					Powered by <a href="https://github.com/kingheaven/PasteCookie">PasteCookie</a>
 				</span>
 				<span class="pull-right">
-					<a href="{{ url_for('siteview.posts') }}">开发日志</a> | 
-					<a href="{{ url_for('siteview.rss') }}">订阅本站</a> | 
-					<a href="{{ url_for('siteview.page', slug='faq') }}">FAQ</a> | 
-					<a href="{{ url_for('siteview.page', slug='about') }}">关于我们</a> | 
-					<a href="{{ url_for('siteview.page', slug='contact') }}">联系我们</a>
+					<a href="{{ url_for('siteview.posts') }}">{{ _('foot_development_blog') }}</a> | 
+					<a href="{{ url_for('siteview.rss') }}">{{ _('foot_subscribe_this_site') }}</a> | 
+					<a href="{{ url_for('siteview.page', slug='faq') }}">{{ _('foot_faq') }}</a> | 
+					<a href="{{ url_for('siteview.page', slug='about') }}">{{ _('foot_about_us') }}</a> | 
+					<a href="{{ url_for('siteview.page', slug='contact') }}">{{ _('foot_contact_us') }}</a>
 				</span>
 			</p>
 			</div>

@@ -2,12 +2,12 @@
 	{% if g.model.is_user_followed %}
 	<div class="btn follow btn-large" id="unfollow" data-id="{{ g.model.id }}">
 		<span class="plus"></span>
-		<strong>取消关注</strong>
+        <strong>{{ _('unfollow') }}</strong>
 	</div>
 	{% else %}
 	<div class="btn follow btn-success btn-large" id="follow" data-id="{{ g.model.id }}">
 		<span class="plus"></span>
-		<strong>关注</strong>
+        <strong>{{ _('follow') }}</strong>
 	</div>
 	{% endif %}
 </div>

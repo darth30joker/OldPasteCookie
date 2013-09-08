@@ -85,27 +85,27 @@ $(document).ready(function() {
 		<span class="lf">
 		{% if g.user %}
 			{% if g.user.id == g.model.user.id or g.user.check_privilege(4) %}
-				<a class="btn btn-warning" href="{{ url_for('pasteview.edit', paste_id=g.model.id) }}">修改</a>
-				<a id="delete-paste" class="btn btn-danger ml5" href="javascript: void(0);">删除</a>
+            <a class="btn btn-warning" href="{{ url_for('pasteview.edit', paste_id=g.model.id) }}">{{ _('modify') }}</a>
+            <a id="delete-paste" class="btn btn-danger ml5" href="javascript: void(0);">{{ _('delete') }}</a>
 			{% endif %}
 		{% endif %}
-			<a class="btn btn-default" href="javascript:void(0);" onclick="window.open('{{ url_for('pasteview.view', paste_id=g.model.id) }}?output=raw', '查看RAW代码', 'height=600,width=400,top=0,left=0,toolbar=no,menubar=no,scrollbars=yes,location=no,status=no')">查看RAW代码</a>
+        <a class="btn btn-default" href="javascript:void(0);" onclick="window.open('{{ url_for('pasteview.view', paste_id=g.model.id) }}?output=raw', '查看RAW代码', 'height=600,width=400,top=0,left=0,toolbar=no,menubar=no,scrollbars=yes,location=no,status=no')">{{ _('check_raw_paste') }}</a>
 		</span>
 		<span class="rt lh30">
-			<span class="lf">评分：</span>
+            <span class="lf">{{ _('rate') }}：</span>
 			<span class="lf" id="rater"></span>
-			<a {% if not g.model.is_user_favorited %} style="display: none" {% endif %} id="unfavorite" class="lf btn ml5 favorite" href="javascript: void(0);" data-id="{{ g.model.id }}">取消收藏</a>
-			<a {% if g.model.is_user_favorited %} style="display: none" {% endif %} id="favorite" class="lf btn btn-primary ml5 favorite" href="javascript: void(0);" data-id="{{ g.model.id }}">收藏</a>
+			<a {% if not g.model.is_user_favorited %} style="display: none" {% endif %} id="unfavorite" class="lf btn ml5 favorite" href="javascript: void(0);" data-id="{{ g.model.id }}">{{ _('unbookmark') }}</a>
+            <a {% if g.model.is_user_favorited %} style="display: none" {% endif %} id="favorite" class="lf btn btn-primary ml5 favorite" href="javascript: void(0);" data-id="{{ g.model.id }}">{{ _('bookmark') }}</a>
 			
-			<a id="download" class="lf btn btn-primary ml5" href="javascript: void(0);">下载</a>
+            <a id="download" class="lf btn btn-primary ml5" href="javascript: void(0);">{{ _('download') }}</a>
 		</span>
 	</p>
-	<p class="clearfix"><a class="lf" href="javascript: void(0);" id="show-desc-link">显示描述</a></p>
+    <p class="clearfix"><a class="lf" href="javascript: void(0);" id="show-desc-link">{{ _('show_description') }}</a></p>
 	<p id="show-desc-box" style="display: none" class="well">{{ g.model.description }}</p>
 </div>
 <div id="coments">
 	<h4 class="mb10 mt10">
-		{% if g.model.comments %}{{ g.model.title }}  有{{ g.model.comments | length }}条评论{% else %}还没有评论{% endif %}
+        {% if g.model.comments %}{{ g.model.title }}  有{{ g.model.comments | length }}条评论{% else %}{{ _('no_comments') }}{% endif %}
 	</h4>
 	<ul class="paste_coments user_list">
 	{% for comment in g.model.comments[::-1] %}
