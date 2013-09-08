@@ -84,34 +84,20 @@ $(document).ready(function() {
 </script>
 {% endblock %}
 {% block content %}
-<h2 class="new-paste-title pl10">
-	<span></span>
-	{{ g.model.name }}相关的代码段 <div class="rss-tag"><a href="{{ url_for('tagview.rss', tag=g.model.name) }}"><img src="/static/images/rss.png" />订阅Ta的代码</a></div>
-</h2>
-<ul id="code_list" class="code_list pt10">
+<table class="table">
+	<thead>
+		<tr><td>{{ g.model.name }}相关的代码段</td></tr>
+	</thead>
+	<tbody>
 	{% for paste in g.pastes.items %}
-	<li class="pl20 pr20">
+		<tr><td>
 		{% include theme('default/items/_paste_item.html') %}
-	</li>
+		</td></tr>
 	{% endfor %}
-</ul>
-<a href="javascript:;" class="breadcrumb more clearfix" id="more_button" _id="{{ g.model.id }}" _page="2">
-	<span class="lf">更多</span>
-</a>
-<div id="unfollow-modal" class="modal hide fade">
-	<form action="" method="POST">
-		<div class="modal-header">
-		  <a href="#" class="close">×</a>
-		  <h3>提醒</h3>
-		</div>
-		<div class="modal-body alc">
-			真的要取消关注这段代码吗？
-		</div>
-		<div class="modal-footer">
-		  <input type="button" class="btn btn-primary" value="确定" />
-		  <input type="button" onclick="javascript: $('#unfollow-modal').modal('hide');" class="btn" value="取消" />
-		</div>
-	</form>
+	</tbody>
+</table>
+<div class="row col-md-12">
+	<button class="btn btn-default btn-block" id="more_button" _id="{{ g.model.id }}" _page="2">更多</button>
 </div>
 {% endblock %}
 {% block sidebar %}

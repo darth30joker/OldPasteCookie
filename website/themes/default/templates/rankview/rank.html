@@ -16,28 +16,30 @@ $(document).ready(function() {
 </script>
 {% endblock %}
 {% block content %}
-<h2 class="new-paste-title pl10">
-	<span></span>
-		浏览次数最多代码
-</h2>
-<ul id="" class="code_list pt10">
+<table class="table">
+	<thead>
+		<tr><td>浏览次数最多代码</td></tr>
+	</thead>
+	<tbody>
 	{% for paste in g.top_view_pastes %}
-	<li class="pl20 pr20">
+		<tr><td>
 		{% include theme('default/items/_paste_item.html') %}
-	</li>
+		</td></tr>
 	{% endfor %}
-</ul>
-<h2 class="new-paste-title pl10">
-	<span></span>
-		评论次数最多代码
-</h2>
-<ul id="" class="code_list">
+	</tbody>
+</table>
+<table class="table">
+	<thead>
+		<tr><td>评论次数最多代码</td></tr>
+	</thead>
+	<tbody>
 	{% for paste in g.top_comment_pastes %}
-	<li class="pl20 pr20">
+		<tr><td>
 		{% include theme('default/items/_paste_item.html') %}
-	</li>
+		</td></tr>
 	{% endfor %}
-</ul>
+	</tbody>
+</table>
 {% endblock %}
 {% block sidebar %}
 	{% include theme('default/_sidebar.html') %}
