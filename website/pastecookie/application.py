@@ -17,11 +17,12 @@ from pastecookie import render
 
 from pastecookie.models import User
 
-def config_app(app, db, oid, config):
+def config_app(app, db, oid, babel, config):
     app.config.from_pyfile(config)
     setup_themes(app, app_identifier="application")
     db.init_app(app)
     oid.init_app(app)
+    babel.init_app(app)
     formatter = logging.Formatter(
             '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'
         )

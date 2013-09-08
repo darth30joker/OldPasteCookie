@@ -26,7 +26,7 @@ def get_config_file_path(config):
 
 @manager.option('-c', '--config', dest='config', help='Configuration file name')
 def run(config):
-    config_app(app, db, oid, get_config_file_path(config))
+    config_app(app, db, oid, babel, get_config_file_path(config))
     dispatch_handlers(app)
     dispatch_views(app)
     app.run(host='0.0.0.0')

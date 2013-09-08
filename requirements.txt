@@ -6,6 +6,7 @@ flask-babel
 flask-wtf
 flask-themes
 flask-testing
+flask-babel
 pika
 simplejson
 markdown
