@@ -1,0 +1,57 @@
+.pl0 {
+	padding-left: 0;
+}
+.pr0 {
+	padding-right: 0;
+}
+.pr5 {
+	padding-right: 5px;
+}
+.share-btn {
+	margin-top: 5px;
+}
+
+input.google-login {
+	background: url("/_themes/default/images/google-logo.png") no-repeat scroll 0 0 transparent;
+	border: 0 none;
+	height: 30px;
+	width: 65px;
+}
+
+/** code settings **/
+#code_view {
+	clear:both;
+}
+#code_view .linenodiv {
+	border-right:2px solid #555;
+	background:none repeat scroll 0 0 #272822;
+	padding:0 5px 0 7px;
+	width:40px;
+	text-align:right;
+}
+#code_view .source {
+	overflow:auto;
+	width:800px;
+}
+#code_view pre {
+	padding-left:5px;
+	margin:0;
+	color:white;
+	word-wrap:normal;
+}
+.linenos {
+	vertical-align:top;
+}
+.sourcetable td,
+.sourcetable th {
+	padding:0;
+	border:none;
+}
+.sourcetable pre {
+	border:none;
+	background:none;
+	padding:0;
+	white-space:pre;
+	font-size:14px;
+}
+

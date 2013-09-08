@@ -8,23 +8,23 @@ $(document).ready(function() {
 </script>
 {% endblock %}
 {% block content %}
-<h2 class="new-paste-title pl10">
-	<span></span>
-	最新代码段
-</h2>
-<ul id="code_list" class="code_list pt10">
+<table class="table">
+	<thead>
+		<tr><td>最新代码</td></tr>
+	</thead>
+	<tbody>
 	{% for paste in g.new_pastes %}
-	<li class="pl10 pr10">
+		<tr><td>
 		{% include theme('default/items/_paste_item.html') %}
-	</li>
+		</td></tr>
 	{% endfor %}
-</ul>
-<a href="javascript:;" class="breadcrumb more clearfix" id="more_button" _page="2">
-	<span class="lf">更多</span>
-</a>
+	</tbody>
+</table>
+<div class="row col-md-12">
+<button class="btn btn-default btn-block" id="more_button" _page="2">更多</button>
+</div>
 {% endblock %}
 {% block sidebar %}
-{% include theme('default/_share_btn.html') %}
 {% include theme('default/_newest_users.html') %}
 {% include theme('default/_top_tags.html') %}
 {% endblock %}

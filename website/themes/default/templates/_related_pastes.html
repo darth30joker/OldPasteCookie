@@ -1,22 +1,29 @@
-<div class="">
-	<div class="paste-side-title clearfix">
-		<span class="lf fs14 fwb cl6c553b lh24">相关代码</span>
-	</div>
-	<ul class="user_list clearfix pt10">
+<div class="row">
+	<table class="table">
+		<thead>
+			<tr>
+				<td>相关代码</td>
+			</tr>
+		</thead>
+		<tbody>
 		{% for paste in g.model.get_related_pastes(10) %}
-			<li class="lh24 clearfix">
-				<a href="{{ url_for('pasteview.view', paste_id=paste.id) }}" class="lf fs14" title="{{ paste.title }}">{{ paste.get_sliced_title(10) }}</a>
-				<span class="rt clc mr10">by
-					<a href="{{ paste.user.url }}" class="carte" title="{{ paste.user.nickname }}" data-content="
-						<div class='lf paste_user_icon'><img src='{{ paste.user.get_avatar_url(48) }}' alt='{{ paste.user.nickname }}' /></div>
-						<div class='rt paste_user_cont'>
-						<p class='lh22'>签名：{{ paste.user.info.motoo | empty(text = "这家伙没有签名") }}</p>
-						<p class='lh22'>介绍：{{ paste.user.info.introduction | empty(text = "这家伙很懒，什么都没写") }}</p>
-						<p class='lh22'>最近登录时间：{{ paste.user.created_time | dateformat }}</p></div><div class='clear'></div>">
-						{{ paste.user.nickname }}
-					</a>
-				</span>
-			</li>
+		<tr>
+			<td>
+				<div class="row col-md-12">
+					<a href="{{ url_for('pasteview.view', paste_id=paste.id) }}" class="lf fs14" title="{{ paste.title }}">{{ paste.get_sliced_title(10) }}</a>
+					<span class="rt clc mr10">by
+						<a href="{{ paste.user.url }}" class="carte" title="{{ paste.user.nickname }}" data-content="
+							<div class='lf paste_user_icon'><img src='{{ paste.user.get_avatar_url(48) }}' alt='{{ paste.user.nickname }}' /></div>
+							<div class='rt paste_user_cont'>
+							<p class='lh22'>签名：{{ paste.user.info.motoo | empty(text = "这家伙没有签名") }}</p>
+							<p class='lh22'>介绍：{{ paste.user.info.introduction | empty(text = "这家伙很懒，什么都没写") }}</p>
+							<p class='lh22'>最近登录时间：{{ paste.user.created_time | dateformat }}</p></div><div class='clear'></div>">
+							{{ paste.user.nickname }}
+						</a>
+					</span>
+				</div>
+			</td>
+		</tr>
 		{% endfor %}
-	</ul>
+	</table>
 </div>
