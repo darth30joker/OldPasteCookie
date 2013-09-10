@@ -8,8 +8,8 @@ from flask import url_for
 from flask import request
 from flask import session
 
-from daimaduan import db
-from daimaduan.utils.functions import hash_password
+from pastecookie import db
+from pastecookie.utils.functions import hash_password
 
 __all__ = ['User', 'Syntax', 'Paste', 'Tag', 'PasteComment', 'UserInfo',
            'Message', 'PasteRate', 'Page', 'MessageTemplate', 'getUserObject',

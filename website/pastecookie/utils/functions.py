@@ -7,7 +7,7 @@ import simplejson as json
 from flask import g
 from flask import make_response
 
-RABBITMQ_QUEUE = "daimaduan"
+RABBITMQ_QUEUE = "pastecookie"
 
 def hash_password(password):
     return hashlib.md5(password).hexdigest()
@@ -18,7 +18,7 @@ def json_response(data):
     return resp
 
 def get_usernames_from_comment(content):
-    from daimaduan.models import User
+    from pastecookie.models import User
     usernames = [one[1:] for one in re.findall('@\w+', content)]
     users = User.query.filter("nickname IN ('%s')" % ','.join(usernames)).all()
     for user in users:

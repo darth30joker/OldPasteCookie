@@ -18,22 +18,22 @@ from pygments.formatters import HtmlFormatter
 from pygments.formatters import ImageFormatter
 from pygments.formatters import NullFormatter
 
-from daimaduan import app
-from daimaduan import db
-from daimaduan import render
+from pastecookie import app
+from pastecookie import db
+from pastecookie import render
 
-from daimaduan.models import User
-from daimaduan.models import Paste
-from daimaduan.models import Syntax
-from daimaduan.models import Tag
-from daimaduan.models import MessageTemplate
-from daimaduan.models import getUserObject
+from pastecookie.models import User
+from pastecookie.models import Paste
+from pastecookie.models import Syntax
+from pastecookie.models import Tag
+from pastecookie.models import MessageTemplate
+from pastecookie.models import getUserObject
 
-from daimaduan.forms import PasteForm
-from daimaduan.forms import CommentForm
+from pastecookie.forms import PasteForm
+from pastecookie.forms import CommentForm
 
-from daimaduan.utils.functions import *
-from daimaduan.utils.decorators import *
+from pastecookie.utils.functions import *
+from pastecookie.utils.decorators import *
 
 PAGE_SIZE = app.config.get('PAGE_SIZE')
 

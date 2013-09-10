@@ -7,16 +7,16 @@ from flask import g
 from flask import redirect
 from flask import abort
 
-from daimaduan import app
-from daimaduan import db
-from daimaduan import render
+from pastecookie import app
+from pastecookie import db
+from pastecookie import render
 
-#from daimaduan.forms import *
-from daimaduan.models import *
+#from pastecookie.forms import *
+from pastecookie.models import *
 
-from daimaduan.utils.filters import *
-from daimaduan.utils.decorators import *
-from daimaduan.utils.functions import *
+from pastecookie.utils.filters import *
+from pastecookie.utils.decorators import *
+from pastecookie.utils.functions import *
 
 PAGE_SIZE = app.config['PAGE_SIZE']
 SIDEBAR_PAGE_SIZE = app.config.get('SIDEBAR_PAGE_SIZE')

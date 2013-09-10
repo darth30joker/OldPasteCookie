@@ -14,14 +14,14 @@ from flask import g
 
 from flask.ext.openid import COMMON_PROVIDERS
 
-from daimaduan import db
-from daimaduan import oid
-from daimaduan import render
+from pastecookie import db
+from pastecookie import oid
+from pastecookie import render
 
-from daimaduan.forms import *
-from daimaduan.models import *
-from daimaduan.utils.functions import hash_password
-from daimaduan.utils.decorators import *
+from pastecookie.forms import *
+from pastecookie.models import *
+from pastecookie.utils.functions import hash_password
+from pastecookie.utils.decorators import *
 
 userview = Blueprint('userview', __name__)
 

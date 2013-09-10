@@ -6,13 +6,13 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from flask.ext.script import Manager
 
-from daimaduan import app
-from daimaduan import db
-from daimaduan import oid
+from pastecookie import app
+from pastecookie import db
+from pastecookie import oid
 
-from daimaduan.application import config_app
-from daimaduan.application import dispatch_handlers
-from daimaduan.application import dispatch_views
+from pastecookie.application import config_app
+from pastecookie.application import dispatch_handlers
+from pastecookie.application import dispatch_views
 
 
 CURRENT_PATH = os.path.abspath(__file__)
@@ -44,8 +44,8 @@ def initdb(config):
     db.create_all()
 
     print "Start to add all syntax"
-    from daimaduan.models import Syntax, MessageTemplate, Page
-    from daimaduan.models.syntax import ALL_SYNTAX
+    from pastecookie.models import Syntax, MessageTemplate, Page
+    from pastecookie.models.syntax import ALL_SYNTAX
     for lexer in ALL_SYNTAX:
         syntax = Syntax(lexer[0], lexer[1].lower())
         db.session.add(syntax)
@@ -54,7 +54,7 @@ def initdb(config):
         except:
             db.session.rollback()
 
-    from daimaduan.models.data import pages, templates
+    from pastecookie.models.data import pages, templates
     for page in pages:
         new_page = Page(page['slug'],
                         page['title'],
@@ -87,20 +87,20 @@ def initdb(config):
 def generate_test(config):
     config_app(app, get_config_file_path(config))
 
-    from daimaduan.models import User, UserInfo, Syntax, Tag, Paste
+    from pastecookie.models import User, UserInfo, Syntax, Tag, Paste
     user1 = User('davidx', 'david.xie@me.com')
     user1.set_password('123456')
     info1 = UserInfo(user1.id)
     user1.info = info1
     db.session.add(user1)
 
-    user2 = User('zhangkai', 'zhangkai@daimaduan.com')
+    user2 = User('zhangkai', 'zhangkai@pastecookie.com')
     user2.set_password('123456')
     info2 = UserInfo(user2.id)
     user2.info = info2
     db.session.add(user2)
 
-    user3 = User('guest', 'guest@daimaduan.com')
+    user3 = User('guest', 'guest@pastecookie.com')
     user3.set_password('123456')
     info3 = UserInfo(user3.id)
     user3.info = info3
@@ -156,7 +156,7 @@ def privilege(config, email, privilege):
     config_app(app, get_config_file_path(config))
     db.init_app(app)
 
-    from daimaduan.models import User
+    from pastecookie.models import User
 
     user = User.query.filter_by(email=email).first()
     if not user:
@@ -178,9 +178,9 @@ def add_syntax(config):
     db.init_app(app)
     db.create_all()
 
-    from daimaduan.models import SyntaxTheme
+    from pastecookie.models import SyntaxTheme
 
-    path = 'daimaduan/static/css/themes'
+    path = 'pastecookie/static/css/themes'
     for f in os.listdir(path):
         if os.path.isfile("%s/%s" % (path, f)):
             if f.endswith('css'):

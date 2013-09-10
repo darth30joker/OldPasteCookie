@@ -18,8 +18,8 @@ from wtforms.validators import Length
 from wtforms.validators import Email
 from wtforms.validators import EqualTo
 
-from daimaduan.models import *
-from daimaduan.utils.functions import *
+from pastecookie.models import *
+from pastecookie.utils.functions import *
 
 __all__ = ['RegisterForm', 'LoginForm', 'PasteForm',
            'CommentForm', 'UserInfoForm', 'PasswordForm',

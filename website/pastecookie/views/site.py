@@ -11,14 +11,14 @@ from flask import abort
 from flask import send_file
 from flask import g
 
-from daimaduan import app
-from daimaduan import db
-from daimaduan import render
+from pastecookie import app
+from pastecookie import db
+from pastecookie import render
 
-from daimaduan.models import *
-from daimaduan.utils.decorators import login_required
-from daimaduan.utils.filters import time_passed
-from daimaduan.utils.functions import *
+from pastecookie.models import *
+from pastecookie.utils.decorators import login_required
+from pastecookie.utils.filters import time_passed
+from pastecookie.utils.functions import *
 
 PAGE_SIZE = app.config.get('PAGE_SIZE')
 SIDEBAR_PAGE_SIZE = app.config.get('SIDEBAR_PAGE_SIZE')

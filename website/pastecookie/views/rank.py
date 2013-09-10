@@ -7,10 +7,10 @@ from flask import g
 from flask import url_for
 from flask import redirect
 
-from daimaduan import app
-from daimaduan import render
-#from daimaduan.forms import *
-from daimaduan.models import *
+from pastecookie import app
+from pastecookie import render
+#from pastecookie.forms import *
+from pastecookie.models import *
 
 PAGE_SIZE = app.config.get('PAGE_SIZE')
 SIDEBAR_PAGE_SIZE = app.config.get('SIDEBAR_PAGE_SIZE')

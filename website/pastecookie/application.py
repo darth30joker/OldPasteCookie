@@ -13,9 +13,9 @@ from flask.ext.themes import setup_themes
 from flask.ext.themes import load_themes_from
 from flask.ext.themes import theme_paths_loader
 
-from daimaduan import render
+from pastecookie import render
 
-from daimaduan.models import User
+from pastecookie.models import User
 
 def config_app(app, db, oid, config):
     app.config.from_pyfile(config)
@@ -73,12 +73,12 @@ def dispatch_handlers(app):
         return render('error.html', **d), 500
 
 def dispatch_views(app):
-    from daimaduan.views import siteview
-    from daimaduan.views import pasteview
-    from daimaduan.views import userview
-    from daimaduan.views import rankview
-    from daimaduan.views import tagview
-    from daimaduan.views import adminview
+    from pastecookie.views import siteview
+    from pastecookie.views import pasteview
+    from pastecookie.views import userview
+    from pastecookie.views import rankview
+    from pastecookie.views import tagview
+    from pastecookie.views import adminview
 
     app.register_blueprint(pasteview, url_prefix='/paste')
     app.register_blueprint(userview,  url_prefix='/user')
@@ -87,7 +87,7 @@ def dispatch_views(app):
     app.register_blueprint(adminview, url_prefix='/admin')
     app.register_blueprint(siteview)
 
-    from daimaduan.utils.filters import dateformat, avatar, empty, time_passed, markdown
+    from pastecookie.utils.filters import dateformat, avatar, empty, time_passed, markdown
     app.jinja_env.filters['dateformat'] = dateformat
     app.jinja_env.filters['avatar'] = avatar
     app.jinja_env.filters['empty'] = empty

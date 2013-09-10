@@ -12,12 +12,12 @@ from flask import redirect
 from flask import request
 from flask import url_for
 
-from daimaduan import app
-from daimaduan import db
-from daimaduan.models import *
-#from daimaduan.forms import *
-from daimaduan.utils.functions import *
-from daimaduan.utils.decorators import *
+from pastecookie import app
+from pastecookie import db
+from pastecookie.models import *
+#from pastecookie.forms import *
+from pastecookie.utils.functions import *
+from pastecookie.utils.decorators import *
 
 adminview = Blueprint('adminview', __name__)
 
