@@ -9,6 +9,7 @@ from flask import redirect
 
 from pastecookie import app
 from pastecookie import render
+
 #from pastecookie.forms import *
 from pastecookie.models import *
 
@@ -24,3 +25,5 @@ def rank():
     g.top_comment_pastes = Paste.query.filter_by(is_private=False).order_by('comment_num DESC')[:SIDEBAR_PAGE_SIZE]
     g.users = User.query.order_by('paste_num DESC')[:SIDEBAR_PAGE_SIZE]
     return render('rankview/rank.html')
+
+app.register_blueprint(rankview,  url_prefix='/rank')

@@ -27,6 +27,12 @@ def get_config_file_path(config):
 @manager.option('-c', '--config', dest='config', help='Configuration file name')
 def run(config):
     config_app(app, db, oid, babel, get_config_file_path(config))
+    from pastecookie.views import siteview
+    from pastecookie.views import pasteview
+    from pastecookie.views import userview
+    from pastecookie.views import rankview
+    from pastecookie.views import tagview
+    from pastecookie.views import adminview
     dispatch_handlers(app)
     dispatch_views(app)
     app.run(host='0.0.0.0')

@@ -91,3 +91,5 @@ def rss(tag):
         abort(404)
     g.pastes = Paste.query.filter(Paste.tags.contains(g.tag)).filter_by(is_private=False).order_by("created_time DESC").all()
     return render('rss/tag.xml')
+
+app.register_blueprint(tagview,   url_prefix='/tag')

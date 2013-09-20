@@ -105,11 +105,6 @@ def create():
                                           mt.title % tag.name,
                                           mt.content % (tag.name, paste.title, url_for('pasteview.view', paste_id=paste.id)))
                         db.session.add(message)
-        try:
-            db.session.commit()
-        except Exception, e:
-            app.log.error(str(e))
-            abort(500)
         return redirect(url_for('pasteview.view', paste_id=paste.id))
     g.form = form
     return render('pasteview/create.html')
@@ -342,3 +337,5 @@ def rate(object_id):
     return json_response({'result': 'success',
                        'message': u'评价成功!',
                        'rate': paste.rate_num})
+
+app.register_blueprint(pasteview, url_prefix='/paste')

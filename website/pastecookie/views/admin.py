@@ -204,3 +204,4 @@ def posts():
     g.posts = Post.query.all()
     return render_template('adminview/posts.html')
 
+app.register_blueprint(adminview, url_prefix='/admin')

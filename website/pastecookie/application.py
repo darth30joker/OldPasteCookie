@@ -73,21 +73,12 @@ def dispatch_handlers(app):
         return render('error.html', **d), 500
 
 def dispatch_views(app):
-    from pastecookie.views import siteview
-    from pastecookie.views import pasteview
-    from pastecookie.views import userview
-    from pastecookie.views import rankview
-    from pastecookie.views import tagview
-    from pastecookie.views import adminview
+    from pastecookie.utils.filters import dateformat
+    from pastecookie.utils.filters import avatar
+    from pastecookie.utils.filters import empty
+    from pastecookie.utils.filters import time_passed
+    from pastecookie.utils.filters import markdown
 
-    app.register_blueprint(pasteview, url_prefix='/paste')
-    app.register_blueprint(userview,  url_prefix='/user')
-    app.register_blueprint(rankview,  url_prefix='/rank')
-    app.register_blueprint(tagview,   url_prefix='/tag')
-    app.register_blueprint(adminview, url_prefix='/admin')
-    app.register_blueprint(siteview)
-
-    from pastecookie.utils.filters import dateformat, avatar, empty, time_passed, markdown
     app.jinja_env.filters['dateformat'] = dateformat
     app.jinja_env.filters['avatar'] = avatar
     app.jinja_env.filters['empty'] = empty
