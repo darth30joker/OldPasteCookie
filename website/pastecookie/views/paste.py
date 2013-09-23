@@ -339,3 +339,4 @@ def rate(object_id):
                        'rate': paste.rate_num})
 
 app.register_blueprint(pasteview, url_prefix='/paste')
+

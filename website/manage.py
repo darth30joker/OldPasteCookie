@@ -9,6 +9,7 @@ from flask.ext.script import Manager
 from pastecookie import app
 from pastecookie import db
 from pastecookie import oid
+from pastecookie import babel
 
 from pastecookie.application import config_app
 from pastecookie.application import dispatch_handlers
