@@ -41,7 +41,7 @@ def run(config):
 
 @manager.option('-c', '--config', dest='config', help='Configuration file name')
 def initdb(config):
-    config_app(app, db, oid, get_config_file_path(config))
+    config_app(app, db, oid, babel, get_config_file_path(config))
     db.init_app(app)
 
     print "Drop all tables"

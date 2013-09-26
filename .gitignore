@@ -42,3 +42,6 @@ venv
 
 # log files
 *.log
+
+# Database files
+*.db
