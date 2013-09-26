@@ -40,3 +40,8 @@ venv
 # configuration files
 *.cfg
 
+# log files
+*.log
+
+# Database files
+*.db

@@ -1,5 +1,5 @@
 {% extends theme('default/base.html') %}
-{% block title %}查看所有Tags{% endblock %}
+{% block title %}{{ _('all_tags') }}{% endblock %}
 {% block javascript %}
 <script type="text/javascript">
 $(document).ready(function() {
@@ -8,15 +8,18 @@ $(document).ready(function() {
 </script>
 {% endblock %}
 {% block content %}
-<h2 class="new-paste-title pl10">
-	<span></span>
-		标签列表
-</h2>
-<div id="tag_view" class="mt10 pt10 pl20 pr20">
-	{% for tag in g.tags %}
-		{% include theme('default/items/_tag.html') %}
-	{% endfor %}
-</div>
+<table class="table">
+	<thead>
+        <tr><td>{{ _('all_tags') }}</td></tr>
+	</thead>
+	<tbody>
+		<tr><td>
+            {% for tag in g.tags %}
+                {% include theme('default/items/_tag.html') %}
+            {% endfor %}
+		</td></tr>
+	</tbody>
+</table>
 {% endblock %}
 {% block sidebar %}
 	{% include theme('default/_sidebar.html') %}

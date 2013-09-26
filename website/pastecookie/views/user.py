@@ -14,6 +14,7 @@ from flask import g
 
 from flask.ext.openid import COMMON_PROVIDERS
 
+from pastecookie import app
 from pastecookie import db
 from pastecookie import oid
 from pastecookie import render
@@ -216,3 +217,4 @@ def rss(user_id):
     g.pastes = Paste.query.filter_by(user_id=user_id, is_private=False).order_by("created_time DESC").all()
     return render('rss/user.xml')
 
+app.register_blueprint(userview,  url_prefix='/user')

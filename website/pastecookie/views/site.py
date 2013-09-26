@@ -133,3 +133,5 @@ def test():
 def rss():
     g.pastes = Paste.query.filter_by(is_private=False).order_by("created_time DESC").all()
     return render('rss/site.xml')
+
+app.register_blueprint(siteview)

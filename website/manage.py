@@ -9,6 +9,7 @@ from flask.ext.script import Manager
 from pastecookie import app
 from pastecookie import db
 from pastecookie import oid
+from pastecookie import babel
 
 from pastecookie.application import config_app
 from pastecookie.application import dispatch_handlers
@@ -26,7 +27,7 @@ def get_config_file_path(config):
 
 @manager.option('-c', '--config', dest='config', help='Configuration file name')
 def run(config):
-    config_app(app, db, oid, get_config_file_path(config))
+    config_app(app, db, oid, babel, get_config_file_path(config))
     dispatch_handlers(app)
     dispatch_views(app)
     app.run(host='0.0.0.0')
@@ -34,7 +35,7 @@ def run(config):
 
 @manager.option('-c', '--config', dest='config', help='Configuration file name')
 def initdb(config):
-    config_app(app, db, oid, get_config_file_path(config))
+    config_app(app, db, oid, babel, get_config_file_path(config))
     db.init_app(app)
 
     print "Drop all tables"

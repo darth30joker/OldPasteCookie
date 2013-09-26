@@ -1,9 +1,9 @@
 {% extends theme('default/base.html') %}
-{% block title %}开发日志{% endblock %}
+{% block title %}{{ _('development_blog') }}{% endblock %}
 {% block content %}
 <h2 class="new-paste-title pl10">
 	<span></span>
-	开发日志
+    {{ _('development_blog') }}
 </h2>
 <div id="about" class="page-content pt10 pl10 pr10">
 	{% for post in g.pagination.items %}

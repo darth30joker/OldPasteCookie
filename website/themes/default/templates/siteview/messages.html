@@ -1,5 +1,5 @@
 {% extends theme('default/base.html') %}
-{% block title %}系统消息{% endblock %}
+{% block title %}{{ _('messages') }}{% endblock %}
 {% block javascript %}
 <script type="text/javascript" src="{{ theme_static('js/bootstrap-transition.js') }}"></script>
 <script type="text/javascript" src="{{ theme_static('js/bootstrap-collapse.js') }}"></script>
@@ -24,7 +24,7 @@
 {% block content %}
 <h2 class="new-paste-title pl10">
 	<span></span>
-	系统消息
+    {{ _('messages') }}
 </h2>
 <div id="accordion2" class="accordion pt10">
 	{% for message in g.user.unread_messages %}

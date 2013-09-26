@@ -16,6 +16,16 @@ PasteCookie is the source code of [daimaduan.com](http://daimaduan.com). It is o
 7. `python manage.py run --config test.cfg`
 8. Visit http://127.0.0.1:5000/ in your favourite browser
 
+## Troubleshooting
+
+### Error: pg\_config executable not found.
+
+`pg_config` is in postgresql-devel (libpq-dev in Debian/Ubuntu)
+
+    $ sudo apt-get install libpq-dev
+
+via: http://stackoverflow.com/a/12037133/260793
+
 ## How to submit my idea?
 
 Create an issue on Github

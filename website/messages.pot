@@ -1,0 +1,215 @@
+# Translations template for PROJECT.
+# Copyright (C) 2013 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2013-09-08 20:36+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 1.3\n"
+
+#: themes/default/templates/_active_users.html:3
+msgid "active_users"
+msgstr "Active Users"
+
+#: themes/default/templates/_followed_users.html:5
+msgid "followers"
+msgstr "Followers"
+
+#: themes/default/templates/_newest_users.html:5
+msgid "new_users"
+msgstr "New Users"
+
+#: themes/default/templates/_related_pastes.html:5
+msgid "related_pastes"
+msgstr "Related Pastes"
+
+#: themes/default/templates/_share_btn.html:2
+#: themes/default/templates/pasteview/create.html:46
+#: themes/default/templates/pasteview/edit.html:29
+msgid "share_my_code"
+msgstr "Share my code"
+
+#: themes/default/templates/_sidebar_view_paste.html:5
+msgid "unfollow"
+msgstr "Unfollow"
+
+#: themes/default/templates/_sidebar_view_paste.html:10
+msgid "follow"
+msgstr "Follow"
+
+#: themes/default/templates/_top_tags.html:4
+msgid "hotest_tags"
+msgstr "Hotest Tags"
+
+#: themes/default/templates/base.html:8 themes/default/templates/base.html:37
+msgid "website_title"
+msgstr "PasteBie"
+
+#: themes/default/templates/base.html:41 themes/default/templates/base.html:60
+msgid "nav_index"
+msgstr "Index"
+
+#: themes/default/templates/base.html:42
+msgid "nav_tag"
+msgstr "Tags"
+
+#: themes/default/templates/base.html:43
+msgid "nav_rank"
+msgstr "Rank"
+
+#: themes/default/templates/base.html:49
+msgid "nav_share"
+msgstr "Share"
+
+#: themes/default/templates/base.html:62
+msgid "nav_messages"
+msgstr "Messages"
+
+#: themes/default/templates/base.html:63
+msgid "nav_settings"
+msgstr "Settings"
+
+#: themes/default/templates/base.html:65
+msgid "nav_manage"
+msgstr "Manage"
+
+#: themes/default/templates/base.html:68
+msgid "nav_logout"
+msgstr "Logout"
+
+#: themes/default/templates/base.html:72
+msgid "nav_signup"
+msgstr "Sign Up"
+
+#: themes/default/templates/base.html:73
+msgid "nav_login"
+msgstr "Login"
+
+#: themes/default/templates/base.html:108
+msgid "foot_development_blog"
+msgstr "Development Blog"
+
+#: themes/default/templates/base.html:109
+msgid "foot_subscribe_this_site"
+msgstr "Subscribe this site"
+
+#: themes/default/templates/base.html:110
+msgid "foot_faq"
+msgstr "FAQ"
+
+#: themes/default/templates/base.html:111
+msgid "foot_about_us"
+msgstr "About Us"
+
+#: themes/default/templates/base.html:112
+msgid "foot_contact_us"
+msgstr "Contact Us"
+
+#: themes/default/templates/pasteview/create.html:50
+#: themes/default/templates/pasteview/edit.html:33
+msgid "form_title_placeholder"
+msgstr "Name your paste, if empty, it will be untitled"
+
+#: themes/default/templates/pasteview/create.html:62
+#: themes/default/templates/pasteview/edit.html:45
+msgid "form_tag_placeholder"
+msgstr "Tags for your paste, at most 3 tags"
+
+#: themes/default/templates/pasteview/create.html:65
+#: themes/default/templates/pasteview/edit.html:48
+msgid "is_private"
+msgstr "Is private?"
+
+#: themes/default/templates/pasteview/create.html:84
+msgid "form_content_placeholder"
+msgstr "Paste your code here"
+
+#: themes/default/templates/pasteview/create.html:93
+msgid "share"
+msgstr "Share"
+
+#: themes/default/templates/pasteview/view.html:88
+msgid "modify"
+msgstr "Modify"
+
+#: themes/default/templates/pasteview/view.html:89
+msgid "delete"
+msgstr "Delete"
+
+#: themes/default/templates/pasteview/view.html:92
+msgid "check_raw_paste"
+msgstr "Check RAW paste"
+
+#: themes/default/templates/pasteview/view.html:95
+msgid "rate"
+msgstr "Rate"
+
+#: themes/default/templates/pasteview/view.html:97
+msgid "unbookmark"
+msgstr "Unbookmark"
+
+#: themes/default/templates/pasteview/view.html:98
+msgid "bookmark"
+msgstr "Bookmark"
+
+#: themes/default/templates/pasteview/view.html:100
+msgid "download"
+msgstr "Download"
+
+#: themes/default/templates/pasteview/view.html:103
+msgid "show_description"
+msgstr "Show description"
+
+#: themes/default/templates/pasteview/view.html:108
+msgid "no_comments"
+msgstr "No comments"
+
+#: themes/default/templates/rankview/rank.html:2
+msgid "rank"
+msgstr "Rank"
+
+#: themes/default/templates/rankview/rank.html:21
+msgid "most_visited_pastes"
+msgstr "Most visited pastes"
+
+#: themes/default/templates/rankview/rank.html:33
+msgid "most_commented_pastes"
+msgstr "Most commented pastes"
+
+#: themes/default/templates/siteview/index.html:2
+msgid "index"
+msgstr "Index"
+
+#: themes/default/templates/siteview/index.html:13
+msgid "newest_pastes"
+msgstr "Newest pastes"
+
+#: themes/default/templates/siteview/index.html:24
+#: themes/default/templates/tagview/view.html:100
+msgid "more"
+msgstr "More"
+
+#: themes/default/templates/siteview/messages.html:2
+#: themes/default/templates/siteview/messages.html:27
+msgid "messages"
+msgstr "Messages"
+
+#: themes/default/templates/siteview/posts.html:2
+#: themes/default/templates/siteview/posts.html:6
+msgid "development_blog"
+msgstr "Development blog"
+
+#: themes/default/templates/tagview/list.html:2
+#: themes/default/templates/tagview/list.html:13
+msgid "all_tags"
+msgstr "All tags"
+
