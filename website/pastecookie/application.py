@@ -73,6 +73,13 @@ def dispatch_handlers(app):
         return render('error.html', **d), 500
 
 def dispatch_views(app):
+    from pastecookie.views import pasteview
+    from pastecookie.views import userview
+    from pastecookie.views import rankview
+    from pastecookie.views import tagview
+    from pastecookie.views import adminview
+    from pastecookie.views import siteview
+
     from pastecookie.utils.filters import dateformat
     from pastecookie.utils.filters import avatar
     from pastecookie.utils.filters import empty
