@@ -61,7 +61,7 @@ def create():
         user = g.user
         paste = Paste(form.syntax.data,
                       user.id)
-        file = request.files['code_file']
+        file = request.files.get('code_file', None)
         if file:
             paste.content = file.stream.read()
         elif form.content.data:
