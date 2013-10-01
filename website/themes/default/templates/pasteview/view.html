@@ -146,13 +146,20 @@ $(document).ready(function() {
 	{% if g.user %}
 	<h4 class="mb10">发布评论</h4>
 	<form action="{{ url_for('pasteview.view', paste_id=g.model.id) }}" method="POST">
-		<p class="clearfix">
-			{{ g.form.content.label(class="span1 mr10 lf")}}{{ g.form.content(class="lf w500_textarea") }}
-		</p>
-		<p class="clearfix">
-			<label class="span1 lf mr10"></label>
-			<input class="btn primary lf" type="submit" value="评论" />
-		</p>
+		<fieldset>
+			<legend>{{ _('paste_comment') }}</legend>
+			<div class="form-group">
+				{{ g.form.content.label(class="control-label col-md-2") }}
+				<div class="col-md-10">
+					<textarea class="form-control" rows="10" name="content"></textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-md-8 col-md-offset-2">
+					<input type="submit" class="btn btn-primary" value="{{ _('paste_comment') }}" />
+				</div>
+			</div>
+		</fieldset>
 	</form>
 	{% endif %}
 </div>

@@ -18,6 +18,20 @@ input.google-login {
 	width: 65px;
 }
 
+.navbar-header small {
+    float: left;
+    padding: 18px 0 0 5px;
+}
+
+.navbar-right img.lf {
+    width: 25px;
+    height: 25px;
+}
+
+.paste-user-list {
+    padding: 0;
+}
+
 /** code settings **/
 #code_view {
 	clear:both;

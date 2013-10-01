@@ -16,7 +16,6 @@ BABEL_DEFAULT_TIMEZONE = 'UTC'
 # application side settings
 SIDEBAR_PAGE_SIZE = 10
 PAGE_SIZE = 20
-TITLE = u'代码段'
 
 # database settings
 SQLALCHEMY_DATABASE_URI = 'sqlite:///test.db'
