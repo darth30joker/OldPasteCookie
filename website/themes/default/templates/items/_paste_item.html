@@ -1,18 +1,18 @@
 <div class="row col-md-12 pt15 pb15">
 	<div class="pull-right">
-		<span class="">{{ paste.comments | length }}回复/{{ paste.view_num }}阅读</span>
+		<span class="">{{ paste.comments | length }} {{ _('comments') }} / {{ paste.view_num }} {{ _('views') }}</span>
 		<span class="rt clc">
-			<a href="javascript:void(0);" title="取消关注" class="lf clc paste-follow-link follow" data-id="{{ paste.id }}" {% if not paste.is_user_followed %}style="display:none"{% endif %}>
-				<span></span>取消关注
+			<a href="javascript:void(0);" title="{{ _('unfocus') }}" class="lf clc paste-follow-link follow" data-id="{{ paste.id }}" {% if not paste.is_user_followed %}style="display:none"{% endif %}>
+				<span></span>{{ _('unfocus') }}
 			</a>
-			<a href="javascript:void(0);" title="关注" class="lf clc paste-follow-link follow" data-id="{{ paste.id }}" {% if paste.is_user_followed %}style="display:none"{% endif %}>
-				<span></span>关注
+			<a href="javascript:void(0);" title="{{ _('focus') }}" class="lf clc paste-follow-link follow" data-id="{{ paste.id }}" {% if paste.is_user_followed %}style="display:none"{% endif %}>
+				<span></span>{{ _('focus') }}
 			</a>
-			<a href="javascript:void(0);" title="取消收藏" class="lf clc paste-favorite-link favorite" data-id="{{ paste.id }}" {% if not paste.is_user_favorited %}style="display:none"{% endif %}>
-				<span></span>取消收藏
+			<a href="javascript:void(0);" title="{{ _('unfavorite') }}" class="lf clc paste-favorite-link favorite" data-id="{{ paste.id }}" {% if not paste.is_user_favorited %}style="display:none"{% endif %}>
+				<span></span>{{ _('unfavorite') }}
 			</a>
-			<a href="javascript:void(0);" title="收藏" class="lf clc paste-favorite-link favorite" data-id="{{ paste.id }}" {% if paste.is_user_favorited %}style="display:none"{% endif %}>
-				<span></span>收藏
+			<a href="javascript:void(0);" title="{{ _('favorite') }}" class="lf clc paste-favorite-link favorite" data-id="{{ paste.id }}" {% if paste.is_user_favorited %}style="display:none"{% endif %}>
+				<span></span>{{ _('favorite') }}
 			</a>
 		</span>
 	</div>

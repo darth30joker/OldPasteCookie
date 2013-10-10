@@ -43,7 +43,7 @@
 					</ul>
 					<form action="{{ url_for('siteview.search') }}" class="navbar-form navbar-left">
 						<!--<input type="text" name="keyword" placeholder="Search" class="search-query lf" value="{{ g.keyword }}" />-->
-						<input type="text" name="keyword" placeholder="搜索代码" class="form-control col-md-10" value="{{ g.keyword }}" />
+						<input type="text" name="keyword" placeholder="{{ _('search_pastes') }}" class="form-control col-md-10" value="{{ g.keyword }}" />
 					</form>
 					<a href="{{ url_for('pasteview.create') }}" class="btn btn-danger navbar-left col-md-2 share-btn"><span class="plus"></span>{{ _('nav_share') }}</a>
 					<ul class="nav navbar-nav navbar-right">
@@ -111,7 +111,7 @@
 						<a href="{{ url_for('siteview.page', slug='contact') }}">{{ _('foot_contact_us') }}</a>
 					</span>
 				</p>
-				<p>Loaded: {{ g.used_time }} ms</p>
+				<p>{{ _('loaded_time') }}: {{ g.used_time }} ms</p>
 			</div>
 		</div>
 	</body>

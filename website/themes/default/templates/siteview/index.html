@@ -8,7 +8,7 @@ $(document).ready(function() {
 </script>
 {% endblock %}
 {% block content %}
-<h3>{{ _('newest_pastes') }}</h3>
+<h4>{{ _('newest_pastes') }}</h4>
 {% for paste in g.new_pastes %}
 	{% include theme('default/items/_paste_item.html') %}
 {% endfor %}

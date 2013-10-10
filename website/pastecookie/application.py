@@ -10,12 +10,12 @@ from flask import g
 from flask import abort
 from flask import request
 
+from flask.ext.babel import gettext
 from flask.ext.themes import setup_themes
 from flask.ext.themes import load_themes_from
 from flask.ext.themes import theme_paths_loader
 
 from pastecookie import render
-
 from pastecookie.models import User
 
 def config_app(app, db, oid, babel, config):
@@ -48,31 +48,45 @@ def config_app(app, db, oid, babel, config):
             db.session.commit()
         except Exception, e:
             db.session.rollback()
-            #app.log.error(str(e))
-            print str(e)
+            app.log.error(str(e))
             abort(500)
         return response
+
+    @babel.localeselector
+    def get_locale():
+        user = getattr(g, 'user', None)
+        if user:
+            return getattr(user, 'locale', 'en')
+        return request.accept_languages.best_match(['en', 'zh'])
+
+    @babel.timezoneselector
+    def get_timezone():
+        user = getattr(g, 'user', None)
+        if user:
+            return user.get('timezone', None)
+
 
 def dispatch_handlers(app):
     d = {}
     @app.errorhandler(403)
     def permission_error(error):
-        d['title'] = u'您没有权限'
-        d['message'] = u'您没有权限执行当前的操作, 请登陆或检查url是否错误.'
+        d['title'] = gettext('permission_denied_title')
+        d['message'] = gettext('permission_denied_message')
         return render('error.html', **d), 403
 
     @app.errorhandler(404)
     def page_not_found(error):
-        d['title'] = u'页面不存在'
-        d['message'] = u'您所访问的页面不存在, 是不是打错地址了啊?'
+        d['title'] = gettext('page_not_found_title')
+        d['message'] = gettext('page_not_found_message')
         return render('error.html', **d), 404
 
     @app.errorhandler(500)
     def page_error(error):
-        d['title'] = u'页面出错啦'
-        d['message'] = u'您所访问的页面出错啦! 待会再来吧!'
+        d['title'] = gettext('internal_error_title')
+        d['message'] = gettext('internal_error_message')
         app.logger.error(str(error))
         return render('error.html', **d), 500
+
 
 def dispatch_views(app):
     from pastecookie.views import pasteview

@@ -11,13 +11,13 @@
 				<p class='lh22'>最近登录时间：{{ user.last_login_time | time_passed }}</p>
 				">{{ user.nickname }}</a>
 			</p>
-			<p class="clc">分享了{{ user.paste_num }}段代码</p>
+			<p class="clc">{{ _('shard_%(num)s_pastes', num=user.paste_num) }}</p>
 		</div>
 		<div class="pull-right">
 			{% if user.is_user_followed %}
-				<a href="javascript:void(0);" class="btn btn-sm paste-user-unfollow user-follow" data-id="{{ user.id }}">取消关注</a>
+				<a href="javascript:void(0);" class="btn btn-sm paste-user-unfollow user-follow" data-id="{{ user.id }}">{{ _('unfocus') }}</a>
 			{% else %}
-				<a href="javascript:void(0);" class="btn btn-sm btn-success paste-user-follow user-follow" data-id="{{ user.id }}">关注</a>
+				<a href="javascript:void(0);" class="btn btn-sm btn-success paste-user-follow user-follow" data-id="{{ user.id }}">{{ _('focus') }}</a>
 			{% endif %}
 		</div>
 	</div>

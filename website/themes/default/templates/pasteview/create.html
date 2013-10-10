@@ -1,5 +1,5 @@
 {% extends theme('default/base.html') %}
-{% block title %}粘贴新代码{% endblock %}
+{% block title %}{{ _('share_my_paste') }}{% endblock %}
 {% block content %}
 <script type="text/javascript">
 $(document).ready(function() {
@@ -43,11 +43,11 @@ $(document).ready(function() {
 		{% endif %}
 		<form class="form-horizontal" action="{{ url_for('pasteview.create') }}" method="POST" enctype="multipart/form-data">
 			<fieldset>
-				<legend>{{ _('share_my_code') }}</legend>
+				<legend>{{ _('share_my_paste') }}</legend>
 				<div class="form-group">
 					{{ g.form.title.label(class="control-label col-md-2") }}
 					<div class="col-md-10">
-						<input type="text" name="title" class="form-control" placeholder="{{ _('form_title_placeholder') }}给你的代码起个名字, 不填就是 未知标题 哦" />
+						<input type="text" name="title" class="form-control" placeholder="{{ _('form_title_placeholder') }}" />
 					</div>
 				</div>
 				<div class="form-group">
@@ -59,7 +59,7 @@ $(document).ready(function() {
 				<div class="form-group">
 					{{ g.form.tag.label(class="control-label col-md-2") }}
 					<div class="col-md-10">
-						<input type="text" name="tag" class="form-control" placeholder="{{ _('form_tag_placeholder') }}多个标签用空格分割, 最多可以写3个标签哦" />
+						<input type="text" name="tag" class="form-control" placeholder="{{ _('form_tag_placeholder') }}" />
 						<div class="checkbox">
 							<label>
 								{{ g.form.is_private() }}{{ _('is_private') }}
@@ -81,7 +81,7 @@ $(document).ready(function() {
 					{{ g.form.content.label(class="control-label col-md-2") }}
 					<div class="col-md-10">
 						<textarea class="form-control" rows="10" name="content"></textarea>
-						<span class="help-block">{{ _('form_content_placeholder') }}在这里贴上您想分享的代码吧</span>
+						<span class="help-block">{{ _('form_content_placeholder') }}</span>
 					</div>
 				</div>
 				<!--<p id="show-file-box" class="clearfix" style="display: none">

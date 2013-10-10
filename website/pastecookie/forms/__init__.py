@@ -4,6 +4,7 @@ import hashlib
 from flask import g
 from flask import request
 from flask.ext import wtf
+from flask.ext.babel import gettext
 
 from wtforms import BooleanField
 from wtforms import FileField
@@ -30,66 +31,79 @@ class BaseForm(wtf.Form):
 
 def email_unique(form, field):
     if len(User.query.filter_by(email=field.data).all()) > 0:
-        raise ValidationError(u'这个邮件地址已经有人注册了.')
+        raise ValidationError(gettext('email_is_taken'))
 
 def nickname_unique(form, field):
     if len(User.query.filter_by(nickname=field.data).all()) > 0:
-        raise ValidationError(u'这个邮件地址已经有人注册了.')
+        raise ValidationError(gettext('nickname_is_taken'))
 
 def paste_fields_check(form, field):
     if request.files:
         file = request.files['code_file']
         if not file and not form.content.data:
-            raise ValidationError(u'贴代码的方式有两种：贴代码片段和上传代码文件，请至少选择一项')
+            raise ValidationError(gettext('paste_your_code_or_select_a_file'))
 
 def tags_check(form, field):
     if not field.data:
         return True
     if len(field.data.split(' ')) > 3:
-        raise ValidationError(u'标签不能超过3个.')
+        raise ValidationError(gettext('no_more_than_3_tags'))
 
 def old_password_check(form, field):
     user = getUserObject()
     if user.password != hash_password(field.data):
-        raise ValidationError(u'当前密码不正确')
+        raise ValidationError(gettext('password_not_correct'))
     return True
 
 class RegisterForm(BaseForm):
-    nickname = TextField(u'昵称', [Required(message=u'请填一个你喜欢的昵称吧'), Length(min=2, max=12, message=u"昵称最少一个字符, 最多12个字符"), nickname_unique])
-    email = TextField(u'邮件地址', [Email(message=u'请输入正确的email地址')])
-    password = PasswordField(u'密码', [Length(min=6, max=12, message=u'密码长度在6-12个字符之间'),
-        Required(message=u'请输入密码')])
-    password_confirm = PasswordField(u'密码确认', [Required(message=u'请输入密码'),
-        EqualTo('password', message=u'密码必须相同')])
+    nickname = TextField(gettext('nickname'),
+        [Required(message=gettext('nickname_is_required')),
+         Length(min=2, max=12, 
+                message=gettext('nickname_more_than_2_letters_less_than_12_letters')),
+         nickname_unique])
+    email = TextField(gettext('email'), [Email(message=gettext('email_not_correct'))])
+    password = PasswordField(gettext('password'),
+        [Length(min=6, max=12, message=gettext('password_more_than_6_letters_less_than_12_letters')),
+         Required(message=gettext('password_is_required'))])
+    password_confirm = PasswordField(gettext('password_confirmation'), [Required(message=gettext('password_confirmation_is_required')),
+        EqualTo('password', message=gettext('password_not_equal'))])
 
 class ProfileForm(BaseForm):
-    nickname = TextField(u'昵称', [Required(message=u'请填一个你喜欢的昵称吧'), Length(min=2, max=12, message=u"昵称最少一个字符, 最多12个字符"), nickname_unique])
-    email = TextField(u'邮件地址', [Email(message=u'请输入正确的email地址')])
-    agreement = BooleanField(u'注册条款', [Required()])
+    nickname = TextField(gettext('nickname'),
+        [Required(message=gettext('nickname_is_required')),
+         Length(min=2, max=12,
+                message=gettext('nickname_more_than_2_letters_less_than_12_letters')),
+         nickname_unique])
+    email = TextField(gettext('email'), [Email(message=gettext('email_not_correct'))])
 
 class UserInfoForm(BaseForm):
-    nickname = TextField(u'昵称', [Required(), Length(min=2, max=12, message=u"昵称最少一个字符, 最多12个字符")])
-    motoo = TextField(u'签名', [Length(min=0, max=80)])
-    introduction = TextAreaField(u'介绍', [Length(min=0, max=160)])
+    nickname = TextField(gettext('nickname'),
+        [Required(),
+         Length(min=2, max=12,
+                message=gettext('nickname_more_than_2_letters_less_than_12_letters'))])
+    motoo = TextField(gettext('motoo'), [Length(min=0, max=80)])
+    introduction = TextAreaField(gettext('introduction'), [Length(min=0, max=160)])
 
 class LoginForm(BaseForm):
-    email = TextField(u'邮件地址', [Required(), Length(min=6, max=30), Email()])
-    password = PasswordField(u'密码', [Length(min=6, max=12), Required()])
+    email = TextField(gettext('email'), [Required(), Length(min=6, max=30), Email()])
+    password = PasswordField(gettext('password'), [Length(min=6, max=12), Required()])
 
 class PasswordForm(BaseForm):
-    old_password = PasswordField(u'当前密码', [Required(), old_password_check])
-    new_password = PasswordField(u'新密码', [Required(), Length(min=6, max=12)])
-    new_password_confirm = PasswordField(u'重复新密码', [Required(),
-                    EqualTo('new_password', message=u'密码必须相同')])
+    old_password = PasswordField(gettext('old_password'), [Required(), old_password_check])
+    new_password = PasswordField(gettext('new_password'), [Required(), Length(min=6, max=12)])
+    new_password_confirm = PasswordField(gettext('new_password_confirm'),
+        [Required(),
+         EqualTo('new_password', message=gettext('password_not_equal'))])
 
 class PasteForm(BaseForm):
-    title = TextField(u'标题')
-    syntax = SelectField(u'语法', choices=Syntax.get_syntax_list())
-    content = TextAreaField(u'代码')
-    tag = TextField(u'标签', [tags_check])
-    description = TextAreaField(u'描述')
-    code_file = FileField(u'文件', [paste_fields_check])
-    is_private = BooleanField(u'Public')
+    title = TextField(gettext('paste_title'))
+    syntax = SelectField(gettext('paste_syntax'), choices=Syntax.get_syntax_list())
+    content = TextAreaField(gettext('paste_code'))
+    tag = TextField(gettext('paste_tags'), [tags_check])
+    description = TextAreaField(gettext('paste_description'))
+    code_file = FileField(gettext('paste_file'), [paste_fields_check])
+    is_private = BooleanField(gettext('paste_is_private'))
 
 class CommentForm(BaseForm):
-    content = TextAreaField(u'评论', [Required(message=u"评论不能为空")])
+    content = TextAreaField(gettext('comment'),
+        [Required(message=gettext('comment_is_required'))])

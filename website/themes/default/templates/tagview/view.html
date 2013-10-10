@@ -84,18 +84,10 @@ $(document).ready(function() {
 </script>
 {% endblock %}
 {% block content %}
-<table class="table">
-	<thead>
-		<tr><td>{{ g.model.name }}相关的代码段</td></tr>
-	</thead>
-	<tbody>
-	{% for paste in g.pastes.items %}
-		<tr><td>
-		{% include theme('default/items/_paste_item.html') %}
-		</td></tr>
-	{% endfor %}
-	</tbody>
-</table>
+<h4>{{ g.model.name }}相关的代码段</h4>
+{% for paste in g.pastes.items %}
+	{% include theme('default/items/_paste_item.html') %}
+{% endfor %}
 <div class="row col-md-12">
 	<button class="btn btn-default btn-block" id="more_button" _id="{{ g.model.id }}" _page="2">{{ _('more') }}</button>
 </div>

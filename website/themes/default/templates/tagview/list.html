@@ -8,7 +8,7 @@ $(document).ready(function() {
 </script>
 {% endblock %}
 {% block content %}
-<h3>{{ _('all_tags') }}</h3>
+<h4>{{ _('all_tags') }}</h4>
 {% for tag in g.tags %}
     {% include theme('default/items/_tag.html') %}
 {% endfor %}

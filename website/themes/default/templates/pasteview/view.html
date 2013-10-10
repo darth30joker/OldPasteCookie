@@ -144,7 +144,6 @@ $(document).ready(function() {
 	{% endfor %}
 	</ul>
 	{% if g.user %}
-	<h4 class="mb10">发布评论</h4>
 	<form action="{{ url_for('pasteview.view', paste_id=g.model.id) }}" method="POST">
 		<fieldset>
 			<legend>{{ _('paste_comment') }}</legend>

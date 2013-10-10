@@ -1,21 +1,21 @@
-<div class="bd3 mb10 alr">
-	<div {% if g.model.is_user_followed %} style="display: none;" {% endif %} class="btn follow btn-success btn-large" id="follow" object_id="{{ g.model.id }}">
-		<span class="plus"></span>
-		<strong>关注</strong>
-	</div>
-	<div {% if not g.model.is_user_followed %} style="display: none;" {% endif %} class="btn follow btn-large" id="unfollow" object_id="{{ g.model.id }}">
-		<span class="plus"></span>
-		<strong>取消关注</strong>
-	</div>
+<div class="row">
+	{% if g.model.is_user_followed %}
+		<div class="btn follow btn-danger" id="unfollow" object_id="{{ g.model.id }}">
+			<span class="plus"></span>
+			<strong>{{ _('unfollow') }}</strong>
+		</div>
+	{% else %}
+		<div  class="btn follow btn-success" id="follow" object_id="{{ g.model.id }}">
+			<span class="plus"></span>
+			<strong>{{ _('follow') }}</strong>
+		</div>
+	{% endif %}
+
 </div>
-<div class="">
-	<div class="paste-side-title clearfix">
-		<span class="lf fs14 fwb cl6c553b lh24">关注 {{ g.model.name }} 的用户</span>
-	</div>
-	<ul class="user_list clearfix pt10 pl10">
-		{% for user in g.model.followers %}
-			{% include theme('default/items/_user.html') %}
-		{% endfor %}
-	</ul>
+<div class="row">
+	<h4>{{ _('focus_%(name)s_users', name=g.model.name) }}</span>
+	{% for user in g.model.followers %}
+		{% include theme('default/items/_user.html') %}
+	{% endfor %}
 </div>
 {% include theme('default/_top_tags.html') %}

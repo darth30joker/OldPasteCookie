@@ -16,12 +16,12 @@ $(document).ready(function() {
 </script>
 {% endblock %}
 {% block content %}
-<h3>{{ _('most_visited_pastes') }}</h3>
+<h4>{{ _('most_visited_pastes') }}</h4>
 {% for paste in g.top_view_pastes %}
 	{% include theme('default/items/_paste_item.html') %}
 {% endfor %}
 
-<h3>{{ _('most_commented_pastes') }}</h3>
+<h4>{{ _('most_commented_pastes') }}</h4>
 {% for paste in g.top_comment_pastes %}
 	{% include theme('default/items/_paste_item.html') %}
 {% endfor %}

@@ -1,16 +1,6 @@
 <div class="row">
-	<table class="table">
-		<thead>
-			<tr>
-                <td>{{ _('followers') }}</td>
-			</tr>
-		</thead>
-		<tbody>
-		{% for user in g.model.followers %}
-		<tr>
-			<td>{% include theme('default/items/_user.html') %}</td>
-		</tr>
-		{% endfor %}
-		</tbody>
-	</table>
+	<h4>{{ _('followers') }}</h4>
+	{% for user in g.model.followers %}
+		{% include theme('default/items/_user.html') %}
+	{% endfor %}
 </div>
