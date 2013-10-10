@@ -1,15 +1,5 @@
-<div class="row col-md-12">
-	<div class="pull-left col-md-9 pl0">
-		<a class="mr10 fs14 fwb" href="{{ url_for('pasteview.view', paste_id=paste.id) }}" title="{{ paste.title }}">{{ paste.get_sliced_title(25) }}</a>
-		<span class="clc mr5">by</span>
-		<a href="{{ paste.user.url }}" class="carte fwb" title="{{ paste.user.nickname }}" data-content="<div class='lf paste_user_icon'><img src='{{ paste.user.get_avatar_url(48) }}' alt='{{ paste.user.nickname }}' /></div>
-				<div class='rt paste_user_cont'>
-				<p class='lh22'>签名：{{ paste.user.info.motoo | empty(text = "这家伙没有签名") }}</p>
-				<p class='lh22'>介绍：{{ paste.user.info.introduction | empty(text = "这家伙很懒，什么都没写") }}</p>
-				<p class='lh22'>最近登录时间：{{ paste.user.created_time | dateformat }}</p></div><div class='clear'></div>">{{ paste.user.nickname }}</a>
-		<span class="clc">{{ paste.created_time | time_passed }}</span>
-	</div>
-	<div class="pull-left col-md-3">
+<div class="row col-md-12 pt15 pb15">
+	<div class="pull-right">
 		<span class="">{{ paste.comments | length }}回复/{{ paste.view_num }}阅读</span>
 		<span class="rt clc">
 			<a href="javascript:void(0);" title="取消关注" class="lf clc paste-follow-link follow" data-id="{{ paste.id }}" {% if not paste.is_user_followed %}style="display:none"{% endif %}>
@@ -26,9 +16,20 @@
 			</a>
 		</span>
 	</div>
+	<div class="">
+		<a class="mr10 fs14 fwb" href="{{ url_for('pasteview.view', paste_id=paste.id) }}" title="{{ paste.title }}">{{ paste.get_sliced_title(25) }}</a>
+		<span class="clc mr5">by</span>
+		<a href="{{ paste.user.url }}" class="carte fwb" title="{{ paste.user.nickname }}" data-content="<div class='lf paste_user_icon'><img src='{{ paste.user.get_avatar_url(48) }}' alt='{{ paste.user.nickname }}' /></div>
+				<div class='rt paste_user_cont'>
+				<p class='lh22'>签名：{{ paste.user.info.motoo | empty(text = "这家伙没有签名") }}</p>
+				<p class='lh22'>介绍：{{ paste.user.info.introduction | empty(text = "这家伙很懒，什么都没写") }}</p>
+				<p class='lh22'>最近登录时间：{{ paste.user.created_time | dateformat }}</p></div><div class='clear'></div>">{{ paste.user.nickname }}</a>
+		<span class="clc">{{ paste.created_time | time_passed }}</span>
+	</div>
+	<div class="row col-md-12">
+		{% for tag in paste.tags %}
+			{% include theme('default/items/_tag.html') %}
+		{% endfor %}
+	</div>
 </div>
-<div class="row col-md-12">
-	{% for tag in paste.tags %}
-		{% include theme('default/items/_tag.html') %}
-	{% endfor %}
-</div>
+
