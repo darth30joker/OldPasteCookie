@@ -1,0 +1,437 @@
+# Chinese (Simplified, China) translations for PROJECT.
+# Copyright (C) 2013 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2013-10-10 17:05+0800\n"
+"PO-Revision-Date: 2013-10-10 18:45+0800\n"
+"Last-Translator: David Xie <david.scriptfan@gmail.com>\n"
+"Language-Team: David Xie <david.scriptfan@gmail.com>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 1.3\n"
+
+#: pastecookie/application.py:73
+msgid "permission_denied_title"
+msgstr "您没有权限访问这个页面"
+
+#: pastecookie/application.py:74
+msgid "permission_denied_message"
+msgstr "您没有权限访问这个页面, 请登陆"
+
+#: pastecookie/application.py:79
+msgid "page_not_found_title"
+msgstr "您访问的页面不存在"
+
+#: pastecookie/application.py:80
+msgid "page_not_found_message"
+msgstr "您访问的页面不存在"
+
+#: pastecookie/application.py:85
+msgid "internal_error_title"
+msgstr "服务器错误"
+
+#: pastecookie/application.py:86
+msgid "internal_error_message"
+msgstr "服务器出错了, 请您稍后再来访问, 或者联系管理员"
+
+#: pastecookie/forms/__init__.py:34
+msgid "email_is_taken"
+msgstr "邮件地址被占用"
+
+#: pastecookie/forms/__init__.py:38
+msgid "nickname_is_taken"
+msgstr "昵称被占用"
+
+#: pastecookie/forms/__init__.py:44
+msgid "paste_your_code_or_select_a_file"
+msgstr "请粘贴您的代码或者选择一个文件"
+
+#: pastecookie/forms/__init__.py:50
+msgid "no_more_than_3_tags"
+msgstr "不能超过3个标签"
+
+#: pastecookie/forms/__init__.py:55
+msgid "password_not_correct"
+msgstr "密码不正确"
+
+#: pastecookie/forms/__init__.py:59 pastecookie/forms/__init__.py:72
+#: pastecookie/forms/__init__.py:80
+msgid "nickname"
+msgstr "昵称"
+
+#: pastecookie/forms/__init__.py:60 pastecookie/forms/__init__.py:73
+msgid "nickname_is_required"
+msgstr "请输入昵称"
+
+#: pastecookie/forms/__init__.py:62 pastecookie/forms/__init__.py:75
+#: pastecookie/forms/__init__.py:83
+msgid "nickname_more_than_2_letters_less_than_12_letters"
+msgstr "昵称最少2个字符, 最多12个字符"
+
+#: pastecookie/forms/__init__.py:64 pastecookie/forms/__init__.py:77
+#: pastecookie/forms/__init__.py:88
+msgid "email"
+msgstr "邮件地址"
+
+#: pastecookie/forms/__init__.py:64 pastecookie/forms/__init__.py:77
+msgid "email_not_correct"
+msgstr "邮件地址不正确"
+
+#: pastecookie/forms/__init__.py:65 pastecookie/forms/__init__.py:89
+msgid "password"
+msgstr "密码"
+
+#: pastecookie/forms/__init__.py:66
+msgid "password_more_than_6_letters_less_than_12_letters"
+msgstr "密码最少6个字符, 最多12个字符"
+
+#: pastecookie/forms/__init__.py:67
+msgid "password_is_required"
+msgstr "请输入密码"
+
+#: pastecookie/forms/__init__.py:68
+msgid "password_confirmation"
+msgstr "密码确认"
+
+#: pastecookie/forms/__init__.py:68
+msgid "password_confirmation_is_required"
+msgstr "请再输入一次密码"
+
+#: pastecookie/forms/__init__.py:69 pastecookie/forms/__init__.py:96
+msgid "password_not_equal"
+msgstr "两次的密码不相同"
+
+#: pastecookie/forms/__init__.py:84
+msgid "motoo"
+msgstr "个人签名"
+
+#: pastecookie/forms/__init__.py:85
+msgid "introduction"
+msgstr "个人介绍"
+
+#: pastecookie/forms/__init__.py:92
+msgid "old_password"
+msgstr "旧密码"
+
+#: pastecookie/forms/__init__.py:93
+msgid "new_password"
+msgstr "新密码"
+
+#: pastecookie/forms/__init__.py:94
+msgid "new_password_confirm"
+msgstr "新密码确认"
+
+#: pastecookie/forms/__init__.py:99
+msgid "paste_title"
+msgstr "标题"
+
+#: pastecookie/forms/__init__.py:100
+msgid "paste_syntax"
+msgstr "语法"
+
+#: pastecookie/forms/__init__.py:101
+msgid "paste_code"
+msgstr "代码"
+
+#: pastecookie/forms/__init__.py:102
+msgid "paste_tags"
+msgstr "标签"
+
+#: pastecookie/forms/__init__.py:103
+msgid "paste_description"
+msgstr "描述"
+
+#: pastecookie/forms/__init__.py:104
+msgid "paste_file"
+msgstr "文件"
+
+#: pastecookie/forms/__init__.py:105
+msgid "paste_is_private"
+msgstr "是否私有"
+
+#: pastecookie/forms/__init__.py:108
+msgid "comment"
+msgstr "评论"
+
+#: pastecookie/forms/__init__.py:109
+msgid "comment_is_required"
+msgstr "请输入评论"
+
+#: pastecookie/utils/filters.py:23
+#, python-format
+msgid "%(days)s days ago"
+msgstr "%(days)s天前"
+
+#: pastecookie/utils/filters.py:26
+#, python-format
+msgid "%(minutes)s minutes ago"
+msgstr "%(minutes)s分钟前"
+
+#: pastecookie/utils/filters.py:28
+#, python-format
+msgid "%(hours)s hours ago"
+msgstr "%(hours)s小时前"
+
+#: themes/default/templates/_active_users.html:2
+msgid "active_users"
+msgstr "活跃用户"
+
+#: themes/default/templates/_followed_users.html:2
+msgid "followers"
+msgstr "关注者"
+
+#: themes/default/templates/_newest_users.html:2
+msgid "new_users"
+msgstr "最新用户"
+
+#: themes/default/templates/_related_pastes.html:2
+msgid "related_pastes"
+msgstr "相近代码段"
+
+#: themes/default/templates/_share_btn.html:2
+#: themes/default/templates/pasteview/edit.html:29
+msgid "share_my_code"
+msgstr "分享我的代码"
+
+#: themes/default/templates/_sidebar_view_paste.html:5
+#: themes/default/templates/_sidebar_view_tag.html:5
+msgid "unfollow"
+msgstr "取消关注"
+
+#: themes/default/templates/_sidebar_view_paste.html:10
+#: themes/default/templates/_sidebar_view_tag.html:10
+msgid "follow"
+msgstr "关注"
+
+#: themes/default/templates/_sidebar_view_tag.html:16
+#, python-format
+msgid "focus_%(name)s_users"
+msgstr "关注 %(name)s 的用户"
+
+#: themes/default/templates/_top_tags.html:2
+msgid "hotest_tags"
+msgstr "热门标签"
+
+#: themes/default/templates/base.html:8 themes/default/templates/base.html:36
+msgid "website_title"
+msgstr "代码段"
+
+#: themes/default/templates/base.html:40 themes/default/templates/base.html:59
+msgid "nav_index"
+msgstr "首页"
+
+#: themes/default/templates/base.html:41
+msgid "nav_tag"
+msgstr "标签"
+
+#: themes/default/templates/base.html:42
+msgid "nav_rank"
+msgstr "排名"
+
+#: themes/default/templates/base.html:46
+msgid "search_pastes"
+msgstr "搜索代码段"
+
+#: themes/default/templates/base.html:48
+msgid "nav_share"
+msgstr "分享"
+
+#: themes/default/templates/base.html:61
+msgid "nav_messages"
+msgstr "消息"
+
+#: themes/default/templates/base.html:62
+msgid "nav_settings"
+msgstr "设置"
+
+#: themes/default/templates/base.html:64
+msgid "nav_manage"
+msgstr "管理"
+
+#: themes/default/templates/base.html:67
+msgid "nav_logout"
+msgstr "登出"
+
+#: themes/default/templates/base.html:71
+msgid "nav_signup"
+msgstr "注册"
+
+#: themes/default/templates/base.html:72
+msgid "nav_login"
+msgstr "登陆"
+
+#: themes/default/templates/base.html:107
+msgid "foot_development_blog"
+msgstr "开发日志"
+
+#: themes/default/templates/base.html:108
+msgid "foot_subscribe_this_site"
+msgstr "订阅网站"
+
+#: themes/default/templates/base.html:109
+msgid "foot_faq"
+msgstr "FAQ"
+
+#: themes/default/templates/base.html:110
+msgid "foot_about_us"
+msgstr "关于"
+
+#: themes/default/templates/base.html:111
+msgid "foot_contact_us"
+msgstr "联系我们"
+
+#: themes/default/templates/base.html:114
+msgid "loaded_time"
+msgstr "页面加载时间"
+
+#: themes/default/templates/items/_paste_item.html:3
+msgid "comments"
+msgstr "评论"
+
+#: themes/default/templates/items/_paste_item.html:3
+msgid "views"
+msgstr "阅读"
+
+#: themes/default/templates/items/_paste_item.html:5
+#: themes/default/templates/items/_paste_item.html:6
+#: themes/default/templates/items/_user.html:18
+msgid "unfocus"
+msgstr "取消关注"
+
+#: themes/default/templates/items/_paste_item.html:8
+#: themes/default/templates/items/_paste_item.html:9
+#: themes/default/templates/items/_user.html:20
+msgid "focus"
+msgstr "关注"
+
+#: themes/default/templates/items/_paste_item.html:11
+#: themes/default/templates/items/_paste_item.html:12
+msgid "unfavorite"
+msgstr "取消收藏"
+
+#: themes/default/templates/items/_paste_item.html:14
+#: themes/default/templates/items/_paste_item.html:15
+msgid "favorite"
+msgstr "收藏"
+
+#: themes/default/templates/items/_user.html:14
+#, python-format
+msgid "shard_%(num)s_pastes"
+msgstr "分享了%(num)s段代码"
+
+#: themes/default/templates/pasteview/create.html:2
+#: themes/default/templates/pasteview/create.html:46
+msgid "share_my_paste"
+msgstr "分享我的代码"
+
+#: themes/default/templates/pasteview/create.html:50
+#: themes/default/templates/pasteview/edit.html:33
+msgid "form_title_placeholder"
+msgstr "给你的代码起一个名字"
+
+#: themes/default/templates/pasteview/create.html:62
+#: themes/default/templates/pasteview/edit.html:45
+msgid "form_tag_placeholder"
+msgstr "输入几个标签吧, 不能超过3个哦"
+
+#: themes/default/templates/pasteview/create.html:65
+#: themes/default/templates/pasteview/edit.html:48
+msgid "is_private"
+msgstr "是否私有"
+
+#: themes/default/templates/pasteview/create.html:84
+msgid "form_content_placeholder"
+msgstr "贴上你的代码吧"
+
+#: themes/default/templates/pasteview/create.html:93
+msgid "share"
+msgstr "分享"
+
+#: themes/default/templates/pasteview/view.html:88
+msgid "modify"
+msgstr "修改"
+
+#: themes/default/templates/pasteview/view.html:89
+msgid "delete"
+msgstr "删除"
+
+#: themes/default/templates/pasteview/view.html:92
+msgid "check_raw_paste"
+msgstr "查看原始代码"
+
+#: themes/default/templates/pasteview/view.html:95
+msgid "rate"
+msgstr "评分"
+
+#: themes/default/templates/pasteview/view.html:97
+msgid "unbookmark"
+msgstr "取消收藏"
+
+#: themes/default/templates/pasteview/view.html:98
+msgid "bookmark"
+msgstr "收藏"
+
+#: themes/default/templates/pasteview/view.html:100
+msgid "download"
+msgstr "下载代码"
+
+#: themes/default/templates/pasteview/view.html:103
+msgid "show_description"
+msgstr "显示简介"
+
+#: themes/default/templates/pasteview/view.html:108
+msgid "no_comments"
+msgstr "没有评论"
+
+#: themes/default/templates/pasteview/view.html:149
+#: themes/default/templates/pasteview/view.html:158
+msgid "paste_comment"
+msgstr "留下一个评论"
+
+#: themes/default/templates/rankview/rank.html:2
+msgid "rank"
+msgstr "排行"
+
+#: themes/default/templates/rankview/rank.html:19
+msgid "most_visited_pastes"
+msgstr "访问最多的代码段"
+
+#: themes/default/templates/rankview/rank.html:24
+msgid "most_commented_pastes"
+msgstr "评论最多的代码段"
+
+#: themes/default/templates/siteview/index.html:2
+msgid "index"
+msgstr "首页"
+
+#: themes/default/templates/siteview/index.html:11
+msgid "newest_pastes"
+msgstr "最新代码段"
+
+#: themes/default/templates/siteview/index.html:16
+#: themes/default/templates/tagview/view.html:92
+msgid "more"
+msgstr "查看更多"
+
+#: themes/default/templates/siteview/messages.html:2
+#: themes/default/templates/siteview/messages.html:27
+msgid "messages"
+msgstr "消息"
+
+#: themes/default/templates/siteview/posts.html:2
+#: themes/default/templates/siteview/posts.html:6
+msgid "development_blog"
+msgstr "开发日志"
+
+#: themes/default/templates/tagview/list.html:2
+#: themes/default/templates/tagview/list.html:11
+msgid "all_tags"
+msgstr "所有标签"
+

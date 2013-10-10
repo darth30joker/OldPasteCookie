@@ -56,7 +56,7 @@ def config_app(app, db, oid, babel, config):
     def get_locale():
         user = getattr(g, 'user', None)
         if user:
-            return getattr(user, 'locale', 'en')
+            return getattr(user, 'locale', 'zh')
         return request.accept_languages.best_match(['en', 'zh'])
 
     @babel.timezoneselector
