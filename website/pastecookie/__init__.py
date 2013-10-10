@@ -1,5 +1,8 @@
 #-*-coding:utf-8-*-
+import time
+
 from flask import Flask
+from flask import g
 from flask.ext.openid import OpenID
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.themes import render_theme_template
@@ -12,4 +15,5 @@ babel = Babel()
 
 def render(template, **kwargs):
     theme = app.config['THEME']
+    g.used_time = int((time.time() - g.start_time) * 1000)
     return render_theme_template(theme, template, **kwargs)

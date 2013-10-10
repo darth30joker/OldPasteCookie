@@ -95,22 +95,23 @@
 		</div>
 		<div class="container">
 			<div class="col-md-12">
-			<hr />
-			<p class="flink container clearfix">
-				<span>
-					© 2011 - 2013 <a href="/">daimaduan.com</a> All right reserved.
-				</span>
-				<span>
-					Powered by <a href="https://github.com/kingheaven/PasteCookie">PasteCookie</a>
-				</span>
-				<span class="pull-right">
-					<a href="{{ url_for('siteview.posts') }}">{{ _('foot_development_blog') }}</a> | 
-					<a href="{{ url_for('siteview.rss') }}">{{ _('foot_subscribe_this_site') }}</a> | 
-					<a href="{{ url_for('siteview.page', slug='faq') }}">{{ _('foot_faq') }}</a> | 
-					<a href="{{ url_for('siteview.page', slug='about') }}">{{ _('foot_about_us') }}</a> | 
-					<a href="{{ url_for('siteview.page', slug='contact') }}">{{ _('foot_contact_us') }}</a>
-				</span>
-			</p>
+				<hr />
+				<p class="flink container clearfix">
+					<span>
+						© 2011 - 2013 <a href="/">daimaduan.com</a> All right reserved.
+					</span>
+					<span>
+						Powered by <a href="https://github.com/kingheaven/PasteCookie">PasteCookie</a>
+					</span>
+					<span class="pull-right">
+						<a href="{{ url_for('siteview.posts') }}">{{ _('foot_development_blog') }}</a> | 
+						<a href="{{ url_for('siteview.rss') }}">{{ _('foot_subscribe_this_site') }}</a> | 
+						<a href="{{ url_for('siteview.page', slug='faq') }}">{{ _('foot_faq') }}</a> | 
+						<a href="{{ url_for('siteview.page', slug='about') }}">{{ _('foot_about_us') }}</a> | 
+						<a href="{{ url_for('siteview.page', slug='contact') }}">{{ _('foot_contact_us') }}</a>
+					</span>
+				</p>
+				<p>Loaded: {{ g.used_time }} ms</p>
 			</div>
 		</div>
 	</body>

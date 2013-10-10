@@ -1,4 +1,5 @@
 #-*-coding:utf-8-*-
+import time
 import logging
 from logging.handlers import RotatingFileHandler
 
@@ -35,6 +36,7 @@ def config_app(app, db, oid, babel, config):
 
     @app.before_request
     def before_request():
+        g.start_time = time.time()
         g.user = None
         if 'user' in session:
             g.user = User.query.filter_by(id=session['user']).first()

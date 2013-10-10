@@ -31,7 +31,6 @@ def index():
     g.new_pastes = Paste.query.filter_by(is_private=False).filter_by(is_delete=False).order_by('created_time DESC')[:PAGE_SIZE]
     g.top_tags = Tag.query.order_by('times DESC')[:SIDEBAR_PAGE_SIZE]
     g.users = User.query.order_by('created_time DESC')[:SIDEBAR_PAGE_SIZE]
-    #import pdb; pdb.set_trace()
     return render('siteview/index.html')
 
 
