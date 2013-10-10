@@ -1,14 +1,6 @@
 <div class="row">
-	<table class="table">
-		<thead>
-            <tr><td>{{ _('hotest_tags') }}</td></tr>
-		</thead>
-		<tbody>
-			<tr><td>
-			{% for tag in g.top_tags %}
-				{% include theme('default/items/_tag.html') %}
-			{% endfor %}
-			</td></tr>
-		</tbody>
-	</table>
+	<h3>{{ _('hotest_tags') }}</h3>
+	{% for tag in g.top_tags %}
+		{% include theme('default/items/_tag.html') %}
+	{% endfor %}
 </div>

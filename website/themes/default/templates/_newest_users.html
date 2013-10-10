@@ -1,18 +1,6 @@
 <div class="row">
-	<table class="table">
-		<thead>
-			<tr>
-				<td>{{ _('new_users') }}</td>
-			</tr>
-		</thead>
-		<tbody>
-		{% for user in g.users %}
-		<tr>
-			<td>
-			{% include theme('default/items/_user.html') %}
-			</td>
-		</tr>
-		{% endfor %}
-		</tbody>
-	</table>
+	<h3>{{ _('new_users') }}</h3>
+	{% for user in g.users %}
+		{% include theme('default/items/_user.html') %}
+	{% endfor %}
 </div>

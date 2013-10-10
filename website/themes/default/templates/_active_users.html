@@ -1,10 +1,6 @@
-<div>
-	<div class="paste-side-title clearfix">
-        <span class="lf fs14 fwb cl6c553b lh24">{{ _('active_users') }}</span>
-	</div>
-	<ul class="paste-user-list clearfix mt5">
-		{% for user in g.users %}
-			{% include theme('default/items/_user.html') %}
-		{% endfor %}
-	</ul>
+<div class="row">
+	<h3>{{ _('active_users') }}</h3>
+	{% for user in g.users %}
+		{% include theme('default/items/_user.html') %}
+	{% endfor %}
 </div>
