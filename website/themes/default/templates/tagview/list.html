@@ -8,18 +8,10 @@ $(document).ready(function() {
 </script>
 {% endblock %}
 {% block content %}
-<table class="table">
-	<thead>
-        <tr><td>{{ _('all_tags') }}</td></tr>
-	</thead>
-	<tbody>
-		<tr><td>
-            {% for tag in g.tags %}
-                {% include theme('default/items/_tag.html') %}
-            {% endfor %}
-		</td></tr>
-	</tbody>
-</table>
+<h3>{{ _('all_tags') }}</h3>
+{% for tag in g.tags %}
+    {% include theme('default/items/_tag.html') %}
+{% endfor %}
 {% endblock %}
 {% block sidebar %}
 	{% include theme('default/_sidebar.html') %}
