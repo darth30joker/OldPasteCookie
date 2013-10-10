@@ -19,15 +19,16 @@ from pastecookie.utils.decorators import *
 from pastecookie.utils.functions import *
 
 PAGE_SIZE = app.config['PAGE_SIZE']
-SIDEBAR_PAGE_SIZE = app.config.get('SIDEBAR_PAGE_SIZE')
+SIDEBAR_TAG_PAGE_SIZE = app.config.get('SIDEBAR_TAG_PAGE_SIZE')
+SIDEBAR_USER_PAGE_SIZE = app.config.get('SIDEBAR_USER_PAGE_SIZE')
 
 tagview = Blueprint('tagview', __name__)
 
 @tagview.route('/list', methods=['GET'])
 def list():
-    g.users = User.query.order_by('paste_num DESC')[:SIDEBAR_PAGE_SIZE]
+    g.users = User.query.order_by('paste_num DESC')[:SIDEBAR_USER_PAGE_SIZE]
     g.tags = Tag.query.order_by('name').all()
-    g.top_tags = Tag.query.order_by('-times')[:PAGE_SIZE]
+    g.top_tags = Tag.query.order_by('-times')[:SIDEBAR_TAG_PAGE_SIZE]
     return render('tagview/list.html')
 
 @tagview.route('/<tag_name>', methods=['GET'])
@@ -37,8 +38,8 @@ def view(tag_name):
     model = Tag.query.filter_by(name=tag_name).first_or_404()
     g.model = model
     g.pastes = Paste.query.join(Paste.tags).filter(Paste.tags.contains(g.model)).filter(Paste.is_private==False).order_by('pastes.created_time DESC').paginate(1, PAGE_SIZE)
-    g.top_tags = Tag.query.order_by('times DESC').all()
-    g.users = User.query.order_by("paste_num DESC").all()[:SIDEBAR_PAGE_SIZE]
+    g.top_tags = Tag.query.order_by('times DESC')[:SIDEBAR_TAG_PAGE_SIZE]
+    g.users = User.query.order_by("paste_num DESC").all()[:SIDEBAR_USER_PAGE_SIZE]
     return render('tagview/view.html')
 
 @tagview.route('/getmore', methods=['POST'])

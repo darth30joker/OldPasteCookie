@@ -36,6 +36,8 @@ from pastecookie.utils.functions import *
 from pastecookie.utils.decorators import *
 
 PAGE_SIZE = app.config.get('PAGE_SIZE')
+SIDEBAR_TAG_PAGE_SIZE = app.config.get('SIDEBAR_TAG_PAGE_SIZE')
+SIDEBAR_USER_PAGE_SIZE = app.config.get('SIDEBAR_USER_PAGE_SIZE')
 
 pasteview = Blueprint('pasteview', __name__)
 
@@ -199,8 +201,8 @@ def view(paste_id):
     g.model = model
     g.user = user
     g.form = form
-    g.top_users = User.query.order_by('-paste_num')[:PAGE_SIZE]
-    g.top_tags = Tag.query.order_by('-times')[:PAGE_SIZE]
+    g.top_users = User.query.order_by('-paste_num')[:SIDEBAR_USER_PAGE_SIZE]
+    g.top_tags = Tag.query.order_by('-times')[:SIDEBAR_USER_PAGE_SIZE]
     g.syntax_theme = request.args.get('css', app.config.get('DEFAULT_SYNTAX_CSS_FILE'))
     g.css_file = "/static/css/themes/%s.css" % g.syntax_theme
     #g.syntax_themes = SyntaxTheme.get_all_syntax_themes()

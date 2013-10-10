@@ -16,7 +16,7 @@
 			</a>
 		</span>
 	</div>
-	<div class="">
+	<div class="mb10">
 		<a class="mr10 fs14 fwb" href="{{ url_for('pasteview.view', paste_id=paste.id) }}" title="{{ paste.title }}">{{ paste.get_sliced_title(25) }}</a>
 		<span class="clc mr5">by</span>
 		<a href="{{ paste.user.url }}" class="carte fwb" title="{{ paste.user.nickname }}" data-content="<div class='lf paste_user_icon'><img src='{{ paste.user.get_avatar_url(48) }}' alt='{{ paste.user.nickname }}' /></div>
@@ -31,5 +31,6 @@
 			{% include theme('default/items/_tag.html') %}
 		{% endfor %}
 	</div>
+	<hr />
 </div>
 

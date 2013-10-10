@@ -21,7 +21,8 @@ from pastecookie.utils.filters import time_passed
 from pastecookie.utils.functions import *
 
 PAGE_SIZE = app.config.get('PAGE_SIZE')
-SIDEBAR_PAGE_SIZE = app.config.get('SIDEBAR_PAGE_SIZE')
+SIDEBAR_TAG_PAGE_SIZE = app.config.get('SIDEBAR_TAG_PAGE_SIZE')
+SIDEBAR_USER_PAGE_SIZE = app.config.get('SIDEBAR_USER_PAGE_SIZE')
 
 siteview = Blueprint('siteview', __name__)
 
@@ -29,8 +30,8 @@ siteview = Blueprint('siteview', __name__)
 @siteview.route('/')
 def index():
     g.new_pastes = Paste.query.filter_by(is_private=False).filter_by(is_delete=False).order_by('created_time DESC')[:PAGE_SIZE]
-    g.top_tags = Tag.query.order_by('times DESC')[:SIDEBAR_PAGE_SIZE]
-    g.users = User.query.order_by('created_time DESC')[:SIDEBAR_PAGE_SIZE]
+    g.top_tags = Tag.query.order_by('times DESC')[:SIDEBAR_TAG_PAGE_SIZE]
+    g.users = User.query.order_by('created_time DESC')[:SIDEBAR_USER_PAGE_SIZE]
     return render('siteview/index.html')
 
 
@@ -50,8 +51,8 @@ def search():
         g.pastes = Paste.query.filter(Paste.title.like("%" + keyword + "%"))
         g.tags = Tag.query.filter(Tag.name.like("%" + keyword + "%"))
         g.keyword = keyword
-    g.top_tags = Tag.query.order_by('times DESC')[:SIDEBAR_PAGE_SIZE]
-    g.top_users = User.query.order_by('paste_num DESC')[:SIDEBAR_PAGE_SIZE]
+    g.top_tags = Tag.query.order_by('times DESC')[:SIDEBAR_TAG_PAGE_SIZE]
+    g.top_users = User.query.order_by('paste_num DESC')[:SIDEBAR_USER_PAGE_SIZE]
     return render('siteview/search.html')
 
 
