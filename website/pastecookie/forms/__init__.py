@@ -97,7 +97,7 @@ class PasswordForm(BaseForm):
 
 class PasteForm(BaseForm):
     title = TextField(gettext('paste_title'))
-    syntax = SelectField(gettext('paste_syntax'), choices=Syntax.get_syntax_list())
+    syntax = SelectField(gettext('paste_syntax'), choices=Syntax.get_syntax_list)
     content = TextAreaField(gettext('paste_code'))
     tag = TextField(gettext('paste_tags'), [tags_check])
     description = TextAreaField(gettext('paste_description'))

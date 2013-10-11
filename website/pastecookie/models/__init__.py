@@ -76,7 +76,7 @@ class Syntax(db.Model):
     def __repr__(self):
         return "<Syntax (%s|%s)>" % (self.name, self.tag)
 
-    @classmethod
+    @property
     def get_syntax_list(self):
         all_syntax = Syntax.query.order_by('name').all()
         return [(str(one.id), one.name) for one in all_syntax]
